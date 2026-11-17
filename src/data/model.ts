@@ -473,6 +473,9 @@ export const abilityModifier = (score: number): number => Math.floor((score - 10
 
 export const formatModifier = (mod: number): string => (mod >= 0 ? `+${mod}` : String(mod));
 
+/** "halfPlate" / "half_plate" -> "half plate" (Kotlin humanizeKey). */
+export const humanizeKey = (key: string): string => key.replace(/_/g, ' ').replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase();
+
 export const isSecretBite = (b: SoundBite): boolean => (b.tier ?? 'public').toLowerCase() === 'secret';
 
 export const usesShortRest = (u: FeatureUses): boolean => u.per === 'short_rest';

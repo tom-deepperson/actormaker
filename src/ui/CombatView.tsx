@@ -1,6 +1,6 @@
 /** Combat view. Mirrors android/.../ui/CondensedCombatView.kt and combat/EffectsSheet.kt. */
 import { useState } from 'preact/hooks';
-import { formatModifier } from '../data/model';
+import { formatModifier, humanizeKey } from '../data/model';
 import {
   type ActiveEffect, type EconomySlot, advanceTurn, autoEnterEffects, CONDITIONS, conditionToEffect, createEffect, EndsOn,
   enterCombat, exitCombat, isUsed, toggleEconomy,
@@ -215,6 +215,3 @@ function AddEffectDialog({ onClose, onAdd }: { onClose: () => void; onAdd: (e: A
     </Dialog>
   );
 }
-
-/** "halfPlate" / "half_plate" -> "half plate". */
-const humanizeKey = (key: string) => key.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/[_-]+/g, ' ').toLowerCase();

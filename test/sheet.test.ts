@@ -169,6 +169,13 @@ describe('DM handoff', () => {
     }
   });
 
+  it('shows the rune on its item', () => {
+    const r = sheet({ runes: { known: ['Fire'], inscribed: { halberd: 'Fire', halfPlate: 'Stone' } } });
+    const text = buildHandoff({ sheet: r, tracker: trackerFromCharacter('r', r), combat: null, dateLabel: 'today', includeSecrets: true });
+    expect(text).toContain('Fire rune: inscribed on halberd');
+    expect(text).toContain('Stone rune: inscribed on half plate');
+  });
+
   it('works on the current sheet with a fresh tracker', () => {
     const cur = parseSheet(fixture('sample-current.json'));
     const text = buildHandoff({ sheet: cur, tracker: trackerFromCharacter('x', cur), combat: null, dateLabel: 'today', includeSecrets: false });

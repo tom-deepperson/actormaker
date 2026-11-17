@@ -7,6 +7,7 @@ import {
   abilityModifier,
   actionBuckets,
   displayName,
+  humanizeKey,
   equipmentLabel,
   formatModifier,
   isSecretBite,
@@ -156,7 +157,7 @@ export function buildHandoff({ sheet, tracker, combat, dateLabel, includeSecrets
     section('Runes');
     if (r.saveDC != null) bullet(`Rune save DC: ${r.saveDC}`);
     if (r.known?.length) bullet(`Known: ${r.known.join(', ')}`);
-    for (const [rune, item] of Object.entries(r.inscribed ?? {})) bullet(`${rune}: inscribed on ${item}`);
+    for (const [item, rune] of Object.entries(r.inscribed ?? {})) bullet(`${rune} rune: inscribed on ${humanizeKey(item)}`);
   }
 
   const sp = sheet.spells;

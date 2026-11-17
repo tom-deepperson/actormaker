@@ -6,7 +6,8 @@ import { useEffect, useRef, useState } from 'preact/hooks';
 import { type CharacterSheet, level, maxHp } from '../data/model';
 import { CLASSES, classLevels, classSummary, findClass, multiclassProblems, prerequisiteLabel } from '../data/classes';
 import { afterLevelUp } from '../data/tracker';
-import { sheetTitle } from '../data/viewContext';
+import { type SheetViewContext, redactForView, sheetTitle, shouldHideSecretIdentity } from '../data/viewContext';
+import { isSecretRune } from '../data/actionBoard';
 import { type AiSettings, PROVIDER_NAME, apiKey } from '../ai/client';
 import {
   type EventProposal, type ResearchAnswer, loadAiSettings, proposeEvent, proposeLevelUp, proposeLevelUpPlan, research, safeUrl,
@@ -183,6 +184,7 @@ export function AiScreen({ slug, settings, onBack, toast }: Props) {
         {sheet && mode === 'levelup' && (
           <LevelUpPanel
             sheet={sheet}
+            ctx={settings.ctx}
             target={target}
             draft={draft}
             setDraft={setDraft}
@@ -300,6 +302,8 @@ function withMaxHp(sheet: CharacterSheet, total: number): CharacterSheet {
 
 interface PanelProps {
   sheet: CharacterSheet;
+  /** For display only: in alias / player-safe views secret entries and text naming the true name are hidden. */
+  ctx: SheetViewContext;
   target: number;
   draft: Draft;
   setDraft: (fn: (d: Draft) => Draft) => void;
@@ -317,6 +321,7 @@ interface PanelProps {
 function LevelUpPanel(p: PanelProps) {
   const { sheet, draft, setDraft, preview, target } = p;
   const plan = draft.plan;
+  const hideSecret = shouldHideSecretIdentity(p.ctx, sheet.identity);
   return (
     <>
       <Card title={`Level up → ${target}`}>
@@ -324,7 +329,7 @@ function LevelUpPanel(p: PanelProps) {
         {p.busy && <WorkingRow label={p.busy} onCancel={p.onCancel} />}
       </Card>
       {!p.busy && !preview && <ClassPicker sheet={sheet} draft={draft} setDraft={setDraft} onChange={p.onClassChange} />}
-      {!p.busy && preview && <Preview current={sheet} proposed={preview} warnings={p.warnings} draft={draft} setDraft={setDraft} onBack={p.onBack} onAccept={p.onAccept} />}
+      {!p.busy && preview && <Preview current={redactForView(sheet, p.ctx)} proposed={redactForView(preview, p.ctx)} warnings={p.warnings} draft={draft} setDraft={setDraft} onBack={p.onBack} onAccept={p.onAccept} />}
       {!p.busy && !preview && !plan && (
         <Card>
           <p class="small" style={{ marginTop: 0 }}>
@@ -349,6 +354,7 @@ function LevelUpPanel(p: PanelProps) {
             <ChoiceCard
               key={i}
               choice={choice}
+              hideSecret={hideSecret}
               picked={draft.picks[i] ?? []}
               swapped={draft.swaps[i] ?? []}
               onPick={(j) => setDraft((d) => ({ ...d, picks: togglePick(plan, d.picks, d.swaps, i, j) }))}
@@ -406,7 +412,7 @@ function HitPoints({ sheet, draft, setDraft }: { sheet: CharacterSheet; draft: D
   );
 }
 
-function ChoiceCard({ choice, picked, swapped, onPick, onSwap }: { choice: PlanChoice; picked: number[]; swapped: number[]; onPick: (i: number) => void; onSwap: (i: number) => void }) {
+function ChoiceCard({ choice, hideSecret, picked, swapped, onPick, onSwap }: { choice: PlanChoice; hideSecret: boolean; picked: number[]; swapped: number[]; onPick: (i: number) => void; onSwap: (i: number) => void }) {
   const required = requiredPicks(choice, swapped.length);
   return (
     <Card title={choice.title.trim() || choice.kind}>
@@ -416,7 +422,7 @@ function ChoiceCard({ choice, picked, swapped, onPick, onSwap }: { choice: PlanC
           <h3>You have</h3>
           <div class="stack" style={{ gap: 6 }}>
             {choice.current.map((e, i) =>
-              choice.allowReplace > 0 ? (
+              hideSecret && isSecretRune(e.name) ? null : choice.allowReplace > 0 ? (
                 <button key={i} class="pick" aria-pressed={swapped.includes(i)} onClick={() => onSwap(i)}>
                   <span class="box">{swapped.includes(i) ? '✓' : ''}</span>
                   <span><span class="strong">{e.name}{swapped.includes(i) ? '  (swapping out)' : ''}</span>{e.summary && <span class="small muted" style={{ display: 'block' }}>{e.summary}</span>}</span>
