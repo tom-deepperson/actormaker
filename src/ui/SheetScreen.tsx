@@ -11,6 +11,7 @@ import { ExploreBoard } from './ExploreBoard';
 import { InventorySection } from './Inventory';
 import { Dialog } from './common';
 import { HpCard, TrackerCard } from './Tracker';
+import { QuickHelpButton } from './QuickHelp';
 import {
   AbilitiesSection, ActionChecklist, AppearanceSection, BackstorySection, CombatStatsSection, CosmologySection,
   FeaturesSection, FeatsSection, PersonalitySection, ProficienciesSection, RunesSection, SoundBitesSection,
@@ -29,10 +30,12 @@ interface Props {
   onSettings: (s: SheetSettings) => void;
   onBack: () => void;
   onAi: () => void;
+  onPortrait: () => void;
+  onPlay: () => void;
   toast: (msg: string) => void;
 }
 
-export function SheetScreen({ slug, settings, onSettings, onBack, onAi, toast }: Props) {
+export function SheetScreen({ slug, settings, onSettings, onBack, onAi, onPortrait, onPlay, toast }: Props) {
   const h = useCharacter(slug);
   const [menu, setMenu] = useState(false);
   const [handoff, setHandoff] = useState(false);
@@ -51,6 +54,7 @@ export function SheetScreen({ slug, settings, onSettings, onBack, onAi, toast }:
         <div class="topbar-row">
           <button class="icon ghost" aria-label="Back to characters" onClick={onBack}>←</button>
           <h1>{c ? sheetTitle(c.sheet, ctx) : 'Loading…'}</h1>
+          <button class="icon ghost" aria-label="Play mode (portrait scene with HUD)" onClick={onPlay}>🎭</button>
           <button class="icon ghost" aria-label="AI assistant (level up, events, rules)" onClick={onAi}>✨</button>
           <button class="icon ghost" aria-label="Character menu" onClick={() => setMenu(true)}>⋯</button>
         </div>
@@ -69,6 +73,7 @@ export function SheetScreen({ slug, settings, onSettings, onBack, onAi, toast }:
         {c && v && mode === 'noncombat' && <NonCombatView c={c} v={v} h={h} settings={settings} onSettings={onSettings} />}
         {c && v && mode === 'full' && <FullView c={c} v={v} h={h} settings={settings} onSettings={onSettings} />}
       </main>
+      {c && mode !== 'full' && <QuickHelpButton topic={mode === 'combat' ? 'combat' : 'noncombat'} edition={c.sheet.edition} />}
       {menu && c && (
         <CharacterMenu
           c={c}
@@ -83,6 +88,8 @@ export function SheetScreen({ slug, settings, onSettings, onBack, onAi, toast }:
           }}
           onDeleted={onBack}
           onAi={onAi}
+          onPortrait={onPortrait}
+          onPlay={onPlay}
           toast={toast}
         />
       )}
@@ -172,6 +179,8 @@ function CharacterMenu(props: {
   onHandoff: () => void;
   onDeleted: () => void;
   onAi: () => void;
+  onPortrait: () => void;
+  onPlay: () => void;
   toast: (m: string) => void;
 }) {
   const { c, settings, onSettings, toast } = props;
@@ -223,6 +232,10 @@ function CharacterMenu(props: {
         Player-safe view (hide secrets when showing the screen to others)
       </label>
       <button class="wide" onClick={props.onAi}>AI assistant: level up, events, rules…</button>
+      <div class="row" style={{ flexWrap: 'nowrap' }}>
+        <button class="grow" onClick={props.onPlay}>🎭 Play mode</button>
+        <button class="grow" onClick={props.onPortrait}>🖼 Portrait mode</button>
+      </div>
       <button class="wide" onClick={props.onHandoff}>DM handoff…</button>
       <button class="wide" onClick={() => void exportJson()}>Export character.json</button>
       <label class="btn wide">

@@ -8,7 +8,10 @@ import { type TrackerState, afterLevelUp, normalizeTracker, trackerFromCharacter
 import { type CombatSession, inactiveSession } from './combat';
 
 const DB_NAME = 'actormaker';
-const DB_VERSION = 1;
+const DB_VERSION = 2;
+
+/** Owner of the shared scene backgrounds in the images store (character slugs own their portraits). */
+export const BACKGROUNDS_OWNER = '_backgrounds';
 
 export interface StoredCharacter {
   slug: string;
@@ -37,14 +40,28 @@ function open(): Promise<IDBDatabase> {
         if (!db.objectStoreNames.contains(name)) db.createObjectStore(name, { keyPath: 'slug' });
       }
       if (!db.objectStoreNames.contains('settings')) db.createObjectStore('settings');
+      // v2: portrait cutouts, scene backgrounds and their manifest.json, as Blobs.
+      if (!db.objectStoreNames.contains('images')) {
+        db.createObjectStore('images', { keyPath: 'id' }).createIndex('owner', 'owner');
+      }
     };
-    req.onsuccess = () => resolve(req.result);
+    req.onsuccess = () => {
+      const db = req.result;
+      // A newer version opened in another tab: let it upgrade, and reconnect on next use.
+      db.onversionchange = () => {
+        db.close();
+        dbPromise = null;
+      };
+      resolve(db);
+    };
     req.onerror = () => reject(req.error);
+    // An older tab still holds the previous version open; it closes itself (above) once it has this code.
+    req.onblocked = () => console.warn('Actormaker storage upgrade is waiting for another open tab of the app to close.');
   });
   return dbPromise;
 }
 
-type StoreName = 'characters' | 'trackers' | 'combat' | 'settings';
+type StoreName = 'characters' | 'trackers' | 'combat' | 'settings' | 'images';
 
 function wrap<T>(req: IDBRequest<T>): Promise<T> {
   return new Promise((resolve, reject) => {
@@ -106,6 +123,7 @@ export async function deleteCharacter(slug: string): Promise<void> {
   await del('characters', slug);
   await del('trackers', slug);
   await del('combat', slug);
+  await clearImages(slug);
 }
 
 async function uniqueSlug(base: string): Promise<string> {
@@ -164,6 +182,44 @@ export async function loadCombat(slug: string): Promise<CombatSession> {
 }
 
 export const saveCombat = (s: CombatSession) => put('combat', s);
+
+// ---------------------------------------------------------------- images (portraits and backgrounds)
+
+/** One imported file. `owner` is a character slug, or BACKGROUNDS_OWNER for the shared scenes. */
+export interface StoredImage {
+  id: string;
+  owner: string;
+  name: string;
+  blob: Blob;
+  addedAt: number;
+}
+
+const imageId = (owner: string, name: string) => `${owner}/${name.toLowerCase()}`;
+
+export async function listImages(owner: string): Promise<StoredImage[]> {
+  return tx<StoredImage[]>('images', 'readonly', (s) => s.index('owner').getAll(owner));
+}
+
+/** Add or replace files by name (case-insensitive), in one transaction. */
+export async function putImages(owner: string, files: { name: string; blob: Blob }[]): Promise<void> {
+  const db = await open();
+  const t = db.transaction('images', 'readwrite');
+  const store = t.objectStore('images');
+  const now = Date.now();
+  for (const f of files) store.put({ id: imageId(owner, f.name), owner, name: f.name, blob: f.blob, addedAt: now } satisfies StoredImage);
+  await new Promise<void>((resolve, reject) => {
+    t.oncomplete = () => resolve();
+    t.onerror = () => reject(t.error);
+    t.onabort = () => reject(t.error ?? new Error('Saving images failed (storage may be full).'));
+  });
+}
+
+export const deleteImage = (owner: string, name: string) => del('images', imageId(owner, name));
+
+export async function clearImages(owner: string): Promise<void> {
+  const rows = await listImages(owner);
+  for (const r of rows) await del('images', r.id);
+}
 
 // ---------------------------------------------------------------- settings
 

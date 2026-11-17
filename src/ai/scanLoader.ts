@@ -111,10 +111,15 @@ async function decode(file: File): Promise<Drawable> {
 
 /** Decode (applying camera rotation), shrink to a readable size, and re-encode as JPEG. */
 async function encodeImage(file: File, name: string): Promise<string> {
+  return toBase64(await shrinkToJpeg(file, MAX_EDGE, name));
+}
+
+/** Shrink an image so its longest side is at most `maxEdge` and re-encode it as JPEG (drops transparency). */
+export async function shrinkToJpeg(file: File, maxEdge: number, name = file.name): Promise<Blob> {
   const img = await decode(file);
   const canvas = document.createElement('canvas');
   try {
-    const scale = Math.min(1, MAX_EDGE / Math.max(img.width, img.height));
+    const scale = Math.min(1, maxEdge / Math.max(img.width, img.height));
     canvas.width = Math.max(1, Math.round(img.width * scale));
     canvas.height = Math.max(1, Math.round(img.height * scale));
     const ctx = canvas.getContext('2d');
@@ -122,7 +127,7 @@ async function encodeImage(file: File, name: string): Promise<string> {
     ctx.drawImage(img.source, 0, 0, canvas.width, canvas.height);
     const blob = await new Promise<Blob | null>((res) => canvas.toBlob(res, 'image/jpeg', 0.85));
     if (!blob) throw new Error(`Couldn't convert ${name} to JPEG.`);
-    return await toBase64(blob);
+    return blob;
   } finally {
     img.release();
     // Free the pixel memory right away (iOS keeps canvas memory until it's resized).

@@ -20,6 +20,20 @@ Stack: Vite + TypeScript + Preact, a hand-written service worker, Vitest. The bu
 - **Inventory:** consumables, carried gear, storage locations (stash and take), magic items.
 - **DM handoff:** player-safe or DM copy, with copy, share (Web Share) or file download.
 - **Share this app:** link and QR code.
+- **Quick help (? on the Combat and Non-combat tabs):** a short rules reference for combat or skills and exploration,
+  2014 or 2024 to match the sheet.
+- **Portrait mode (🖼 in the character menu):** a 9:16 scene with the character's cutout over a background. Step through
+  outfits, expressions and facings (from the portraits `manifest.json`) and scenes. Unlock 🔒 to drag and pinch the cutout
+  into place; the position is saved per outfit in `appearance.portraitPrefs`, the same place the Android app used.
+  ⛶ hides everything but the scene (full screen where the browser allows it).
+- **Play mode (🎭 on a sheet):** the same scene with an Explore / Combat / AI panel: HP and AC, encumbrance,
+  enter combat, action economy, end turn, effects and exit combat, without leaving the picture.
+- **Portraits and backgrounds:** "+ Portraits" takes the PNG cutouts plus `manifest.json` from
+  `characters/<slug>/portraits/`; "+ Backgrounds" takes the 9:16 scenes plus `manifest.json` from
+  `characters/_assets/backgrounds/` (shrunk to 1920 px JPEG on the device, about 300 KB each). In alias or player-safe
+  view, sets marked `"secret": true` and images whose name contains the true name or "helm off" / "unarmored" are hidden.
+  **Images are not part of "Back up all"** (it would make backups tens of MB): keep the originals on your computer and
+  add them again if the browser clears its storage.
 - **AI assistant (✨ on a sheet):** level up in two steps (the AI looks up what the level grants, you make every choice
   and set HP, then it builds the sheet and you review it), table events ("got Boots of Elvenkind") with a change list to
   accept, and rules research with sources. Uses your own Gemini, OpenAI or Anthropic API key; web search is always on.
@@ -139,7 +153,7 @@ src/data/       app logic (no UI): model + parsing, tracker, coins, classes, com
 src/ai/         AI assistant: provider HTTP calls, prompts, level-up planner, sheet merge, import and scan
 src/ui/         Preact screens and components
 src/sw.js       service worker template (vite.config.ts fills in the precache list and version)
-src/assets/     conditions.json, kit_timers.json and rules/ (bundled into the app)
+src/assets/     conditions.json, kit_timers.json, rules/ and help/ (bundled into the app)
 test/           Vitest specs, plus sanitized fixtures
 ```
 
@@ -147,5 +161,4 @@ Sheets are stored as plain JSON objects, so fields this app does not know about 
 
 ## Remaining
 
-- Portrait and play modes.
 - The AI calls were tested against stubbed provider replies, not live keys; try one real level-up per provider.

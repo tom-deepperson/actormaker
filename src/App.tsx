@@ -5,20 +5,25 @@ import { HomeScreen, type Theme } from './ui/HomeScreen';
 import { SheetScreen, type SheetSettings } from './ui/SheetScreen';
 import { AiScreen } from './ui/AiScreen';
 import { ScanScreen } from './ui/ScanScreen';
+import { PortraitScreen } from './ui/PortraitScreen';
 
 /**
  * Hash routing so the back button works and GitHub Pages needs no server rewrites:
- * #/c/<slug> (sheet), #/c/<slug>/ai (AI assistant), #/scan (build from photos), anything else is home.
+ * #/c/<slug> (sheet), #/c/<slug>/ai (AI assistant), #/c/<slug>/portrait and /play (scene modes),
+ * #/scan (build from photos), anything else is home.
  */
-type Route = { screen: 'home' } | { screen: 'sheet'; slug: string } | { screen: 'ai'; slug: string } | { screen: 'scan' };
+type Route =
+  | { screen: 'home' }
+  | { screen: 'sheet' | 'ai' | 'portrait' | 'play'; slug: string }
+  | { screen: 'scan' };
 
 function readRoute(): Route {
   const h = location.hash;
   if (/^#\/scan\/?$/.test(h)) return { screen: 'scan' };
-  const m = /^#\/c\/([^/]+)(\/ai)?\/?$/.exec(h);
+  const m = /^#\/c\/([^/]+)(?:\/(ai|portrait|play))?\/?$/.exec(h);
   if (!m) return { screen: 'home' };
   const slug = decodeURIComponent(m[1]);
-  return m[2] ? { screen: 'ai', slug } : { screen: 'sheet', slug };
+  return { screen: (m[2] as 'ai' | 'portrait' | 'play' | undefined) ?? 'sheet', slug };
 }
 
 const DEFAULT_SHEET: SheetSettings = { ctx: defaultViewContext, mode: 'combat', trackEncumbrance: false };
@@ -75,6 +80,19 @@ export function App() {
           settings={sheetSettings}
           onSettings={saveSheetSettings}
           onBack={() => back('')}
+          onAi={() => go(`#/c/${encodeURIComponent(route.slug)}/ai`)}
+          onPortrait={() => go(`#/c/${encodeURIComponent(route.slug)}/portrait`)}
+          onPlay={() => go(`#/c/${encodeURIComponent(route.slug)}/play`)}
+          toast={toast}
+        />
+      ) : route.screen === 'portrait' || route.screen === 'play' ? (
+        <PortraitScreen
+          key={`${route.screen}:${route.slug}`}
+          slug={route.slug}
+          play={route.screen === 'play'}
+          settings={sheetSettings}
+          onSettings={saveSheetSettings}
+          onBack={() => back(`#/c/${encodeURIComponent(route.slug)}`)}
           onAi={() => go(`#/c/${encodeURIComponent(route.slug)}/ai`)}
           toast={toast}
         />

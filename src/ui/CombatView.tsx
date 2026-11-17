@@ -93,32 +93,37 @@ export function CombatView({ c, h, ctx, trackEncumbrance }: Props) {
         />
       )}
       {selected && (
-        <Dialog
-          title={selected.name}
+        <EffectDetailDialog
+          effect={selected}
           onClose={() => setSelected(null)}
-          actions={
-            <>
-              <button
-                class="danger"
-                onClick={() => {
-                  h.updateCombat((s) => ({ ...s, effects: s.effects.filter((e) => e.id !== selected.id) }));
-                  setSelected(null);
-                }}
-              >
-                Remove
-              </button>
-              <button onClick={() => setSelected(null)}>Close</button>
-            </>
-          }
-        >
-          <div class="small">Kind: {selected.kind}</div>
-          <div class="small">Ends: {selected.endsOn.replace(/_/g, ' ')}</div>
-          {selected.roundsRemaining != null && <div class="small">Rounds left: {selected.roundsRemaining}</div>}
-          {selected.source && <div class="small">Source: {selected.source}</div>}
-          {selected.notes && <div class="small">{selected.notes}</div>}
-        </Dialog>
+          onRemove={() => {
+            h.updateCombat((s) => ({ ...s, effects: s.effects.filter((e) => e.id !== selected.id) }));
+            setSelected(null);
+          }}
+        />
       )}
     </>
+  );
+}
+
+export function EffectDetailDialog({ effect, onClose, onRemove }: { effect: ActiveEffect; onClose: () => void; onRemove: () => void }) {
+  return (
+    <Dialog
+      title={effect.name}
+      onClose={onClose}
+      actions={
+        <>
+          <button class="danger" onClick={onRemove}>Remove</button>
+          <button onClick={onClose}>Close</button>
+        </>
+      }
+    >
+      <div class="small">Kind: {effect.kind}</div>
+      <div class="small">Ends: {effect.endsOn.replace(/_/g, ' ')}</div>
+      {effect.roundsRemaining != null && <div class="small">Rounds left: {effect.roundsRemaining}</div>}
+      {effect.source && <div class="small">Source: {effect.source}</div>}
+      {effect.notes && <div class="small">{effect.notes}</div>}
+    </Dialog>
   );
 }
 
@@ -142,7 +147,7 @@ function VitalsCard({ c, ctx, trackEncumbrance }: { c: CharacterState; ctx: Shee
 
 const SLOTS: [EconomySlot, string][] = [['action', 'Action'], ['bonus', 'Bonus'], ['reaction', 'Reaction'], ['move', 'Move']];
 
-function Economy({ c, h }: { c: CharacterState; h: CharacterHandle }) {
+export function Economy({ c, h }: { c: CharacterState; h: CharacterHandle }) {
   return (
     <div class="econ">
       {SLOTS.map(([slot, label]) => {
@@ -157,7 +162,7 @@ function Economy({ c, h }: { c: CharacterState; h: CharacterHandle }) {
   );
 }
 
-function EffectList({ effects, onPick }: { effects: ActiveEffect[]; onPick: (e: ActiveEffect) => void }) {
+export function EffectList({ effects, onPick }: { effects: ActiveEffect[]; onPick: (e: ActiveEffect) => void }) {
   return (
     <div class="row">
       {effects.map((e) => (
@@ -169,7 +174,7 @@ function EffectList({ effects, onPick }: { effects: ActiveEffect[]; onPick: (e: 
   );
 }
 
-function ExitCombat({ onExit }: { onExit: (clearTimed: boolean) => void }) {
+export function ExitCombat({ onExit }: { onExit: (clearTimed: boolean) => void }) {
   const [ask, setAsk] = useState(false);
   if (!ask) return <button class="danger wide" onClick={() => setAsk(true)}>Exit combat</button>;
   return (
@@ -184,7 +189,7 @@ function ExitCombat({ onExit }: { onExit: (clearTimed: boolean) => void }) {
   );
 }
 
-function AddEffectDialog({ onClose, onAdd }: { onClose: () => void; onAdd: (e: ActiveEffect) => void }) {
+export function AddEffectDialog({ onClose, onAdd }: { onClose: () => void; onAdd: (e: ActiveEffect) => void }) {
   const [name, setName] = useState('');
   const [rounds, setRounds] = useState('10');
   return (
