@@ -1,14 +1,15 @@
 /** Combat view. Mirrors android/.../ui/CondensedCombatView.kt and combat/EffectsSheet.kt. */
 import { useState } from 'preact/hooks';
-import { type AttackEntry, actionBuckets, formatModifier } from '../data/model';
+import { formatModifier } from '../data/model';
 import {
   type ActiveEffect, type EconomySlot, advanceTurn, autoEnterEffects, CONDITIONS, conditionToEffect, createEffect, EndsOn,
   enterCombat, exitCombat, isUsed, toggleEconomy,
 } from '../data/combat';
 import { effectiveSpeed, summarize } from '../data/encumbrance';
-import { type SheetViewContext, sheetTitle, visibleCombatAction } from '../data/viewContext';
+import { type SheetViewContext, sheetTitle, shouldHideSecretIdentity } from '../data/viewContext';
 import type { CharacterHandle, CharacterState } from './useCharacter';
-import { Card, Dialog, RulesLink } from './common';
+import { Card, Dialog } from './common';
+import { CombatBoard } from './CombatBoard';
 import { HpCard, TrackerCard } from './Tracker';
 
 interface Props {
@@ -27,23 +28,24 @@ export function CombatView({ c, h, ctx, trackEncumbrance }: Props) {
   const giantsMight = session.effects.some((e) => /giant/i.test(e.name) && /might/i.test(e.name));
   const inscribed = c.sheet.runes?.inscribed ?? {};
 
+  const hideSecret = shouldHideSecretIdentity(ctx, c.sheet.identity);
+  const boosts = [
+    ...(giantsMight ? ["Giant's Might active: Large; +1d6 once per turn on a weapon hit; advantage on STR checks and saves."] : []),
+    ...Object.entries(inscribed)
+      .filter(([, rune]) => !(hideSecret && /eclipse/i.test(rune)))
+      .map(([item, rune]) => `${rune} rune on ${humanizeKey(item)}`),
+  ];
+
   return (
     <>
       <VitalsCard c={c} ctx={ctx} trackEncumbrance={trackEncumbrance} />
-      {inCombat && (
-        <Card title={`Round ${session.round}`} right={<button class="small primary" onClick={() => h.updateCombat(advanceTurn)}>End turn</button>}>
-          <Economy c={c} h={h} />
-          {session.effects.length > 0 && (
-            <>
-              <h3>Active effects</h3>
-              <EffectList effects={session.effects} onPick={setSelected} />
-            </>
-          )}
+      <CombatBoard c={c} h={h} hideSecret={hideSecret} boosts={boosts} />
+      {inCombat && session.effects.length > 0 && (
+        <Card title="Active effects">
+          <EffectList effects={session.effects} onPick={setSelected} />
         </Card>
       )}
       <HpCard c={c} h={h} />
-      <AttacksCard attacks={c.sheet.derived?.attacks ?? []} giantsMight={giantsMight} inscribed={inscribed} />
-      <TurnOptions c={c} ctx={ctx} />
       <TrackerCard c={c} h={h} />
 
       <button class={`fab ${inCombat ? 'combat' : ''}`} onClick={() => setTurnMenu(true)}>
@@ -138,73 +140,6 @@ function VitalsCard({ c, ctx, trackEncumbrance }: { c: CharacterState; ctx: Shee
   );
 }
 
-function AttacksCard({ attacks, giantsMight, inscribed }: { attacks: AttackEntry[]; giantsMight: boolean; inscribed: Record<string, string> }) {
-  return (
-    <Card title="Attacks">
-      {attacks.length === 0 && <div class="muted">No attacks listed.</div>}
-      <ul class="plain">
-        {attacks.map((a) => {
-          const reach = a.reach != null ? `Reach ${a.reach} ft` : a.range ? `Range ${a.range}` : null;
-          const fire = Object.entries(inscribed).some(
-            ([item, rune]) =>
-              /fire/i.test(rune) &&
-              (a.name.toLowerCase().includes(item.toLowerCase()) ||
-                (/halberd/i.test(item) && /halberd/i.test(a.name)) ||
-                /weapon/i.test(item)),
-          );
-          return (
-            <li key={a.name}>
-              <div class="row between">
-                <span class="strong">{a.name}</span>
-                <span class="tag">{a.bonus != null ? formatModifier(a.bonus) : '—'} to hit</span>
-              </div>
-              <div class="small">{[a.damage, reach, a.notes].filter(Boolean).join(' · ')}</div>
-              {giantsMight && a.damage && <div class="tiny" style={{ color: 'var(--accent)' }}>With Giant's Might: {a.damage} + 1d6 (once/turn)</div>}
-              {fire && <div class="tiny muted">Fire rune inscribed (invoke for fiery shackles; see feature)</div>}
-            </li>
-          );
-        })}
-      </ul>
-      {giantsMight && (
-        <div class="tiny" style={{ color: 'var(--accent)' }}>Giant's Might: Large size; +1d6 once/turn on a weapon hit; adv. on STR checks/saves.</div>
-      )}
-      {Object.keys(inscribed).length > 0 && (
-        <>
-          <h3>Inscribed runes</h3>
-          {Object.entries(inscribed).map(([item, rune]) => (
-            <div class="small" key={item}>• {rune} on {item}</div>
-          ))}
-        </>
-      )}
-    </Card>
-  );
-}
-
-function TurnOptions({ c, ctx }: { c: CharacterState; ctx: SheetViewContext }) {
-  const buckets = actionBuckets(c.sheet.combatActions)
-    .map(([name, entries]) => [name, entries.filter((e) => visibleCombatAction(ctx, e, c.sheet.identity))] as const)
-    .filter(([, e]) => e.length > 0);
-  if (!buckets.length) return null;
-  return (
-    <details class="card">
-      <summary><h2>Turn options</h2></summary>
-      {buckets.map(([name, entries]) => (
-        <div key={name}>
-          <h3>{name}</h3>
-          <ul class="plain">
-            {entries.map((e) => (
-              <li key={e.id}>
-                <RulesLink name={e.name} text={e.rulesText ?? e.summary} />
-                <div class="small muted">{e.summary}</div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </details>
-  );
-}
-
 const SLOTS: [EconomySlot, string][] = [['action', 'Action'], ['bonus', 'Bonus'], ['reaction', 'Reaction'], ['move', 'Move']];
 
 function Economy({ c, h }: { c: CharacterState; h: CharacterHandle }) {
@@ -280,3 +215,6 @@ function AddEffectDialog({ onClose, onAdd }: { onClose: () => void; onAdd: (e: A
     </Dialog>
   );
 }
+
+/** "halfPlate" / "half_plate" -> "half plate". */
+const humanizeKey = (key: string) => key.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/[_-]+/g, ' ').toLowerCase();

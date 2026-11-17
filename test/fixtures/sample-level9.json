@@ -626,14 +626,14 @@
       "rulesText": "Sample rulesText for Hill Rune (invoke) (137)."
     },
     {
-      "id": "Sample id (138).",
+      "id": "secret_rune_passive",
       "name": "Sample name (139).",
       "source": "homebrew",
       "uses": null,
       "rulesText": "Sample rulesText (140)."
     },
     {
-      "id": "Sample id (141).",
+      "id": "secret_rune_invoke",
       "name": "Sample name (142).",
       "source": "homebrew",
       "uses": {
@@ -758,7 +758,7 @@
         "id": "Sample id (170).",
         "name": "Sample name (171).",
         "summary": "Sample summary (172).",
-        "featureId": "Sample featureId (173).",
+        "featureId": "secret_rune_invoke",
         "secret": true,
         "rulesText": null
       },
@@ -800,7 +800,7 @@
         "id": "Sample id (182).",
         "name": "Sample name (183).",
         "summary": "Sample summary (184).",
-        "featureId": "Sample featureId (185).",
+        "featureId": "secret_rune_invoke",
         "secret": true,
         "rulesText": null
       }

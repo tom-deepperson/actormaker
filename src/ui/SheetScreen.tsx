@@ -2,11 +2,12 @@
 import { useState } from 'preact/hooks';
 import { displayName, normalizedForSave, slugHint } from '../data/model';
 import { buildHandoff, handoffFileName } from '../data/handoff';
-import { type SheetViewContext, type SheetViewMode, redactForView, sheetTitle, visibleNameOptions } from '../data/viewContext';
+import { type SheetViewContext, type SheetViewMode, redactForView, sheetTitle, shouldHideSecretIdentity, visibleNameOptions } from '../data/viewContext';
 import { deleteCharacter, importCharacterJson } from '../data/db';
 import { copyText, dateStamp, shareOrDownload, shareText } from './files';
 import { useCharacter, type CharacterHandle, type CharacterState } from './useCharacter';
 import { CombatView } from './CombatView';
+import { ExploreBoard } from './ExploreBoard';
 import { InventorySection } from './Inventory';
 import { Dialog } from './common';
 import { HpCard, TrackerCard } from './Tracker';
@@ -89,12 +90,10 @@ export function SheetScreen({ slug, settings, onSettings, onBack, toast }: Props
 
 function NonCombatView({ c, v, h, settings, onSettings }: { c: CharacterState; v: CharacterState; h: CharacterHandle; settings: SheetSettings; onSettings: (s: SheetSettings) => void }) {
   const { ctx } = settings;
-  const pp = v.sheet.derived?.passivePerception;
   return (
     <>
       <SummarySection sheet={v.sheet} ctx={ctx} />
-      <AbilitiesSection sheet={v.sheet} />
-      {pp != null && <div class="card strong">Passive Perception: {pp}</div>}
+      <ExploreBoard c={v} h={h} hideSecret={shouldHideSecretIdentity(ctx, c.sheet.identity)} />
       <ProficienciesSection sheet={v.sheet} />
       <InventorySection c={c} h={h} trackEncumbrance={settings.trackEncumbrance} onSetTrackEncumbrance={(on) => onSettings({ ...settings, trackEncumbrance: on })} />
       <PersonalitySection sheet={v.sheet} ctx={ctx} />

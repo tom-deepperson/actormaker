@@ -14,12 +14,14 @@ Stack: Vite + TypeScript + Preact, a hand-written service worker, Vitest. The bu
 - **Sheet views:** Combat, Non-combat and Full, mirroring the Android views. You can show the alias or the true name, and a player-safe mode hides secrets.
 - **Live tracker:** HP (damage uses temp HP first), temp HP, hit dice per die type, spell slots with pact magic, feature uses, and short/long rests with the 2014 and 2024 hit-dice rules.
 - **Combat session:** enter/exit combat, rounds, action/bonus/reaction/move, timed effects and conditions. Kit timers such as Giant's Might are added on entering combat.
+- **Combat board:** "Roll initiative" starts combat; a turn bar with four economy orbs; every attack, turn option, limited-use feature, cantrip, spell and standard action as a card, filtered by cost. Using a card spends its use, spell slot and economy orb (Action Surge gives the action back). Dice roller with advantage, disadvantage and critical damage.
+- **Explore board (Non-combat):** all 18 skills, ability checks and saves to tap and roll, passive senses, utility traits with uses, and rests.
 - **Coins and encumbrance:** gain and spend with automatic change, set exact amounts, coin weight, and variant encumbrance (sheet rule or player toggle).
 - **Inventory:** consumables, carried gear, storage locations (stash and take), magic items.
 - **DM handoff:** player-safe or DM copy, with copy, share (Web Share) or file download.
 - **Share this app:** link and QR code.
 
-Not yet ported (see "Remaining" below): the AI assistant (level-up, events, research), the game-style action/explore boards, and import from a photo.
+Not yet ported (see "Remaining" below): the AI assistant (level-up, events, research) and import from a photo.
 
 ## Run locally
 
@@ -133,5 +135,5 @@ so fields this app does not know about survive a round trip back to Android.
 
 - AI assistant (`ai/`): provider keys (Gemini, OpenAI, Anthropic) called from the browser, level-up plan/build,
   event and research flows, prompt/merge/plan ports, bundled rules files.
-- The Android app's new game-style combat action board, explore/social board, and import from a photo of a sheet.
+- Import from a photo of a sheet.
 - Portrait and play modes.
