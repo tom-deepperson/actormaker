@@ -314,3 +314,18 @@ dialog .actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap:
 .ab-badge { width: 52px; height: 52px; border-radius: 50%; background: var(--c); color: var(--surface); display: grid; place-items: center; text-align: center; line-height: 1.05; }
 .ab-badge small { font-size: 0.7rem; font-weight: 700; display: block; }
 .ab-badge b { font-size: 1rem; }
+
+/* ---------------------------------------------------------------- AI assistant and scan */
+.working { display: flex; align-items: center; gap: 12px; padding: 10px 0; }
+.spinner { width: 28px; height: 28px; border-radius: 50%; border: 3px solid var(--line); border-top-color: var(--accent); animation: spin 0.9s linear infinite; flex: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 3s; } }
+.pick { display: flex; gap: 10px; align-items: flex-start; text-align: left; width: 100%; padding: 10px 12px; font-weight: 400; color: var(--text); }
+.pick[aria-pressed='true'] { background: var(--accent-soft); border-color: var(--accent); }
+.pick .box { flex: none; width: 20px; height: 20px; border-radius: 5px; border: 2px solid var(--muted); margin-top: 2px; display: grid; place-items: center; font-size: 0.8rem; }
+.pick[aria-pressed='true'] .box { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.pages { display: flex; flex-wrap: wrap; gap: 8px; }
+.page { position: relative; width: 96px; height: 128px; border-radius: 12px; overflow: hidden; background: var(--surface-2); display: grid; place-items: center; text-align: center; font-size: 0.72rem; padding: 4px; }
+.page img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.page .rm { position: absolute; top: 4px; right: 4px; width: 28px; height: 28px; min-height: 0; padding: 0; border-radius: 50%; background: rgb(0 0 0 / 55%); color: #fff; border: 0; }
+.err { color: var(--danger); }

@@ -28,10 +28,11 @@ interface Props {
   settings: SheetSettings;
   onSettings: (s: SheetSettings) => void;
   onBack: () => void;
+  onAi: () => void;
   toast: (msg: string) => void;
 }
 
-export function SheetScreen({ slug, settings, onSettings, onBack, toast }: Props) {
+export function SheetScreen({ slug, settings, onSettings, onBack, onAi, toast }: Props) {
   const h = useCharacter(slug);
   const [menu, setMenu] = useState(false);
   const [handoff, setHandoff] = useState(false);
@@ -50,6 +51,7 @@ export function SheetScreen({ slug, settings, onSettings, onBack, toast }: Props
         <div class="topbar-row">
           <button class="icon ghost" aria-label="Back to characters" onClick={onBack}>←</button>
           <h1>{c ? sheetTitle(c.sheet, ctx) : 'Loading…'}</h1>
+          <button class="icon ghost" aria-label="AI assistant (level up, events, rules)" onClick={onAi}>✨</button>
           <button class="icon ghost" aria-label="Character menu" onClick={() => setMenu(true)}>⋯</button>
         </div>
         <div class="tabs" role="tablist">
@@ -80,6 +82,7 @@ export function SheetScreen({ slug, settings, onSettings, onBack, toast }: Props
             setHandoff(true);
           }}
           onDeleted={onBack}
+          onAi={onAi}
           toast={toast}
         />
       )}
@@ -168,6 +171,7 @@ function CharacterMenu(props: {
   onClose: () => void;
   onHandoff: () => void;
   onDeleted: () => void;
+  onAi: () => void;
   toast: (m: string) => void;
 }) {
   const { c, settings, onSettings, toast } = props;
@@ -218,6 +222,7 @@ function CharacterMenu(props: {
         />
         Player-safe view (hide secrets when showing the screen to others)
       </label>
+      <button class="wide" onClick={props.onAi}>AI assistant: level up, events, rules…</button>
       <button class="wide" onClick={props.onHandoff}>DM handoff…</button>
       <button class="wide" onClick={() => void exportJson()}>Export character.json</button>
       <label class="btn wide">

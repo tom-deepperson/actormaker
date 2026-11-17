@@ -1,0 +1,70 @@
+---
+description: D&D 5e ruleset — edition-specific creation steps and question guidance
+alwaysApply: true
+---
+
+# Ruleset — D&D 5e
+
+Default ruleset for v1. Edition choice (2014 vs 2024) is set at session start in `character-creator-core.mdc`.
+
+## Step order by edition
+
+| Step | `currentStep` (2014) | `currentStep` (2024) |
+|------|----------------------|----------------------|
+| 1 | `choose_race` | `choose_class` |
+| 2 | `choose_class` | `choose_origin` |
+| 3 | `ability_scores` | `ability_scores` |
+| 4 | `background_personality` | `choose_alignment` |
+| 5 | `equipment` | `choose_species` |
+| 6 | `review` | `equipment` |
+| 7 | — | `personality_review` |
+
+Follow the column matching the session edition. Do not reorder without player consent.
+
+## Per-step guidance
+
+For each step: state what must be decided, what is deferred, search + cite rule text from `character-creator-research.mdc`, ask one cluster at a time, always offer **Other / custom (describe)**.
+
+### 2014 steps
+
+Full 2014 guidance lives in dedicated rules (do not skip):
+
+| Topic | Rule file |
+|-------|-----------|
+| Step order, PHB catalogs, mechanics | `ruleset-dnd5e-2014-core.mdc` |
+| Official expansions, source selection, UA | `ruleset-dnd5e-2014-expansions.mdc` |
+
+2014 differs from 2024: race-first creation, racial ASI, backgrounds without ASI/feats, subclass timing varies by class, Inspiration (not Heroic).
+
+### 2024 steps
+
+Full 2024 guidance lives in dedicated rules (do not skip):
+
+| Topic | Rule file |
+|-------|-----------|
+| Step order, PHB catalogs, mechanics | `ruleset-dnd5e-2024-core.mdc` |
+| Official expansions, source selection, replacement rules | `ruleset-dnd5e-2024-expansions.mdc` |
+
+2024 differs from 2014: class-first creation, backgrounds grant ASI + Origin feat, species have no ASI, all subclasses at level 3, Weapon Mastery for martials.
+
+## Derived stats (after prerequisites confirmed)
+
+Compute only from confirmed choices; cite formulas in Sources:
+
+- Proficiency bonus, HP (hit die + CON mod), AC, speed, initiative
+- Saving throws and skills (with proficiency flags)
+- Attack bonuses, spell save DC, spell attack bonus
+- Spell slots / prepared spells / known spells as applicable
+
+Ask the player to confirm derived block before marking `complete`.
+
+## JSON fields
+
+Use the template in `characters/_templates/character.template.json`. Key fields:
+
+- `ruleset`: `"dnd5e"`
+- `edition`: `"2014"` | `"2024"`
+- `currentStep`: step id from table above
+- `identity`, `abilityScores`, `proficiencies`, `equipment`, `personality`, `features`, `spells`, `derived`, `sources`
+
+Keep `character.md` and `character.json` in sync after each step.

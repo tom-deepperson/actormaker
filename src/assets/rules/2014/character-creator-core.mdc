@@ -1,0 +1,64 @@
+---
+description: Character creator orchestration — question-first workflow, no assumptions, dual-file output
+alwaysApply: true
+---
+
+# Character Creator — Core Workflow
+
+This project uses Cursor rules instead of a traditional app UI. When the player wants to create or continue a character, follow this process. Defer ruleset-specific steps to the active ruleset rule (v1: `ruleset-dnd5e.mdc`).
+
+## When this applies
+
+Treat the session as character creation when the player asks to create, build, or edit a character, or when working under `characters/**`.
+
+## Session opening (before any character choices)
+
+Ask these in order. Do not skip or combine into assumed defaults.
+
+1. **Confirm intent** — creating/editing a character (not repo/code work).
+2. **Ruleset** — v1: D&D 5e only; phrase so future systems can be added. Use `AskQuestion` when available.
+3. **Edition / version** — for D&D 5e, ask every session: **2014 PHB/SRD** or **2024 Player's Handbook**. Never default silently.
+4. **Optional constraints** — starting level, campaign tone, house rules, allowed/disallowed content sources (UA, third-party, homebrew).
+5. **Official sources** — ask which source tier is allowed (never default silently):
+   - **2024:** per `ruleset-dnd5e-2024-expansions.mdc` — Core only, Core + Expanded, Core + Expanded + 2014 carryover, or custom list.
+   - **2014:** per `ruleset-dnd5e-2014-expansions.mdc` — Core only, Core + Expanded, Core + Expanded + UA, or custom list.
+   - Always include **Other / custom (describe)**.
+
+Only after the above, begin ruleset step 1.
+
+## Questioning discipline
+
+- **One decision cluster per turn** — e.g. pick class only; do not also pick subclass, skills, and spells unless the player explicitly batches.
+- **Never assume** species/race, class, scores, background, equipment, personality, spells, or derived stats. No "sensible defaults."
+- **Every structured question** must include **Other / custom (describe)** as a free-text option. Use `AskQuestion` when available; always keep Other.
+- **After each answer**, summarize choices so far in a short bullet list before the next question.
+- **Contradictions** — if the player changes an earlier choice, pause, confirm, then update files.
+
+## Progress and persistence
+
+After each major step, create or update paired files under `characters/<slug>/`:
+
+| File | Purpose |
+|------|---------|
+| `character.md` | Human-readable sheet for player/DM |
+| `character.json` | Structured data for tooling |
+
+- **Slug:** kebab-case character name, or `unnamed-YYYY-MM-DD` until named.
+- **Templates:** copy from `characters/_templates/character.template.md` and `character.template.json` when starting a new character.
+- **JSON fields:** keep `status` (`in_progress` | `complete`), `currentStep`, and all choice data in sync with Markdown.
+- **Incremental saves** after every major step, not only at the end.
+
+## Completion
+
+1. Review all choices with the player.
+2. Compute derived stats per the active ruleset (only from confirmed choices).
+3. Append or finalize **## Sources** in `character.md` with every external rule referenced.
+4. Set `status: complete` in JSON when the player confirms the sheet is ready.
+
+## Active ruleset
+
+| Ruleset | Rule file |
+|---------|-----------|
+| D&D 5e | `ruleset-dnd5e.mdc` (+ `ruleset-dnd5e-2014-core.mdc`, `ruleset-dnd5e-2014-expansions.mdc` when edition is 2014; + `ruleset-dnd5e-2024-core.mdc`, `ruleset-dnd5e-2024-expansions.mdc` when edition is 2024) |
+
+For research and citations during creation, follow `character-creator-research.mdc`.

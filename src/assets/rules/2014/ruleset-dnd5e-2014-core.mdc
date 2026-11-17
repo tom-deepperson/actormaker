@@ -1,0 +1,136 @@
+---
+description: D&D 5e 2014 PHB — full creation steps, option catalogs, and mechanics
+alwaysApply: true
+---
+
+# D&D 5e 2014 — Core Character Creation
+
+Apply when session `edition` is **2014**. Expanded supplements: `ruleset-dnd5e-2014-expansions.mdc`.
+
+## 2014 mechanics (confirm with player; cite PHB 2014)
+
+| Topic | Rule |
+|-------|------|
+| Creation order | Race → Class → Ability scores → Background/personality → Equipment |
+| Racial ASI | Fixed ability score increases from race/subrace (unless MotM/flexible species allowed) |
+| Backgrounds | Skills, tools, languages, equipment — **no ASI** in 2014 PHB backgrounds |
+| Subclass timing | Varies by class (see table below) — confirm via search before presenting |
+| Inspiration | Standard Inspiration (DM awards); not Heroic Inspiration |
+| Feats | Optional rule — only if DM allows; replaces ASI at qualifying levels |
+| Variant Human | Optional — +1 all abilities **or** +1×2 and one feat; ask if allowed |
+| Multiclassing | Optional — confirm prerequisites when relevant |
+| Terminology | **Race** and **subrace** (2014 PHB terms) |
+
+## Step order (`currentStep`)
+
+1. `choose_race` → 2. `choose_class` → 3. `ability_scores` → 4. `background_personality` → 5. `equipment` → 6. `review`
+
+---
+
+### Step 1 — Choose race (`choose_race`)
+
+**Ask:** race first, then subrace (if applicable). One cluster per turn. Always **Other / custom**.
+
+**9 PHB races and subraces** — search + cite [PHB Races](https://www.dndbeyond.com/sources/phb/races):
+
+| Race | Subraces / options |
+|------|-------------------|
+| Dwarf | Hill, Mountain |
+| Elf | High, Wood, Drow |
+| Halfling | Lightfoot, Stout |
+| Human | Standard or **Variant Human** (if DM allows) |
+| Dragonborn | Draconic ancestry (10 types — ask separately) |
+| Gnome | Forest, Rock |
+| Half-Elf | Skill versatility choices (ask separately) |
+| Half-Orc | — |
+| Tiefling | Legacy variant (SCAG/MTF if allowed — defer to expansions) |
+
+**Sub-decisions (each asked separately):** Draconic ancestry, Half-Elf skills, Drow/High/Wood traits, language picks, variant human feat (if allowed).
+
+**Expanded races** from allowed supplements — see `ruleset-dnd5e-2014-expansions.mdc`. MotM species use flexible ASI rules from MotM, not fixed PHB racial ASI.
+
+---
+
+### Step 2 — Choose class (`choose_class`)
+
+**Ask:** class only at level 1 unless subclass is chosen at level 1 for that class.
+
+**12 PHB classes:** Barbarian, Bard, Cleric, Druid, Fighter, Monk, Paladin, Ranger, Rogue, Sorcerer, Warlock, Wizard.
+
+**PHB subclasses and when chosen:**
+
+| Class | Subclass level | PHB subclasses |
+|-------|----------------|----------------|
+| Barbarian | 3 | Berserker, Totem Warrior |
+| Bard | 3 | Lore, Valor |
+| Cleric | **1** | Knowledge, Life, Light, Nature, Tempest, Trickery, War |
+| Druid | **2** | Land, Moon |
+| Fighter | 3 | Champion, Battle Master, Eldritch Knight |
+| Monk | 3 | Open Hand, Shadow, Four Elements |
+| Paladin | 3 | Devotion, Ancients, Vengeance |
+| Ranger | 3 | Hunter, Beast Master |
+| Rogue | 3 | Thief, Assassin, Arcane Trickster |
+| Sorcerer | **1** | Draconic, Wild Magic |
+| Warlock | **1** | Archfey, Fiend, Great Old One |
+| Wizard | **2** | All eight schools (Abjuration, Conjuration, Divination, Enchantment, Evocation, Illusion, Necromancy, Transmutation) |
+
+At level 1: if class picks subclass now (Cleric, Sorcerer, Warlock), ask subclass in a **separate turn** after class is confirmed.
+
+**Artificer:** not in 2014 PHB — only if TCoE/ERLW allowed per expansions rule.
+
+**Expanded subclasses** from XGtE, TCoE, setting books if allowed — see expansions rule; never list reprinted-only options without source tag.
+
+**Sub-decisions:** skill proficiencies, starting equipment vs gold, fighting style, cantrips, divine domain spells (Cleric), etc.
+
+---
+
+### Step 3 — Ability scores (`ability_scores`)
+
+**Ask method:** standard array (15,14,13,12,10,8), point buy, rolled (4d6 drop lowest ×6), or DM-assigned — **Other / custom**.
+
+1. Assign base scores (player chooses mapping to STR/DEX/CON/INT/WIS/CHA).
+2. Apply **racial ASI** from step 1 (PHB fixed bonuses, or MotM flexible if using MotM species).
+3. Never assign or optimize scores without player input.
+
+Record `abilityScores.base`, `racialBonuses`, `final`.
+
+---
+
+### Step 4 — Background and personality (`background_personality`)
+
+**13 PHB backgrounds** — search + cite [PHB Backgrounds](https://www.dndbeyond.com/sources/phb/personality-and-background):
+
+Acolyte, Charlatan, Criminal, Entertainer, Folk Hero, Guild Artisan, Hermit, Noble, Outlander, Sage, Sailor, Soldier, Urchin.
+
+**Ask separately:** background, alignment, personality traits, ideals, bonds, flaws (or custom equivalents).
+
+Expanded backgrounds from allowed supplements only. Guild Merchant (SCAG variant) etc. — tag source.
+
+---
+
+### Step 5 — Equipment (`equipment`)
+
+Starting equipment package vs purchased gear (PHB equipment chapter). Confirm each item or gold total. Cite [PHB Equipment](https://www.dndbeyond.com/sources/phb/equipment).
+
+---
+
+### Step 6 — Review (`review`)
+
+Compute derived stats with cited formulas. Review all choices with player before `status: complete`.
+
+**Derived stats:** proficiency +2 (L1), HP, AC, speed, initiative, saves, skills, attacks, spell DC/attack, slots/prepared/known, passive Perception.
+
+---
+
+## Optional rules (ask DM / player before applying)
+
+| Rule | Source |
+|------|--------|
+| Feats instead of ASI | PHB Ch. 6 — only if campaign uses feats |
+| Variant Human | PHB Human — +1 all or +1×2 + feat |
+| Multiclassing | PHB Ch. 6 — prerequisites per class pair |
+| TCoE optional rules | Customizing Origin, etc. — only if TCoE allowed |
+
+## Markdown source tags
+
+Use `[PHB14]`, `[XGtE]`, `[MotM]`, etc. Mirror in JSON `usedOptions`.

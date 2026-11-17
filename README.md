@@ -20,8 +20,12 @@ Stack: Vite + TypeScript + Preact, a hand-written service worker, Vitest. The bu
 - **Inventory:** consumables, carried gear, storage locations (stash and take), magic items.
 - **DM handoff:** player-safe or DM copy, with copy, share (Web Share) or file download.
 - **Share this app:** link and QR code.
-
-Not yet ported (see "Remaining" below): the AI assistant (level-up, events, research) and import from a photo.
+- **AI assistant (✨ on a sheet):** level up in two steps (the AI looks up what the level grants, you make every choice
+  and set HP, then it builds the sheet and you review it), table events ("got Boots of Elvenkind") with a change list to
+  accept, and rules research with sources. Uses your own Gemini, OpenAI or Anthropic API key; web search is always on.
+- **Scan a sheet (home screen):** take a photo of each page or pick photos, a PDF (up to 14 MB) or a text file, and the
+  AI builds the character. Photos are shrunk to 1800 px JPEG on the device first; a real `character.json` imports
+  directly without the AI.
 
 ## Run locally
 
@@ -92,10 +96,9 @@ This folder is set up to be **its own repository** (the workflow is in `pwa/.git
 4. The "Deploy to GitHub Pages" workflow runs tests, builds and publishes on every push to `main`. The site is at
    `https://<user>.github.io/<repo>/`.
 
-**Privacy:** `test/fixtures/` holds real character sheets, including DM-only secrets (true name, secret sound
-bites). GitHub Pages on a free account needs a **public** repository, so anyone could read them there. Before the
-first push, either replace the fixtures with a sanitized sheet or keep the repository private (Pages from a private
-repository needs a paid plan). The fixtures are never copied into `dist/`, so the deployed site never contains them.
+**Privacy:** the repository is public (GitHub Pages on a free account needs that). `test/fixtures/` holds sanitized
+sheets with fictional names and placeholder text; never commit a real character sheet there. The fixtures are never
+copied into `dist/`, so the deployed site doesn't contain them either.
 
 If you would rather make the whole `actormaker/` folder the repository, move `pwa/.github` to the repository root
 and add `defaults: run: working-directory: pwa` to the build job, with `cache-dependency-path: pwa/package-lock.json`
@@ -117,14 +120,26 @@ assets are cached). Data in IndexedDB is not touched by updates.
 - **Android (Chrome):** menu > Install app (or the install banner).
 - The Settings dialog shows whether the browser has granted persistent storage, and can ask for it.
 
+### AI keys
+
+API keys are stored only in this browser's IndexedDB on this device. They are never included in backups, exports
+or DM handoffs, and they are sent only to the provider you picked. The provider is called straight from the browser
+(Anthropic with its `anthropic-dangerous-direct-browser-access` header). When you use the assistant, the character
+sheet (or the pages you scan) goes to that provider with your key.
+
+Every GitHub Pages site under the same `<user>.github.io` address shares one browser origin, so another Pages site
+of the same account could read this storage. Keep untrusted projects off that account, or serve the app from its own
+domain.
+
 ## Layout
 
 ```
 src/data/       ported logic (no UI): model + parsing, tracker, coins, classes, combat, encumbrance,
                 DM handoff, view context (alias / player-safe), IndexedDB storage and backup
+src/ai/         AI assistant: provider HTTP calls, prompts, level-up planner, sheet merge, import and scan
 src/ui/         Preact screens and components
 src/sw.js       service worker template (vite.config.ts fills in the precache list and version)
-src/assets/     conditions.json and kit_timers.json (copied from the Android assets)
+src/assets/     conditions.json, kit_timers.json and rules/ (copied from the Android assets)
 test/           Vitest specs ported from android/app/src/test, plus fixtures
 ```
 
@@ -133,7 +148,5 @@ so fields this app does not know about survive a round trip back to Android.
 
 ## Remaining
 
-- AI assistant (`ai/`): provider keys (Gemini, OpenAI, Anthropic) called from the browser, level-up plan/build,
-  event and research flows, prompt/merge/plan ports, bundled rules files.
-- Import from a photo of a sheet.
 - Portrait and play modes.
+- The AI calls were tested against stubbed provider replies, not live keys; try one real level-up per provider.

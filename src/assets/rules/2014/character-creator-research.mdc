@@ -1,0 +1,73 @@
+---
+description: Web research and linked citations for character creation rules
+alwaysApply: true
+---
+
+# Character Creator — Research and Citations
+
+Use web search when building characters so the player and DM can verify rules from linked sources.
+
+## When to search
+
+Search before presenting rule text or options when:
+
+- A rule is ambiguous or has variants (feats, multiclass, optional rules).
+- Content is outside core SRD/PHB knowledge (subclasses, spells, equipment details).
+- The player asks about a specific feature, source book, or errata.
+- You would otherwise rely on memory for exact mechanics.
+
+Do not skip search to save time when the player may hand the sheet to a DM.
+
+## How to search
+
+1. Use web search proactively; fetch authoritative pages when needed.
+2. Match the **session edition** (2014 vs 2024) when choosing sources.
+3. Include **clickable links** in chat and in `character.md` under **## Sources**.
+4. Record the same URLs in `character.json` under `sources`.
+
+## Preferred source hierarchy (D&D 5e)
+
+### 2024 sessions
+
+1. [PHB 2024](https://www.dndbeyond.com/sources/dnd/phb-2024) — primary for classes, species, backgrounds, feats, spells
+2. [Updates in PHB 2024 (replacement rules)](https://www.dndbeyond.com/posts/1810-updates-in-the-players-handbook-2024)
+3. Allowed expansion — see `ruleset-dnd5e-2024-expansions.mdc` for per-book D&D Beyond URLs
+4. [DMG 2024](https://www.dndbeyond.com/sources/dnd/dmg-2024) / [MM 2024](https://www.dndbeyond.com/sources/dnd/mm-2024) — when DM-approved
+5. [Basic Rules 2024](https://www.dndbeyond.com/sources/dnd/br-2024) — fallback only
+
+### 2014 sessions
+
+1. [PHB 2014](https://www.dndbeyond.com/sources/phb) — primary for races, classes, backgrounds, feats, spells
+2. [Basic Rules / SRD 2014](https://www.dndbeyond.com/sources/dnd/basic-rules-2014) — when citing SRD-only content
+3. Allowed expansion — see `ruleset-dnd5e-2014-expansions.mdc` for per-book D&D Beyond URLs
+4. [DMG 2014](https://www.dndbeyond.com/sources/dmg) / [MM 2014](https://www.dndbeyond.com/sources/dnd/mm-2014) — when DM-approved optional rules or companions apply
+5. [Wizards SRD PDF](https://media.wizards.com/2014/downloads/dnd/PlayerDnDBasicRules_v0.2_PrintFriendly.pdf) — offline fallback
+
+## Citation format
+
+**In chat:** link the source when stating a rule.
+
+**In `character.md`:**
+
+```markdown
+- **Dragonborn Breath Weapon (2014 PHB):** [D&D Beyond — PHB](https://www.dndbeyond.com/sources/phb/...) — verified YYYY-MM-DD
+```
+
+**In `character.json`:**
+
+```json
+{
+  "topic": "Dragonborn Breath Weapon",
+  "url": "https://www.dndbeyond.com/sources/phb/...",
+  "edition": "2014",
+  "verifiedAt": "YYYY-MM-DD"
+}
+```
+
+Use today's date for `verifiedAt`. Deduplicate by URL in `sources`.
+
+## Do not
+
+- Present homebrew or third-party content as official rules.
+- Use UA or non-SRD content unless the player opts in — label it clearly (e.g. "Unearthed Arcana", "third-party").
+- Invent page numbers or URLs; search if unsure.

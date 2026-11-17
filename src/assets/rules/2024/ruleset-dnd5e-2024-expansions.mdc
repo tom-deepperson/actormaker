@@ -1,0 +1,107 @@
+---
+description: D&D 5e 2024 — official source catalog, expanded content, and replacement rules
+alwaysApply: true
+---
+
+# D&D 5e 2024 — Official Sources and Expansions
+
+Apply when session `edition` is **2024**. Follow `character-creator-research.mdc`; link the specific book for every option.
+
+## Session source selection (ask before step 1)
+
+After edition is confirmed, ask which **official sources** are allowed. Never enable a book silently.
+
+1. **Core only** — 2024 PHB (+ DMG/MM only if DM approves bastions, crafting, companions).
+2. **Core + Expanded** — PHB plus official Wizards supplements (tables below).
+3. **Core + Expanded + 2014 carryover** — supplements plus 2014-only options not reprinted in 2024.
+4. **Custom list** — player/DM names specific books; **Other / custom (describe)**.
+
+Record in JSON `constraints.sourceTier` and `contentSources`. Tag every option with its source in chat and `character.md`.
+
+## Replacement rules (2024 over 2014)
+
+When the same option exists in 2024 PHB and an older book, **use the 2024 version**.
+
+- Source: [Updates in PHB 2024](https://www.dndbeyond.com/posts/1810-updates-in-the-players-handbook-2024)
+
+**2014-only carryover** (still valid in 2024 games — cite 2014 source):
+
+| Type | Options |
+|------|---------|
+| Cleric domains | Knowledge, Nature, Tempest |
+| Wizard schools | Conjuration, Enchantment, Necromancy, Transmutation |
+| Species | Half-Elf, Half-Orc |
+| Feats | Dungeon Delver, Linguist, Martial Adept |
+| Class | **Artificer** (Eberron / TCoE — no 2024 PHB version) |
+
+**Legacy adaptation:** PHB 2024 sidebar for using 2014 backgrounds/species — ask player before applying; cite [Creating a Character](https://www.dndbeyond.com/sources/dnd/phb-2024/creating-a-character).
+
+## 2024 Core Rulebooks
+
+| Book | D&D Beyond | PC options |
+|------|------------|------------|
+| Player's Handbook (2024) | [PHB 2024](https://www.dndbeyond.com/sources/dnd/phb-2024) | 12 classes, 48 subclasses, 10 species, 16 backgrounds, 75 feats, spells, weapon masteries |
+| Dungeon Master's Guide (2024) | [DMG 2024](https://www.dndbeyond.com/sources/dnd/dmg-2024) | Bastions, crafting — DM approval required |
+| Monster Manual (2024) | [MM 2024](https://www.dndbeyond.com/sources/dnd/mm-2024) | Companion/beast stat blocks for class features |
+
+D&D Beyond may label 2024 rules **5.5e** — treat as `edition: "2024"`.
+
+## Expanded Rules — sourcebooks
+
+Use only if allowed. When a species exists in both MotM and an older race book, **prefer MotM** for 2024 games.
+
+| Source | D&D Beyond | PC options |
+|--------|------------|------------|
+| Xanathar's Guide to Everything | [XGtE](https://www.dndbeyond.com/sources/dnd/xgte) | Subclasses, spells, feats, downtime — skip entries reprinted in 2024 PHB |
+| Tasha's Cauldron of Everything | [Marketplace: TCoE](https://marketplace.dndbeyond.com/TTRPG/tashas-cauldron-of-everything) | Artificer, subclasses, optional rules, spells, feats, group patrons |
+| Mordenkainen Presents: Monsters of the Multiverse | [MotM](https://www.dndbeyond.com/sources/dnd/motm) | **30+ playable species** (primary expanded species source) |
+| Fizban's Treasury of Dragons | [Marketplace: FTD](https://marketplace.dndbeyond.com/TTRPG/fizbans-treasury-of-dragons) | Draconic subclasses, spells, race options |
+| Bigby Presents: Glory of the Giants | [GotG](https://www.dndbeyond.com/sources/gotg) | Path of the Giant barbarian, Giant Foundling & Rune Carver backgrounds, giant feats |
+| Sword Coast Adventurer's Guide | [SCAG](https://www.dndbeyond.com/sources/scag) | Regional subclasses (Battle Master variant, etc.), backgrounds, races |
+| Eberron: Rising from the Last War | [Marketplace: ERLW](https://marketplace.dndbeyond.com/TTRPG/eberron-rising-from-the-last-war) | **Artificer**, Eberron species, Dragonmark feats |
+| Guildmasters' Guide to Ravnica | [Marketplace: GGR](https://marketplace.dndbeyond.com/TTRPG/guildmasters-guide-to-ravnica) | Ravnica species, guild subclasses, backgrounds |
+| Acquisitions Incorporated | [AI](https://www.dndbeyond.com/sources/ai) | Acq Inc subclass, franchise positions, backgrounds |
+| Explorer's Guide to Wildemount | [EGtW](https://www.dndbeyond.com/sources/dnd/egtw) | Wildemount subclasses, Dunamancy spells, races, Hollow One |
+| Mythic Odysseys of Theros | [MOoT](https://www.dndbeyond.com/sources/moot) | Theros races, supernatural gifts, College of Eloquence, Oath of Glory |
+| Van Richten's Guide to Ravenloft | [Marketplace: VRGR](https://marketplace.dndbeyond.com/TTRPG/van-richtens-guide-to-ravenloft) | Lineages, horror subclasses, Dark Gifts |
+| Strixhaven: A Curriculum of Chaos | [Marketplace: SCC](https://marketplace.dndbeyond.com/TTRPG/strixhaven-a-curriculum-of-chaos) | Strixhaven subclasses, spells, backgrounds |
+| Spelljammer: Adventures in Space | [SAiS](https://www.dndbeyond.com/sources/sais) | Astral species (Astral Elf, Autognome, Giff, etc.), Astral Drifter/Wildspacer backgrounds |
+| Planescape: Adventures in the Multiverse | [PAitM](https://www.dndbeyond.com/sources/paitm) | Planar species, backgrounds, feats, spells from Sigil and the Outlands |
+| Volo's Guide to Monsters | [VGtM](https://www.dndbeyond.com/sources/vgtm) | Legacy playable races — prefer MotM |
+| Mordenkainen's Tome of Foes | [MToF](https://www.dndbeyond.com/sources/mtof) | Legacy playable races — prefer MotM |
+
+If a compendium link fails, web search `D&D Beyond [book name]` and cite the result.
+
+## MotM playable species (expanded)
+
+When MotM is allowed, these species are available (search + cite [Fantastical Races](https://www.dndbeyond.com/sources/motm/fantastical-races)):
+
+Aarakocra, Aasimar, Bugbear, Centaur, Changeling, Deep Gnome, Duergar, Eladrin, Fairy, Firbolg, Genasi (Air/Earth/Fire/Water), Githyanki, Githzerai, Goblin, Goliath, Harengon, Hobgoblin, Kenku, Kobold, Lizardfolk, Minotaur, Orc, Satyr, Sea Elf, Shadar-kai, Shifter, Tabaxi, Tortle, Triton, Yuan-ti.
+
+Always ask species choice individually; never assume. MotM species use 2024-style traits (no species ASI) when adapted per PHB sidebar — confirm with player.
+
+## Campaign products with PC options
+
+Only if explicitly allowed:
+
+| Product | D&D Beyond | Notable PC options |
+|---------|------------|-------------------|
+| Dragonlance: Shadow of the Dragon Queen | [Marketplace: SDQ](https://marketplace.dndbeyond.com/TTRPG/dragonlance-shadow-of-the-dragon-queen) | Kender, Knight of Solamnia |
+| Baldur's Gate: Descent into Avernus | [Marketplace: BGDIA](https://marketplace.dndbeyond.com/TTRPG/baldurs-gate-descent-into-avernus) | Tie-in backgrounds |
+| Phandelver and Below | [Marketplace: PaB](https://marketplace.dndbeyond.com/TTRPG/phandelver-and-below-the-shattered-obelisk) | Updated region options (confirm with DM) |
+
+## Presenting expanded options
+
+- List options **only from allowed sources**.
+- Tag in chat and `character.md`: `[PHB24]`, `[MotM]`, `[XGtE]`, etc.
+- **Origin feats:** must be Origin-type (2024 PHB). Expanded-book feats apply at appropriate General/Epic levels unless DM rules otherwise.
+- **Subclasses from expanded books** that were reprinted in 2024 PHB (e.g. Gloom Stalker, Celestial Patron, Psi Warrior) — use 2024 PHB version.
+
+## JSON audit trail
+
+```json
+"contentSources": ["PHB24", "MotM"],
+"usedOptions": [{ "option": "Tabaxi", "type": "species", "source": "MotM" }]
+```
+
+Record every non-PHB option for DM handoff.

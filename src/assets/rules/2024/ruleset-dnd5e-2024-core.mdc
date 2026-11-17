@@ -1,0 +1,139 @@
+---
+description: D&D 5e 2024 PHB — full creation steps, option catalogs, and mechanics
+alwaysApply: true
+---
+
+# D&D 5e 2024 — Core Character Creation
+
+Apply when session `edition` is **2024**. Expanded supplements: `ruleset-dnd5e-2024-expansions.mdc`.
+
+## 2024 mechanics (confirm with player; cite PHB 2024)
+
+| Topic | Rule |
+|-------|------|
+| Subclass | All classes choose subclass at **level 3** |
+| Ability scores | **Background** grants +2/+1 or +1×3 (not species) |
+| Origin feat | Each background includes one **Origin feat** at level 1 |
+| Species ASI | Species traits only — no ability score increases from species |
+| Heroic Inspiration | Renamed from Inspiration; reroll one d20 |
+| Weapon Mastery | Martial classes: mastery properties on qualified weapons (Fighter/Paladin/Ranger at L1; Barbarian/Rogue at L1; others per class) |
+| Terminology | Race → **Species**; Background → part of **Origin** with species |
+| Multiclass | Use 2024 PHB prerequisites; search + cite if expanded books allowed |
+
+## Step order (`currentStep`)
+
+1. `choose_class` → 2. `choose_origin` → 3. `ability_scores` → 4. `choose_alignment` → 5. `choose_species` → 6. `equipment` → 7. `personality_review`
+
+Steps 4–7 match PHB 2024 "Fill In Details" split into separate questions.
+
+---
+
+### Step 1 — Choose class (`choose_class`)
+
+**Ask:** class only (not subclass yet unless starting above level 3).
+
+**12 classes:** Barbarian, Bard, Cleric, Druid, Fighter, Monk, Paladin, Ranger, Rogue, Sorcerer, Warlock, Wizard.
+
+**48 subclasses (level 3)** — present only when relevant; always **Other / custom**:
+
+| Class | Subclasses |
+|-------|------------|
+| Barbarian | Berserker, Wild Heart, World Tree, Zealot |
+| Bard | Dance, Glamour, Lore, Valor |
+| Cleric | Life, Light, Trickery, War (+ Knowledge, Nature, Tempest if 2014 carryover allowed) |
+| Druid | Land, Moon, Sea, Stars |
+| Fighter | Battle Master, Champion, Eldritch Knight, Psi Warrior |
+| Monk | Mercy, Shadow, Elements, Open Hand |
+| Paladin | Devotion, Glory, Ancients, Vengeance |
+| Ranger | Beast Master, Fey Wanderer, Gloom Stalker, Hunter |
+| Rogue | Arcane Trickster, Assassin, Soulknife, Thief |
+| Sorcerer | Aberrant, Clockwork, Draconic, Wild Magic |
+| Warlock | Archfey, Celestial, Fiend, Great Old One |
+| Wizard | Abjurer, Diviner, Evoker, Illusionist (+ Conjuration, Enchantment, Necromancy, Transmutation if carryover) |
+
+**Sub-decisions (separate questions):** skill proficiencies, starting equipment vs gold, fighting style (if offered at L1), cantrip choices, weapon mastery weapon picks (if L1).
+
+**Artificer:** not in 2024 PHB — only if Eberron/TCoE allowed; treat as 2014 class adapted to 2024 rules per expansions rule.
+
+**Expanded subclasses (level 3+):** if session allows Expanded sources, additional subclasses exist in XGtE, TCoE, EGtW, MOoT, VRGR, SCC, FTD, GotG, SCAG, etc. — list only from allowed books; prefer 2024 PHB version when reprinted. See `ruleset-dnd5e-2024-expansions.mdc`.
+
+---
+
+### Step 2 — Choose origin (`choose_origin`)
+
+Origin = **background** (2024). Ask background only; defer species to step 4.
+
+**16 backgrounds:** Acolyte, Artisan, Charlatan, Criminal, Entertainer, Farmer, Guard, Guide, Hermit, Merchant, Noble, Sage, Sailor, Scribe, Soldier, Wayfarer.
+
+Each background grants: ability score increase (+2/+1 or three +1s), **Origin feat**, skills, tool, equipment. Search + cite the specific background before confirming.
+
+**Sub-decisions:** ability score assignment from background options, which Origin feat (fixed by background — confirm), tool/language choices if any.
+
+Expanded backgrounds from allowed supplements (Strixhaven, Spelljammer, Planescape, SCAG, etc.) — list only if source enabled.
+
+---
+
+### Step 3 — Ability scores (`ability_scores`)
+
+**Ask method:** standard array (15,14,13,12,10,8), point buy, rolled, or DM-assigned — **Other / custom**.
+
+Apply **background** ASI to assigned scores (already chosen in step 2). Species does not modify scores in 2024.
+
+Record `abilityScores.method`, `base`, `backgroundBonuses`, `final`.
+
+---
+
+### Step 4 — Choose alignment (`choose_alignment`)
+
+Ask alignment separately. Offer PHB alignments plus **Other / custom (describe)** for non-standard tables.
+
+---
+
+### Step 5 — Choose species (`choose_species`)
+
+**10 PHB species:** Aasimar, Dragonborn, Dwarf, Elf, Gnome, Goliath, Halfling, Human, Orc, Tiefling.
+
+**Sub-choices (ask separately, always Other / custom):**
+
+| Species | Sub-choice |
+|---------|------------|
+| Dragonborn | Draconic Ancestry (10 types) |
+| Elf | Lineage: Drow, High Elf, Wood Elf |
+| Gnome | Lineage: Forest, Rock |
+| Goliath | Giant Ancestry (6 types) |
+| Tiefling | Legacy: Abyssal, Chthonic, Infernal |
+
+**2014 carryover:** Half-Elf, Half-Orc if allowed. **Expanded species** from MotM or setting books if allowed — see full MotM list in `ruleset-dnd5e-2024-expansions.mdc`; search traits; no species ASI.
+
+---
+
+### Step 6 — Equipment (`equipment`)
+
+Starting equipment package vs gold buy (2024 PHB lists). Weapon mastery assignments for martial classes. Confirm each item. Cite PHB 2024 equipment chapter.
+
+---
+
+### Step 7 — Personality and review (`personality_review`)
+
+Alignment, personality traits, ideals, bonds, flaws — ask each or offer custom. Compute derived stats with cited formulas. Final review before `status: complete`.
+
+**Derived stats:** proficiency +2 (L1), HP, AC, speed, initiative, saves, skills, attacks, spell DC/attack, slots/prepared/known, passive Perception.
+
+---
+
+## Feat categories (2024 PHB — 75 total)
+
+Do not list all feats unprompted. When a feat is granted or chosen:
+
+| Category | When |
+|----------|------|
+| Origin | Level 1 via background |
+| General | ASI levels / DM approval |
+| Fighting Style | Class features |
+| Epic Boon | Level 19 |
+
+Search + cite feat text from [PHB 2024 feats](https://www.dndbeyond.com/sources/phb) or allowed expansion.
+
+## Markdown source tag
+
+In `character.md`, tag 2024 options: `[PHB24]`, expanded: `[XGtE]`, etc. Mirror in JSON `usedOptions`.

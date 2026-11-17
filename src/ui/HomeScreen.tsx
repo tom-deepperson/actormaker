@@ -7,11 +7,13 @@ import {
 } from '../data/db';
 import { dateStamp, isIos, isStandalone, shareOrDownload } from './files';
 import { Card, Dialog } from './common';
+import { AiSettingsDialog } from './AiSettings';
 
 export type Theme = 'system' | 'light' | 'dark';
 
 interface Props {
   onOpen: (slug: string) => void;
+  onScan: () => void;
   toast: (msg: string) => void;
   theme: Theme;
   onTheme: (t: Theme) => void;
@@ -19,7 +21,7 @@ interface Props {
   onBackedUp: () => void;
 }
 
-export function HomeScreen({ onOpen, toast, theme, onTheme, lastBackupAt, onBackedUp }: Props) {
+export function HomeScreen({ onOpen, onScan, toast, theme, onTheme, lastBackupAt, onBackedUp }: Props) {
   const [chars, setChars] = useState<CharacterIndexEntry[] | null>(null);
   const [paste, setPaste] = useState(false);
   const [shareApp, setShareApp] = useState(false);
@@ -129,6 +131,7 @@ export function HomeScreen({ onOpen, toast, theme, onTheme, lastBackupAt, onBack
             </label>
             <button class="grow" onClick={() => setPaste(true)}>Paste JSON</button>
           </div>
+          <button class="wide" style={{ marginTop: 8 }} onClick={onScan}>📷 Scan a paper sheet or PDF (AI)</button>
         </Card>
 
         <Card title="Backup">
@@ -173,7 +176,7 @@ export function HomeScreen({ onOpen, toast, theme, onTheme, lastBackupAt, onBack
         </Dialog>
       )}
       {shareApp && <ShareAppDialog onClose={() => setShareApp(false)} toast={toast} />}
-      {about && <AboutDialog theme={theme} onTheme={onTheme} onClose={() => setAbout(false)} />}
+      {about && <AboutDialog theme={theme} onTheme={onTheme} onClose={() => setAbout(false)} toast={toast} />}
     </>
   );
 }
@@ -224,9 +227,11 @@ function ShareAppDialog({ onClose, toast }: { onClose: () => void; toast: (m: st
   );
 }
 
-function AboutDialog({ theme, onTheme, onClose }: { theme: Theme; onTheme: (t: Theme) => void; onClose: () => void }) {
+function AboutDialog({ theme, onTheme, onClose, toast }: { theme: Theme; onTheme: (t: Theme) => void; onClose: () => void; toast: (m: string) => void }) {
   const [persisted, setPersisted] = useState<boolean | null>(null);
+  const [aiSettings, setAiSettings] = useState(false);
   useEffect(() => void navigator.storage?.persisted?.().then(setPersisted), []);
+  if (aiSettings) return <AiSettingsDialog onClose={() => setAiSettings(false)} toast={toast} />;
   return (
     <Dialog title="Settings" onClose={onClose}>
       <div class="small muted">Theme</div>
@@ -241,6 +246,7 @@ function AboutDialog({ theme, onTheme, onClose }: { theme: Theme; onTheme: (t: T
           <div><button class="small" style={{ marginTop: 6 }} onClick={() => void requestPersistence().then(setPersisted)}>Ask to keep storage</button></div>
         )}
       </div>
+      <button class="wide" onClick={() => setAiSettings(true)}>AI assistant: provider and API key…</button>
       <p class="small muted" style={{ marginBottom: 0 }}>
         Actormaker is a D&amp;D 5e (2014 and 2024) character companion. Your characters live only on this device. The sheet
         format is the same <code>character.json</code> the Android app uses, so files move freely between them.

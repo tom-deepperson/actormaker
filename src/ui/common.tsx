@@ -94,3 +94,22 @@ export function RulesLink(props: { name: string; text?: string | null; meta?: st
     </>
   );
 }
+
+/** Spinner, elapsed time and Cancel, so a long AI call (web search plus a large reply) doesn't look frozen. */
+export function WorkingRow({ label, onCancel }: { label?: string | null; onCancel: () => void }) {
+  const [seconds, setSeconds] = useState(0);
+  useEffect(() => {
+    const id = window.setInterval(() => setSeconds((s) => s + 1), 1000);
+    return () => window.clearInterval(id);
+  }, []);
+  return (
+    <div class="working" role="status">
+      <span class="spinner" aria-hidden="true" />
+      <div class="grow">
+        <div>{label ?? 'Working'}…</div>
+        <div class="tiny muted">{Math.floor(seconds / 60)}:{String(seconds % 60).padStart(2, '0')} · searching can take a minute or two</div>
+      </div>
+      <button class="small ghost" onClick={onCancel}>Cancel</button>
+    </div>
+  );
+}
