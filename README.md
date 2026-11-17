@@ -1,8 +1,8 @@
 # Actormaker PWA
 
-An installable web version of the Actormaker D&D 5e character companion that runs on **iPhone and Android**
-(and desktop). It reads the same `character.json` as the Android app, keeps everything on the device in
-IndexedDB, and works offline once it has been opened once.
+Actormaker is an installable D&D 5e character companion that runs on **iPhone and Android** phones (and desktop).
+It reads a character's `character.json`, keeps everything on the device in IndexedDB, and works offline once it has
+been opened once.
 
 Stack: Vite + TypeScript + Preact, a hand-written service worker, Vitest. The built app is a static folder (`dist/`, ~40 KB gzipped JS).
 
@@ -11,7 +11,7 @@ Stack: Vite + TypeScript + Preact, a hand-written service worker, Vitest. The bu
 - **App shell:** web manifest, offline service worker, icons, iOS home-screen tags, light/dark/system theme, phone-first layout with safe-area padding.
 - **Characters:** import `character.json` (file picker or paste), update a character from a newer file (keeps live HP/uses/slots), export `character.json`, delete.
 - **Backup / Restore:** one file with every character plus its tracker and combat state. Restore also accepts a bare `character.json`.
-- **Sheet views:** Combat, Non-combat and Full, mirroring the Android views. You can show the alias or the true name, and a player-safe mode hides secrets.
+- **Sheet views:** Combat, Non-combat and Full. You can show the alias or the true name, and a player-safe mode hides secrets.
 - **Live tracker:** HP (damage uses temp HP first), temp HP, hit dice per die type, spell slots with pact magic, feature uses, and short/long rests with the 2014 and 2024 hit-dice rules.
 - **Combat session:** enter/exit combat, rounds, action/bonus/reaction/move, timed effects and conditions. Kit timers such as Giant's Might are added on entering combat.
 - **Combat board:** "Roll initiative" starts combat; a turn bar with four economy orbs; every attack, turn option, limited-use feature, cantrip, spell and standard action as a card, filtered by cost. Using a card spends its use, spell slot and economy orb (Action Surge gives the action back). Dice roller with advantage, disadvantage and critical damage.
@@ -134,17 +134,16 @@ domain.
 ## Layout
 
 ```
-src/data/       ported logic (no UI): model + parsing, tracker, coins, classes, combat, encumbrance,
+src/data/       app logic (no UI): model + parsing, tracker, coins, classes, combat, encumbrance,
                 DM handoff, view context (alias / player-safe), IndexedDB storage and backup
 src/ai/         AI assistant: provider HTTP calls, prompts, level-up planner, sheet merge, import and scan
 src/ui/         Preact screens and components
 src/sw.js       service worker template (vite.config.ts fills in the precache list and version)
-src/assets/     conditions.json, kit_timers.json and rules/ (copied from the Android assets)
-test/           Vitest specs ported from android/app/src/test, plus fixtures
+src/assets/     conditions.json, kit_timers.json and rules/ (bundled into the app)
+test/           Vitest specs, plus sanitized fixtures
 ```
 
-Android sources each file mirrors are named in its header comment. Sheets are stored as plain JSON objects,
-so fields this app does not know about survive a round trip back to Android.
+Sheets are stored as plain JSON objects, so fields this app does not know about survive an import and export.
 
 ## Remaining
 
