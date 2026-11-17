@@ -234,3 +234,65 @@ export async function callModel(settings: AiSettings, prompt: string, opts: Call
   }
   throw new AiError('Anthropic web search did not finish. Try again.');
 }
+
+// ---------------------------------------------------------------- model lists
+
+export interface ModelInfo { id: string; label: string }
+
+/** Gemini: only models that can answer a generateContent call; newest version first. */
+export function parseGeminiModels(body: string): ModelInfo[] {
+  return objs(parse(body)?.models)
+    .filter((m) => Array.isArray(m.supportedGenerationMethods) && m.supportedGenerationMethods.includes('generateContent'))
+    .map((m) => {
+      const id = text(m.name).replace(/^models\//, '');
+      return { id, label: text(m.displayName) || id };
+    })
+    .filter((m) => m.id && !/embedding|aqa|imagen|veo|tts|image-generation/i.test(m.id))
+    .sort((a, b) => b.id.localeCompare(a.id, undefined, { numeric: true }));
+}
+
+const OPENAI_SKIP = /embedding|tts|whisper|dall-e|gpt-image|image|moderation|transcribe|audio|realtime|davinci|babbage|search-api/i;
+
+/** OpenAI: chat-capable models (GPT, o-series), newest first by creation date. */
+export function parseOpenAiModels(body: string): ModelInfo[] {
+  return objs(parse(body)?.data)
+    .filter((m) => /^(gpt-|o\d|chatgpt-)/i.test(text(m.id)) && !OPENAI_SKIP.test(text(m.id)))
+    .sort((a, b) => (Number(b.created) || 0) - (Number(a.created) || 0) || text(b.id).localeCompare(text(a.id)))
+    .map((m) => ({ id: text(m.id), label: text(m.id) }));
+}
+
+/** Anthropic: newest first by release date. */
+export function parseAnthropicModels(body: string): ModelInfo[] {
+  return objs(parse(body)?.data)
+    .filter((m) => text(m.id))
+    .sort((a, b) => text(b.created_at).localeCompare(text(a.created_at)))
+    .map((m) => ({ id: text(m.id), label: text(m.display_name) || text(m.id) }));
+}
+
+/** The models this key can use, from the provider's own list. */
+export async function listModels(provider: AiProvider, key: string, signal?: AbortSignal): Promise<ModelInfo[]> {
+  const k = key.trim();
+  const label = PROVIDER_NAME[provider];
+  if (!k) throw new AiError(`Enter a ${label} API key first.`);
+  const [url, headers, parser]: [string, Record<string, string>, (b: string) => ModelInfo[]] =
+    provider === 'gemini'
+      ? ['https://generativelanguage.googleapis.com/v1beta/models?pageSize=1000', { 'x-goog-api-key': k }, parseGeminiModels]
+      : provider === 'openai'
+        ? ['https://api.openai.com/v1/models', { authorization: `Bearer ${k}` }, parseOpenAiModels]
+        : ['https://api.anthropic.com/v1/models?limit=1000', { 'x-api-key': k, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' }, parseAnthropicModels];
+  let res: Response;
+  try {
+    res = await fetch(url, { headers, signal });
+  } catch (e) {
+    if (signal?.aborted) throw e;
+    throw new AiError(navigator.onLine === false ? 'No network connection.' : `Couldn't reach ${label}.`);
+  }
+  const raw = await res.text();
+  if (!res.ok) {
+    const msg = (parse(raw)?.error as Json | undefined)?.message;
+    throw new AiError(`${label} HTTP ${res.status}: ${typeof msg === 'string' ? msg : res.statusText}`);
+  }
+  const models = parser(raw);
+  if (!models.length) throw new AiError(`${label} returned no models this app can use.`);
+  return models;
+}

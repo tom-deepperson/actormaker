@@ -7,7 +7,8 @@ import { SKILLS } from '../src/data/exploreBoard';
 import { afterLevelUp, normalizeTracker } from '../src/data/tracker';
 import {
   anthropicBody, anthropicUserContent, anthropicWebSearchType, extractAnthropicText, extractGeminiText, extractOpenAiText,
-  geminiBody, isAnthropicTruncated, isGeminiTruncated, isOpenAiTruncated, openAiBody,
+  geminiBody, isAnthropicTruncated, isGeminiTruncated, isOpenAiTruncated, openAiBody, parseAnthropicModels, parseGeminiModels,
+  parseOpenAiModels,
 } from '../src/ai/client';
 import { extractJson, levelUpBuildPrompt } from '../src/ai/prompts';
 import { blockingProblem, compareSheets, extractChangeSummary, levelUpWarnings, overlayTopLevel, sheetFrom, stripChangeSummary } from '../src/ai/sheetMerge';
@@ -304,5 +305,41 @@ describe('sheet import', () => {
     expect(directSheet(sampleText)).not.toBeNull();
     expect(directSheet('{"name":"not a sheet"}')).toBeNull();
     expect(directSheet('STR 16 DEX 12')).toBeNull();
+  });
+});
+
+describe('model lists', () => {
+  it('gemini keeps generateContent models, newest version first', () => {
+    const body = JSON.stringify({ models: [
+      { name: 'models/gemini-2.5-flash', displayName: 'Gemini 2.5 Flash', supportedGenerationMethods: ['generateContent', 'countTokens'] },
+      { name: 'models/text-embedding-004', displayName: 'Text Embedding', supportedGenerationMethods: ['embedContent'] },
+      { name: 'models/gemini-3.5-flash', displayName: 'Gemini 3.5 Flash', supportedGenerationMethods: ['generateContent'] },
+      { name: 'models/gemini-10-pro', displayName: 'Gemini 10 Pro', supportedGenerationMethods: ['generateContent'] },
+      { name: 'models/imagen-4', supportedGenerationMethods: ['predict'] },
+    ] });
+    expect(parseGeminiModels(body).map((m) => m.id)).toEqual(['gemini-10-pro', 'gemini-3.5-flash', 'gemini-2.5-flash']);
+    expect(parseGeminiModels(body)[1].label).toBe('Gemini 3.5 Flash');
+  });
+
+  it('openai keeps chat models, newest first', () => {
+    const body = JSON.stringify({ data: [
+      { id: 'gpt-4.1-mini', created: 100 }, { id: 'text-embedding-3-small', created: 300 }, { id: 'tts-1', created: 300 },
+      { id: 'whisper-1', created: 300 }, { id: 'dall-e-3', created: 300 }, { id: 'gpt-image-1', created: 300 },
+      { id: 'omni-moderation-latest', created: 300 }, { id: 'gpt-4o-realtime-preview', created: 300 }, { id: 'gpt-4o-mini-tts', created: 300 },
+      { id: 'o3', created: 200 }, { id: 'gpt-5', created: 250 }, { id: 'davinci-002', created: 50 },
+    ] });
+    expect(parseOpenAiModels(body).map((m) => m.id)).toEqual(['gpt-5', 'o3', 'gpt-4.1-mini']);
+  });
+
+  it('anthropic sorts by release date', () => {
+    const body = JSON.stringify({ data: [
+      { id: 'claude-haiku-4-5-20251001', display_name: 'Claude Haiku 4.5', created_at: '2025-10-01T00:00:00Z' },
+      { id: 'claude-opus-5-5', display_name: 'Claude Opus 5.5', created_at: '2026-09-01T00:00:00Z' },
+    ] });
+    expect(parseAnthropicModels(body)).toEqual([
+      { id: 'claude-opus-5-5', label: 'Claude Opus 5.5' },
+      { id: 'claude-haiku-4-5-20251001', label: 'Claude Haiku 4.5' },
+    ]);
+    expect(parseAnthropicModels('not json')).toEqual([]);
   });
 });

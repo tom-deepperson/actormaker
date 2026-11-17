@@ -2,7 +2,7 @@
 import { type CharacterSheet, type SourceRef, level, normalizedForSave } from '../data/model';
 import { classSummary } from '../data/classes';
 import { getSetting, setSetting } from '../data/db';
-import { type AiAttachment, type AiSettings, DEFAULT_AI_SETTINGS, callModel } from './client';
+import { type AiAttachment, type AiProvider, type AiSettings, type ModelInfo, DEFAULT_AI_SETTINGS, callModel } from './client';
 import { eventPrompt, extractJson, importPrompt, levelUpBuildPrompt, levelUpPlanPrompt, researchPrompt, rulesForEdition } from './prompts';
 import { compareSheets, extractChangeSummary, overlayTopLevel, sheetFrom, stripChangeSummary } from './sheetMerge';
 import { type LevelUpPlan, parsePlan, resolvePlan } from './levelUp';
@@ -13,6 +13,11 @@ export async function loadAiSettings(): Promise<AiSettings> {
   return { ...DEFAULT_AI_SETTINGS, ...((await getSetting<Partial<AiSettings>>('ai')) ?? {}) };
 }
 export const saveAiSettings = (s: AiSettings) => setSetting('ai', s);
+
+/** Each provider's model list, cached on this device (settings store, so never in backups). */
+export interface CachedModels { fetchedAt: number; models: ModelInfo[] }
+export const loadModelCache = (p: AiProvider) => getSetting<CachedModels>(`models:${p}`);
+export const saveModelCache = (p: AiProvider, models: ModelInfo[]) => setSetting(`models:${p}`, { fetchedAt: Date.now(), models });
 
 const sheetJson = (sheet: CharacterSheet) => JSON.stringify(normalizedForSave(sheet), null, 2);
 
