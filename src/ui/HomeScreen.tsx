@@ -248,8 +248,8 @@ function AboutDialog({ theme, onTheme, onClose, toast }: { theme: Theme; onTheme
       </div>
       <button class="wide" onClick={() => setAiSettings(true)}>AI assistant: provider and API key…</button>
       <p class="small muted" style={{ marginBottom: 0 }}>
-        Actormaker is a D&amp;D 5e (2014 and 2024) character companion. Your characters live only on this device. The sheet
-        format is the same <code>character.json</code> the Android app uses, so files move freely between them.
+        Actormaker is a D&amp;D 5e (2014 and 2024) character companion. Your characters live only on this device; use
+        Back up all to keep a copy, or export a <code>character.json</code> to move one to another device.
       </p>
       <div class="tiny muted">Version {__APP_VERSION__}</div>
     </Dialog>
