@@ -91,12 +91,16 @@ export const cosmologyOrigin = (c: Cosmology | null | undefined): string | null 
 /** `cosmology.belief`, or an older per-character "<name>Belief" field. */
 export const cosmologyBelief = (c: Cosmology | null | undefined): string | null => cosmologyField(c, 'belief', /^[a-z]+Belief$/);
 
+/**
+ * Same rule as the Android Cosmology serializer: an older "<name>Origin"/"<name>Belief" text wins,
+ * then a text `origin`/`belief`. A non-text value (older sheets have a structured `origin` object)
+ * is ignored here but kept in the sheet.
+ */
 function cosmologyField(c: Cosmology | null | undefined, key: string, legacy: RegExp): string | null {
   if (!c) return null;
-  const direct = c[key];
-  if (typeof direct === 'string' && direct.trim()) return direct;
   for (const [k, v] of Object.entries(c)) if (legacy.test(k) && typeof v === 'string' && v.trim()) return v;
-  return null;
+  const direct = c[key];
+  return typeof direct === 'string' && direct.trim() ? direct : null;
 }
 
 export interface SoundBite { id: string; tier?: string; prompt: string; answer: string }

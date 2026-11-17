@@ -208,6 +208,15 @@ describe('cosmology origin and belief', () => {
     expect(cosmologyOrigin(s.cosmology)).toBe('Born in the north.');
     expect(cosmologyBelief(s.cosmology)).toBe('The stars listen.');
     expect(JSON.parse(JSON.stringify(normalizedForSave(s))).cosmology.miraOrigin).toBe('Born in the north.');
-    expect(cosmologyOrigin(parseSheet({ cosmology: { origin: 'New', miraOrigin: 'Old' } }).cosmology)).toBe('New');
+    expect(cosmologyOrigin(parseSheet({ cosmology: { origin: 'New', miraOrigin: 'Old' } }).cosmology)).toBe('Old'); // as on Android
+  });
+
+  it('older sheets with a text <name>Origin and a structured origin object: the text wins, nothing crashes', () => {
+    const s = parseSheet(fixture('sample-stash.json'));
+    expect(typeof s.cosmology?.origin).toBe('object');
+    expect(cosmologyOrigin(s.cosmology)).toMatch(/^Sample characterOrigin/);
+    expect(cosmologyOrigin(parseSheet({ cosmology: { origin: { region: 'North' } } }).cosmology)).toBeNull();
+    const again = parseSheet(JSON.stringify(normalizedForSave(s)));
+    expect(again.cosmology?.origin).toEqual(s.cosmology?.origin);
   });
 });

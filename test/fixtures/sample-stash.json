@@ -105,7 +105,7 @@
     "campaignGoal": "Sample campaignGoal (14).",
     "pantheon": "Sample pantheon (15).",
     "belief": "Sample characterBelief (16).",
-    "origin": "Sample characterOrigin about Corvin (17).",
+    "miraOrigin": "Sample characterOrigin about Corvin (17).",
     "origin": {
       "region": "Sample region (18).",
       "regionNotes": "Sample regionNotes (19).",
