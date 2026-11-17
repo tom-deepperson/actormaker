@@ -1,0 +1,22 @@
+[
+  {"id": "blinded", "name": "Blinded", "kind": "condition", "roundsRemaining": null, "endsOn": "save_ends", "notes": "Can't see; auto-fail sight checks; attacks vs you have advantage; your attacks have disadvantage."},
+  {"id": "charmed", "name": "Charmed", "kind": "condition", "roundsRemaining": null, "endsOn": "save_ends", "notes": "Can't attack the charmer; charmer has advantage on social checks vs you."},
+  {"id": "frightened", "name": "Frightened", "kind": "condition", "roundsRemaining": null, "endsOn": "save_ends", "notes": "Disadvantage on checks and attacks while source is in sight; can't willingly move closer."},
+  {"id": "grappled", "name": "Grappled", "kind": "condition", "roundsRemaining": null, "endsOn": "save_ends", "notes": "Speed 0."},
+  {"id": "incapacitated", "name": "Incapacitated", "kind": "condition", "roundsRemaining": null, "endsOn": "save_ends", "notes": "Can't take actions or reactions."},
+  {"id": "invisible", "name": "Invisible", "kind": "buff", "roundsRemaining": null, "endsOn": "save_ends", "notes": "Heavily obscured; advantage on attacks; attacks vs you have disadvantage."},
+  {"id": "paralyzed", "name": "Paralyzed", "kind": "condition", "roundsRemaining": null, "endsOn": "save_ends", "notes": "Incapacitated; auto-fail STR/DEX saves; attacks vs you have advantage; melee hits are crits."},
+  {"id": "petrified", "name": "Petrified", "kind": "condition", "roundsRemaining": null, "endsOn": "permanent", "notes": "Transformed to stone; incapacitated; resistant to all damage."},
+  {"id": "poisoned", "name": "Poisoned", "kind": "debuff", "roundsRemaining": null, "endsOn": "save_ends", "notes": "Disadvantage on attack rolls and ability checks."},
+  {"id": "prone", "name": "Prone", "kind": "condition", "roundsRemaining": null, "endsOn": "save_ends", "notes": "Disadvantage on attacks; melee vs you advantage; ranged vs you disadvantage. Stand = half move."},
+  {"id": "restrained", "name": "Restrained", "kind": "condition", "roundsRemaining": null, "endsOn": "save_ends", "notes": "Speed 0; attacks vs you advantage; your attacks disadvantage; DEX saves disadvantage."},
+  {"id": "stunned", "name": "Stunned", "kind": "condition", "roundsRemaining": null, "endsOn": "save_ends", "notes": "Incapacitated; auto-fail STR/DEX saves; attacks vs you have advantage."},
+  {"id": "unconscious", "name": "Unconscious", "kind": "condition", "roundsRemaining": null, "endsOn": "save_ends", "notes": "Incapacitated, prone, drop items; melee hits are crits."},
+  {"id": "exhaustion", "name": "Exhaustion", "kind": "debuff", "roundsRemaining": null, "endsOn": "permanent", "notes": "Track exhaustion level separately; effects stack by level."},
+  {"id": "bless", "name": "Bless", "kind": "buff", "roundsRemaining": 10, "endsOn": "end_of_your_turn", "notes": "+1d4 to attack rolls and saving throws (concentration)."},
+  {"id": "haste", "name": "Haste", "kind": "buff", "roundsRemaining": 10, "endsOn": "end_of_your_turn", "notes": "Extra action (attack/Dash/Disengage/Hide/Use object); +2 AC; advantage on DEX saves; speed doubled (concentration)."},
+  {"id": "rage", "name": "Rage", "kind": "buff", "roundsRemaining": 10, "endsOn": "end_of_your_turn", "notes": "Bonus damage; resistance to bludgeoning/piercing/slashing; advantage on STR checks/saves."},
+  {"id": "hex", "name": "Hex", "kind": "debuff", "roundsRemaining": 10, "endsOn": "end_of_your_turn", "notes": "Extra necrotic on hits; disadvantage on chosen ability checks (concentration)."},
+  {"id": "faerie-fire", "name": "Faerie Fire", "kind": "debuff", "roundsRemaining": 10, "endsOn": "end_of_your_turn", "notes": "Attacks vs outlined creatures have advantage (concentration)."},
+  {"id": "guided-strike", "name": "Guided Strike / Attack Advantage", "kind": "buff", "roundsRemaining": 1, "endsOn": "end_of_your_turn", "notes": "Advantage on next attack (or similar)."}
+]

@@ -1,0 +1,857 @@
+{
+  "ruleset": "dnd5e",
+  "edition": "2014",
+  "status": "complete",
+  "currentStep": "review",
+  "constraints": {
+    "level": 9,
+    "campaignTone": "Sample campaignTone (1).",
+    "houseRules": [
+      "Sample houseRule (2).",
+      "Sample houseRule (3).",
+      "Sample houseRule (4).",
+      "Sample houseRule (5).",
+      "Sample houseRule (6).",
+      "Sample houseRule (7).",
+      "Sample houseRule about Mira (8)."
+    ],
+    "allowedSources": [
+      "PHB14",
+      "TCoE",
+      "XGtE",
+      "MotM",
+      "VGtM",
+      "MToF",
+      "expanded"
+    ],
+    "disallowedSources": [],
+    "sourceTier": "core_expanded",
+    "encumbranceRule": "variant"
+  },
+  "contentSources": [
+    "PHB14",
+    "TCoE"
+  ],
+  "usedOptions": [
+    {
+      "option": "Human (Variant)",
+      "type": "race",
+      "source": "PHB14"
+    },
+    {
+      "option": "Fighter",
+      "type": "class",
+      "source": "PHB14"
+    },
+    {
+      "option": "Rune Knight",
+      "type": "subclass",
+      "source": "TCoE"
+    },
+    {
+      "option": "Outlander",
+      "type": "background",
+      "source": "PHB14"
+    },
+    {
+      "option": "Tough",
+      "type": "feat",
+      "source": "PHB14"
+    },
+    {
+      "option": "Sentinel",
+      "type": "feat",
+      "source": "PHB14"
+    },
+    {
+      "option": "Polearm Master",
+      "type": "feat",
+      "source": "PHB14"
+    },
+    {
+      "option": "Fire Rune",
+      "type": "rune",
+      "source": "TCoE"
+    },
+    {
+      "option": "Hill Rune",
+      "type": "rune",
+      "source": "TCoE"
+    },
+    {
+      "option": "Sample option (9).",
+      "type": "rune",
+      "source": "homebrew",
+      "notes": "Sample notes (10)."
+    }
+  ],
+  "identity": {
+    "name": "Mira",
+    "cultAlias": "Corvin",
+    "publicPersona": "Sample publicPersona about Corvin (11).",
+    "species": null,
+    "race": "Human",
+    "raceSubChoice": "Variant (+1 STR, +1 CON)",
+    "class": "Fighter",
+    "subclass": "Rune Knight",
+    "background": "Outlander",
+    "originFeat": null,
+    "alignment": "Neutral",
+    "gender": null,
+    "presentationNotes": "Sample presentationNotes about Mira (12)."
+  },
+  "cosmology": {
+    "entityToRelease": "Sample entityToRelease (13).",
+    "campaignGoal": "Sample campaignGoal (14).",
+    "pantheon": "Sample pantheon (15).",
+    "belief": "Sample characterBelief (16).",
+    "origin": "Sample characterOrigin about Corvin (17).",
+    "origin": {
+      "region": "Sample region (18).",
+      "regionNotes": "Sample regionNotes (19).",
+      "familyAffiliation": "Sample familyAffiliation (20).",
+      "Sample item 21": "Sample text (22).",
+      "sacrificeEvent": "Sample sacrificeEvent (23).",
+      "sacrificeYearsAgo": 15,
+      "ageAtSacrifice": 7,
+      "currentAge": 22
+    },
+    "parents": {
+      "faith": "Sample faith (24).",
+      "fate": "Sample fate (25).",
+      "godsResponse": "Sample godsResponse (26)."
+    },
+    "cultSymbol": "Sample text (27).",
+    "cultSymbolNotes": "Sample text about Mira (28).",
+    "Sample item 29": {
+      "corporate": "Sample corporate (30).",
+      "Sample item 31": "Sample text (32).",
+      "mission": "Sample mission about Mira (33)."
+    },
+    "chosenOnesAttitude": "Sample chosenOnesAttitude (34).",
+    "chosenOnesNotes": "Sample chosenOnesNotes (35).",
+    "setting": {
+      "campaignRegion": "Sample campaignRegion (36).",
+      "albemarle": "Sample albemarle (37).",
+      "amaun": "Sample amaun (38).",
+      "Sample item 39": "Sample text (40).",
+      "Sample item 41": "Sample text (42)."
+    },
+    "partyIntegration": {
+      "knowsTrueIdentity": false,
+      "Sample item 43": "Sample text (44).",
+      "status": "Sample status (45)."
+    }
+  },
+  "abilityScores": {
+    "method": "point_buy",
+    "base": {
+      "STR": 15,
+      "DEX": 14,
+      "CON": 13,
+      "INT": 10,
+      "WIS": 10,
+      "CHA": 10
+    },
+    "pointBuySpent": 27,
+    "pointBuyUnspent": 0,
+    "pointBuyNotes": "Sample pointBuyNotes (46).",
+    "racialBonuses": {
+      "STR": 1,
+      "CON": 1
+    },
+    "asiHistory": [
+      {
+        "level": 4,
+        "choice": "feat",
+        "feat": "Sentinel"
+      },
+      {
+        "level": 6,
+        "choice": "feat",
+        "feat": "Polearm Master"
+      },
+      {
+        "level": 8,
+        "choice": "+2 CON"
+      }
+    ],
+    "final": {
+      "STR": 16,
+      "DEX": 14,
+      "CON": 16,
+      "INT": 10,
+      "WIS": 10,
+      "CHA": 10
+    }
+  },
+  "feats": [
+    {
+      "name": "Tough",
+      "source": "PHB14",
+      "level": 1,
+      "from": "Variant Human",
+      "rulesText": "Sample rulesText for Tough (48)."
+    },
+    {
+      "name": "Sentinel",
+      "source": "PHB14",
+      "level": 4,
+      "from": "ASI",
+      "rulesText": "Sample rulesText for Sentinel (50)."
+    },
+    {
+      "name": "Polearm Master",
+      "source": "PHB14",
+      "level": 6,
+      "from": "ASI",
+      "rulesText": "Sample rulesText for Polearm Master (52)."
+    }
+  ],
+  "fightingStyle": "Great Weapon Fighting",
+  "runes": {
+    "known": [
+      "Fire",
+      "Hill",
+      "Sample known (53)."
+    ],
+    "inscribed": {
+      "halberd": "Sample halberd (54).",
+      "halfPlate": "Sample halfPlate (55).",
+      "jewelry": "Sample jewelry (56)."
+    },
+    "saveDC": 15,
+    "eclipseRune": {
+      "name": "Sample name (57).",
+      "source": "homebrew",
+      "inscribedOn": "Sample inscribedOn (58).",
+      "inscriptionSite": "Sample inscriptionSite (59).",
+      "designInspiration": "Sample designInspiration (60).",
+      "passive": "Sample passive (61).",
+      "invoke": "Sample invoke (62)."
+    }
+  },
+  "proficiencies": {
+    "skills": [
+      {
+        "name": "Athletics",
+        "source": "Fighter",
+        "modifier": 7
+      },
+      {
+        "name": "Survival",
+        "source": "Fighter",
+        "modifier": 4
+      },
+      {
+        "name": "Perception",
+        "source": "Outlander (replacement)",
+        "modifier": 4
+      },
+      {
+        "name": "Acrobatics",
+        "source": "Outlander (replacement)",
+        "modifier": 6
+      }
+    ],
+    "tools": [
+      "Smith's tools"
+    ],
+    "toolsNotes": "Sample toolsNotes (63).",
+    "languages": [
+      "Common",
+      "Giant",
+      "Deep Speech"
+    ],
+    "armor": [
+      "All armor",
+      "Shields"
+    ],
+    "weapons": [
+      "Simple weapons",
+      "Martial weapons"
+    ],
+    "savingThrows": [
+      "Strength",
+      "Constitution"
+    ]
+  },
+  "appearance": {
+    "age": "Sample age (64).",
+    "height": "Sample height (65).",
+    "weightLb": 169,
+    "physiqueNotes": "Sample physiqueNotes (66).",
+    "statureProgression": {
+      "model": "Sample model (67).",
+      "incrementPerLevel": {
+        "heightIn": 1,
+        "weightLb": 6
+      },
+      "level1": {
+        "height": "Sample height (68).",
+        "heightIn": 63,
+        "weightLb": 121
+      },
+      "level9": {
+        "height": "Sample height (69).",
+        "heightIn": 71,
+        "weightLb": 169
+      },
+      "level10Target": {
+        "height": "Sample height (70).",
+        "heightIn": 72,
+        "weightLb": 175,
+        "heightReference": "Sample heightReference (71).",
+        "weightNotes": "Sample weightNotes (72).",
+        "feature": "Sample feature (73)."
+      },
+      "byLevel": [
+        {
+          "level": 1,
+          "height": "Sample height (74).",
+          "weightLb": 121
+        },
+        {
+          "level": 2,
+          "height": "Sample height (75).",
+          "weightLb": 127
+        },
+        {
+          "level": 3,
+          "height": "Sample height (76).",
+          "weightLb": 133
+        },
+        {
+          "level": 4,
+          "height": "Sample height (77).",
+          "weightLb": 139
+        },
+        {
+          "level": 5,
+          "height": "Sample height (78).",
+          "weightLb": 145
+        },
+        {
+          "level": 6,
+          "height": "Sample height (79).",
+          "weightLb": 151
+        },
+        {
+          "level": 7,
+          "height": "Sample height (80).",
+          "weightLb": 157
+        },
+        {
+          "level": 8,
+          "height": "Sample height (81).",
+          "weightLb": 163
+        },
+        {
+          "level": 9,
+          "height": "Sample height (82).",
+          "weightLb": 169
+        },
+        {
+          "level": 10,
+          "height": "Sample height (83).",
+          "weightLb": 175
+        }
+      ]
+    },
+    "greatStature": {
+      "atLevel": 10,
+      "feature": "Sample feature (84).",
+      "height": "Sample height (85).",
+      "weightLb": 175,
+      "notes": "Sample notes (86)."
+    },
+    "title": null,
+    "titleNotes": "Sample titleNotes (87).",
+    "outlanderOrigin": "Sample outlanderOrigin (88).",
+    "trophy": "Sample trophy (89).",
+    "hillRuneJewelry": "Sample hillRuneJewelry (90).",
+    "cultTattoo": "Sample text (91).",
+    "underArmorLeotard": "Sample underArmorLeotard (92).",
+    "armorPresentation": "Sample armorPresentation about Mira (93).",
+    "helm": {
+      "type": "fully_enclosed_sculpted_bucket",
+      "shape": "Sample shape (94).",
+      "finish": "Sample finish (95).",
+      "hairWhenWorn": "Sample hairWhenWorn (96)."
+    },
+    "descriptions": {
+      "armoredHelmOn": "Sample armoredHelmOn (97).",
+      "armoredHelmOff": "Sample armoredHelmOff (98).",
+      "unarmored": "Sample unarmored (99)."
+    },
+    "portraitLabId": "Sample portraitLabId (100).",
+    "portraitLabPath": "Sample portraitLabPath (101).",
+    "portraitDnaFile": "Sample portraitDnaFile (102).",
+    "portraitDnaRevision": 6,
+    "portraitWorkflow": "Sample portraitWorkflow about Mira (103).",
+    "portraitDna": {
+      "primary": "Sample primary (104).",
+      "labArc": "Sample labArc (105).",
+      "expression": "Sample expression (106).",
+      "identity": {
+        "faceShape": "Sample faceShape (107).",
+        "jaw": "Sample jaw (108).",
+        "skinTone": "Sample skinTone (109).",
+        "ageBand": "Sample ageBand (110).",
+        "eyeShape": "Sample eyeShape (111).",
+        "eyeColor": "Sample eyeColor (112).",
+        "eyelid": "Sample eyelid (113).",
+        "browShape": "Sample browShape (114).",
+        "noseShape": "Sample noseShape (115).",
+        "hairStyle": "Sample hairStyle (116).",
+        "hairLength": "Sample hairLength (117).",
+        "hairColor": "Sample hairColor (118).",
+        "hairNotes": "Sample hairNotes about Corvin (119).",
+        "bangs": "Sample bangs (120).",
+        "build": "Sample build (121).",
+        "height": "Sample height (122).",
+        "weightLb": 169
+      },
+      "outfitCustom": "Sample outfitCustom (123).",
+      "Sample item 124": "Sample text (125).",
+      "portraitNotes": "Sample portraitNotes (126).",
+      "customTraits": [
+        "Sample customTrait (127)."
+      ],
+      "armoredEditPass": {
+        "label": "Sample label about Corvin (128).",
+        "palette": "Sample palette (129).",
+        "helm": "Sample helm (130).",
+        "silhouette": "Sample silhouette (131).",
+        "details": [
+          "Sample detail (132).",
+          "Sample detail (133).",
+          "Sample detail (134)."
+        ],
+        "weapon": "Sample weapon (135)."
+      }
+    }
+  },
+  "startingEquipment": {
+    "method": "gold_buy",
+    "level1GoldRoll": "Sample level1GoldRoll (136).",
+    "backgroundGold": "Sample backgroundGold (137)."
+  },
+  "equipment": [
+    {
+      "name": "+1 Half plate",
+      "quantity": 1,
+      "weightLb": 40,
+      "notes": "Sample notes about Corvin (138)."
+    },
+    {
+      "name": "+1 Halberd",
+      "quantity": 1,
+      "weightLb": 6,
+      "notes": "Sample notes (139)."
+    },
+    {
+      "name": "Sample name (140).",
+      "quantity": 1,
+      "weightLb": 1,
+      "notes": "Sample notes (141)."
+    },
+    {
+      "name": "Javelins",
+      "quantity": 4,
+      "weightLb": 2
+    },
+    {
+      "name": "Monster trophy",
+      "quantity": 1,
+      "weightLb": 3,
+      "notes": "Sample notes (142)."
+    },
+    {
+      "name": "Traveler's clothes",
+      "quantity": 1,
+      "weightLb": 4
+    },
+    {
+      "name": "Belt pouch",
+      "quantity": 1,
+      "weightLb": 1
+    },
+    {
+      "name": "Smith's tools",
+      "quantity": 1,
+      "weightLb": 8
+    },
+    {
+      "name": "Tinderbox",
+      "quantity": 1,
+      "weightLb": 1
+    },
+    {
+      "name": "Rations",
+      "quantity": 1,
+      "weightLb": 2,
+      "notes": "Sample notes (143)."
+    }
+  ],
+  "equipmentLocations": [
+    {
+      "location": "Sample location (144).",
+      "notes": "Sample notes about Corvin (145).",
+      "equipment": [
+        {
+          "name": "Staff",
+          "quantity": 1,
+          "weightLb": 4,
+          "notes": "Sample notes (146)."
+        },
+        {
+          "name": "Hunting trap",
+          "quantity": 1,
+          "weightLb": 25,
+          "notes": "Sample notes (147)."
+        },
+        {
+          "name": "Backpack",
+          "quantity": 1,
+          "weightLb": 5
+        },
+        {
+          "name": "Crowbar",
+          "quantity": 1,
+          "weightLb": 5
+        },
+        {
+          "name": "Hammer",
+          "quantity": 1,
+          "weightLb": 3
+        },
+        {
+          "name": "Pitons",
+          "quantity": 10,
+          "weightLb": 0.25
+        },
+        {
+          "name": "Torches",
+          "quantity": 10,
+          "weightLb": 1
+        },
+        {
+          "name": "Rations",
+          "quantity": 9,
+          "weightLb": 2,
+          "notes": "Sample notes (148)."
+        },
+        {
+          "name": "Waterskin",
+          "quantity": 1,
+          "weightLb": 5,
+          "notes": "Sample notes (149)."
+        },
+        {
+          "name": "50 ft. hempen rope",
+          "quantity": 1,
+          "weightLb": 10
+        },
+        {
+          "name": "Bedroll",
+          "quantity": 1,
+          "weightLb": 7
+        },
+        {
+          "name": "Tent (two-person)",
+          "quantity": 1,
+          "weightLb": 20
+        },
+        {
+          "name": "Mess kit",
+          "quantity": 1,
+          "weightLb": 1
+        }
+      ]
+    }
+  ],
+  "consumables": [
+    {
+      "name": "Potion of healing",
+      "quantity": 5,
+      "unitPriceGp": 50,
+      "totalPriceGp": 250,
+      "source": "DMG14",
+      "weightLb": 0.5,
+      "rulesText": "Sample rulesText for Potion of healing (151)."
+    },
+    {
+      "name": "Potion of greater healing",
+      "quantity": 3,
+      "unitPriceGp": 150,
+      "totalPriceGp": 450,
+      "source": "DMG14",
+      "weightLb": 0.5,
+      "rulesText": "Sample rulesText for Potion of greater healing (153)."
+    },
+    {
+      "name": "Sample name (154).",
+      "quantity": 1,
+      "unitPriceGp": 200,
+      "totalPriceGp": 200,
+      "source": "session",
+      "rulesText": "Sample rulesText (155)."
+    }
+  ],
+  "wealth": {
+    "gold": 100,
+    "startingGold": 1000,
+    "spentOnConsumables": 700,
+    "spentOnCultDonation": 200,
+    "notes": "Sample notes (156)."
+  },
+  "magicItems": [
+    {
+      "name": "+1 Halberd",
+      "rarity": "uncommon",
+      "source": "DM starting",
+      "slot": "magic weapon"
+    },
+    {
+      "name": "+1 Half plate",
+      "rarity": "uncommon",
+      "source": "DM starting",
+      "slot": "uncommon item",
+      "notes": "Sample notes (157)."
+    }
+  ],
+  "personality": {
+    "traits": [
+      "Sample trait (158).",
+      "Sample trait (159)."
+    ],
+    "ideals": [
+      "Sample ideal (160)."
+    ],
+    "bonds": [
+      "Sample bond (161).",
+      "Sample bond (162)."
+    ],
+    "flaws": [
+      "Sample flaw (163).",
+      "Sample flaw (164)."
+    ],
+    "chosenOnesAttitude": "Sample chosenOnesAttitude (165).",
+    "notes": "Sample notes about Mira (166)."
+  },
+  "features": [
+    {
+      "id": "fighting_style_gwf",
+      "name": "Fighting Style: Great Weapon Fighting",
+      "source": "PHB14",
+      "rulesText": "Sample rulesText for Fighting Style: Great Weapon Fighting (168)."
+    },
+    {
+      "id": "second_wind",
+      "name": "Second Wind",
+      "source": "PHB14",
+      "uses": {
+        "max": 1,
+        "per": "short_rest"
+      },
+      "rulesText": "Sample rulesText for Second Wind (170)."
+    },
+    {
+      "id": "action_surge",
+      "name": "Action Surge",
+      "source": "PHB14",
+      "uses": {
+        "max": 1,
+        "per": "short_rest"
+      },
+      "rulesText": "Sample rulesText for Action Surge (172)."
+    },
+    {
+      "id": "extra_attack",
+      "name": "Extra Attack",
+      "source": "PHB14",
+      "rulesText": "Sample rulesText for Extra Attack (174)."
+    },
+    {
+      "id": "indomitable",
+      "name": "Indomitable",
+      "source": "PHB14",
+      "uses": {
+        "max": 1,
+        "per": "long_rest"
+      },
+      "rulesText": "Sample rulesText for Indomitable (176)."
+    },
+    {
+      "id": "rune_carver",
+      "name": "Rune Carver",
+      "source": "TCoE",
+      "rulesText": "Sample rulesText for Rune Carver (178)."
+    },
+    {
+      "id": "fire_rune_passive",
+      "name": "Fire Rune (passive)",
+      "source": "TCoE",
+      "rulesText": "Sample rulesText for Fire Rune (passive) (180)."
+    },
+    {
+      "id": "hill_rune_passive",
+      "name": "Hill Rune (passive)",
+      "source": "TCoE",
+      "rulesText": "Sample rulesText for Hill Rune (passive) (182)."
+    },
+    {
+      "id": "Sample id (183).",
+      "name": "Sample name (184).",
+      "source": "homebrew",
+      "rulesText": "Sample rulesText (185)."
+    },
+    {
+      "id": "Sample id (186).",
+      "name": "Sample name (187).",
+      "source": "homebrew",
+      "uses": {
+        "max": 1,
+        "per": "short_rest"
+      },
+      "rulesText": "Sample rulesText (188)."
+    },
+    {
+      "id": "giants_might",
+      "name": "Giant's Might",
+      "source": "TCoE",
+      "uses": {
+        "max": 4,
+        "per": "long_rest"
+      },
+      "rulesText": "Sample rulesText for Giant's Might (190)."
+    },
+    {
+      "id": "runic_shield",
+      "name": "Runic Shield",
+      "source": "TCoE",
+      "uses": {
+        "max": 4,
+        "per": "long_rest"
+      },
+      "rulesText": "Sample rulesText for Runic Shield (192)."
+    },
+    {
+      "id": "outlander_wanderer",
+      "name": "Wanderer",
+      "source": "PHB14",
+      "rulesText": "Sample rulesText for Wanderer (194)."
+    }
+  ],
+  "spells": {
+    "ability": null,
+    "cantrips": [],
+    "known": [],
+    "prepared": [],
+    "slots": {}
+  },
+  "derived": {
+    "level": 9,
+    "proficiencyBonus": 4,
+    "hitPoints": {
+      "total": 99,
+      "method": "average",
+      "formula": "Sample formula (195).",
+      "notes": "Sample notes (196)."
+    },
+    "hitDice": "9d10",
+    "armorClass": 18,
+    "speed": 30,
+    "initiative": 2,
+    "passivePerception": 14,
+    "stealth": "Sample stealth (197).",
+    "attacks": [
+      {
+        "name": "+1 Halberd",
+        "bonus": 8,
+        "damage": "1d10+4 slashing",
+        "reach": 10
+      },
+      {
+        "name": "Halberd butt-end (PAM)",
+        "bonus": 8,
+        "damage": "1d4+4 bludgeoning",
+        "reach": 10,
+        "notes": "Sample notes (198)."
+      },
+      {
+        "name": "Javelin",
+        "bonus": 7,
+        "damage": "1d6+3 piercing",
+        "range": "30/120"
+      }
+    ],
+    "savingThrows": {
+      "STR": 7,
+      "DEX": 2,
+      "CON": 7,
+      "INT": 0,
+      "WIS": 0,
+      "CHA": 0
+    }
+  },
+  "sources": [
+    {
+      "topic": "Sample topic (199).",
+      "url": "https://example.com/rules",
+      "edition": "2014",
+      "verifiedAt": "Sample verifiedAt (200)."
+    },
+    {
+      "topic": "Sample topic (201).",
+      "url": "https://example.com/rules",
+      "edition": "2014",
+      "verifiedAt": "Sample verifiedAt (202)."
+    },
+    {
+      "topic": "Sample topic (203).",
+      "url": "https://example.com/rules",
+      "edition": "2014",
+      "verifiedAt": "Sample verifiedAt (204)."
+    },
+    {
+      "topic": "Sample topic (205).",
+      "url": "https://example.com/rules",
+      "edition": "2014",
+      "verifiedAt": "Sample verifiedAt (206)."
+    },
+    {
+      "topic": "Sample topic (207).",
+      "url": "https://example.com/rules",
+      "edition": "2014",
+      "verifiedAt": "Sample verifiedAt (208)."
+    },
+    {
+      "topic": "Sample topic (209).",
+      "url": "https://example.com/rules",
+      "edition": "2014",
+      "verifiedAt": "Sample verifiedAt (210)."
+    },
+    {
+      "topic": "Sample topic (211).",
+      "url": "https://example.com/rules",
+      "edition": "n/a",
+      "verifiedAt": "Sample verifiedAt (212).",
+      "notes": "Sample notes about Mira (213)."
+    },
+    {
+      "topic": "Sample topic (214).",
+      "url": "https://example.com/rules",
+      "edition": "2014",
+      "verifiedAt": "Sample verifiedAt (215).",
+      "notes": "Sample notes (216)."
+    },
+    {
+      "topic": "Sample topic (217).",
+      "url": "https://example.com/rules",
+      "edition": "2014",
+      "verifiedAt": "Sample verifiedAt (218)."
+    }
+  ]
+}

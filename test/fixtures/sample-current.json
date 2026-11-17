@@ -1,0 +1,1050 @@
+{
+  "ruleset": "dnd5e",
+  "edition": "2014",
+  "status": "complete",
+  "currentStep": "review",
+  "constraints": {
+    "level": 10,
+    "campaignTone": "Sample campaignTone (1).",
+    "houseRules": [
+      "Sample houseRule (2).",
+      "Sample houseRule (3).",
+      "Sample houseRule (4).",
+      "Sample houseRule (5).",
+      "Sample houseRule (6).",
+      "Sample houseRule (7).",
+      "Sample houseRule about Mira (8)."
+    ],
+    "allowedSources": [
+      "PHB14",
+      "TCoE",
+      "XGtE",
+      "MotM",
+      "VGtM",
+      "MToF",
+      "expanded"
+    ],
+    "disallowedSources": [],
+    "sourceTier": "core_expanded",
+    "encumbranceRule": "none"
+  },
+  "contentSources": [
+    "PHB14",
+    "TCoE"
+  ],
+  "usedOptions": [
+    {
+      "option": "Human (Variant)",
+      "type": "race",
+      "source": "PHB14",
+      "notes": null
+    },
+    {
+      "option": "Fighter",
+      "type": "class",
+      "source": "PHB14",
+      "notes": null
+    },
+    {
+      "option": "Rune Knight",
+      "type": "subclass",
+      "source": "TCoE",
+      "notes": null
+    },
+    {
+      "option": "Outlander",
+      "type": "background",
+      "source": "PHB14",
+      "notes": null
+    },
+    {
+      "option": "Tough",
+      "type": "feat",
+      "source": "PHB14",
+      "notes": null
+    },
+    {
+      "option": "Sentinel",
+      "type": "feat",
+      "source": "PHB14",
+      "notes": null
+    },
+    {
+      "option": "Polearm Master",
+      "type": "feat",
+      "source": "PHB14",
+      "notes": null
+    },
+    {
+      "option": "Fire Rune",
+      "type": "rune",
+      "source": "TCoE",
+      "notes": null
+    },
+    {
+      "option": "Hill Rune",
+      "type": "rune",
+      "source": "TCoE",
+      "notes": null
+    },
+    {
+      "option": "Sample option (9).",
+      "type": "rune",
+      "source": "homebrew",
+      "notes": "Sample notes (10)."
+    },
+    {
+      "option": "Stone Rune",
+      "type": "rune",
+      "source": "TCoE",
+      "notes": null
+    }
+  ],
+  "identity": {
+    "name": "Mira",
+    "cultAlias": "Corvin",
+    "publicPersona": "Sample publicPersona about Corvin (11).",
+    "species": null,
+    "race": "Human",
+    "raceSubChoice": "Variant (+1 STR, +1 CON)",
+    "class": "Fighter",
+    "subclass": "Rune Knight",
+    "background": "Outlander",
+    "originFeat": null,
+    "alignment": "Neutral",
+    "gender": null,
+    "presentationNotes": "Sample presentationNotes about Mira (12)."
+  },
+  "cosmology": {
+    "entityToRelease": "Sample entityToRelease (13).",
+    "pantheon": "Sample pantheon (14).",
+    "belief": "Sample characterBelief (15).",
+    "cultSymbol": "Sample text (16).",
+    "cultSymbolNotes": "Sample text about Mira (17).",
+    "origin": "Sample characterOrigin about Corvin (18).",
+    "soundBites": [
+      {
+        "id": "bite_1",
+        "tier": "public",
+        "prompt": "Sample prompt (19).",
+        "answer": "Sample answer (20)."
+      },
+      {
+        "id": "bite_2",
+        "tier": "public",
+        "prompt": "Sample prompt (21).",
+        "answer": "Sample answer (22)."
+      },
+      {
+        "id": "bite_3",
+        "tier": "public",
+        "prompt": "Sample prompt (24).",
+        "answer": "Sample answer (25)."
+      },
+      {
+        "id": "bite_4",
+        "tier": "public",
+        "prompt": "Sample prompt (26).",
+        "answer": "Sample answer (27)."
+      },
+      {
+        "id": "bite_5",
+        "tier": "public",
+        "prompt": "Sample prompt (29).",
+        "answer": "Sample answer (30)."
+      },
+      {
+        "id": "bite_6",
+        "tier": "secret",
+        "prompt": "Sample prompt (32).",
+        "answer": "Sample answer (33)."
+      },
+      {
+        "id": "bite_7",
+        "tier": "secret",
+        "prompt": "Sample prompt (34).",
+        "answer": "Sample answer (35)."
+      },
+      {
+        "id": "bite_8",
+        "tier": "secret",
+        "prompt": "Sample prompt about Corvin (37).",
+        "answer": "Sample answer about Mira (38)."
+      },
+      {
+        "id": "bite_9",
+        "tier": "secret",
+        "prompt": "Sample prompt (39).",
+        "answer": "Sample answer (40)."
+      },
+      {
+        "id": "bite_10",
+        "tier": "secret",
+        "prompt": "Sample prompt (41).",
+        "answer": "Sample answer (42)."
+      },
+      {
+        "id": "bite_11",
+        "tier": "secret",
+        "prompt": "Sample prompt (43).",
+        "answer": "Sample answer (44)."
+      },
+      {
+        "id": "bite_12",
+        "tier": "secret",
+        "prompt": "Sample prompt (45).",
+        "answer": "Sample answer (46)."
+      }
+    ],
+    "parents": {
+      "faith": "Sample faith (47).",
+      "fate": "Sample fate (48).",
+      "godsResponse": "Sample godsResponse (49)."
+    }
+  },
+  "abilityScores": {
+    "method": "point_buy",
+    "base": {
+      "STR": 15,
+      "DEX": 14,
+      "CON": 13,
+      "INT": 10,
+      "WIS": 10,
+      "CHA": 10
+    },
+    "backgroundBonuses": {},
+    "racialBonuses": {
+      "STR": 1,
+      "CON": 1
+    },
+    "asiHistory": [
+      {
+        "level": 4,
+        "choice": "feat",
+        "feat": "Sentinel"
+      },
+      {
+        "level": 6,
+        "choice": "feat",
+        "feat": "Polearm Master"
+      },
+      {
+        "level": 8,
+        "choice": "+2 CON",
+        "feat": null
+      }
+    ],
+    "final": {
+      "STR": 16,
+      "DEX": 14,
+      "CON": 16,
+      "INT": 10,
+      "WIS": 10,
+      "CHA": 10
+    },
+    "pointBuySpent": 27,
+    "pointBuyUnspent": 0,
+    "pointBuyNotes": "Sample pointBuyNotes (50)."
+  },
+  "feats": [
+    {
+      "name": "Tough",
+      "source": "PHB14",
+      "level": 1,
+      "from": "Variant Human",
+      "rulesText": "Sample rulesText for Tough (52)."
+    },
+    {
+      "name": "Sentinel",
+      "source": "PHB14",
+      "level": 4,
+      "from": "ASI",
+      "rulesText": "Sample rulesText for Sentinel (54)."
+    },
+    {
+      "name": "Polearm Master",
+      "source": "PHB14",
+      "level": 6,
+      "from": "ASI",
+      "rulesText": "Sample rulesText for Polearm Master (56)."
+    }
+  ],
+  "fightingStyle": "Great Weapon Fighting",
+  "runes": {
+    "known": [
+      "Fire",
+      "Hill",
+      "Sample known (57).",
+      "Stone"
+    ],
+    "inscribed": {
+      "halberd": "Sample halberd (58).",
+      "halfPlate": "Sample halfPlate (59).",
+      "jewelry": "Sample jewelry (60)."
+    },
+    "saveDC": 15,
+    "eclipseRune": null,
+    "optionalVariant": null
+  },
+  "proficiencies": {
+    "skills": [
+      {
+        "name": "Athletics",
+        "source": "Fighter",
+        "modifier": 7,
+        "notes": null
+      },
+      {
+        "name": "Survival",
+        "source": "Fighter",
+        "modifier": 4,
+        "notes": null
+      },
+      {
+        "name": "Perception",
+        "source": "Outlander (replacement)",
+        "modifier": 4,
+        "notes": null
+      },
+      {
+        "name": "Acrobatics",
+        "source": "Outlander (replacement)",
+        "modifier": 6,
+        "notes": null
+      }
+    ],
+    "tools": [
+      "Smith's tools"
+    ],
+    "toolsNotes": "Sample toolsNotes (61).",
+    "languages": [
+      "Common",
+      "Giant",
+      "Deep Speech"
+    ],
+    "armor": [
+      "All armor",
+      "Shields"
+    ],
+    "weapons": [
+      "Simple weapons",
+      "Martial weapons"
+    ],
+    "savingThrows": [
+      "Strength",
+      "Constitution"
+    ]
+  },
+  "startingEquipment": {
+    "method": "gold_buy",
+    "level1GoldRoll": "Sample level1GoldRoll (62).",
+    "backgroundGold": "Sample backgroundGold (63)."
+  },
+  "equipment": [
+    {
+      "name": "+1 Half plate",
+      "quantity": 1,
+      "weightLb": 40,
+      "notes": "Sample notes about Corvin (64)."
+    },
+    {
+      "name": "+1 Halberd",
+      "quantity": 1,
+      "weightLb": 6,
+      "notes": "Sample notes (65)."
+    },
+    {
+      "name": "Sample name (66).",
+      "quantity": 1,
+      "weightLb": 1,
+      "notes": "Sample notes (67)."
+    },
+    {
+      "name": "Javelins",
+      "quantity": 4,
+      "weightLb": 2,
+      "notes": null
+    },
+    {
+      "name": "Monster trophy",
+      "quantity": 1,
+      "weightLb": 3,
+      "notes": "Sample notes (68)."
+    },
+    {
+      "name": "Belt pouch",
+      "quantity": 1,
+      "weightLb": 1,
+      "notes": null
+    },
+    {
+      "name": "Smith's tools",
+      "quantity": 1,
+      "weightLb": 8,
+      "notes": null
+    },
+    {
+      "name": "Rations",
+      "quantity": 1,
+      "weightLb": 2,
+      "notes": "Sample notes (69)."
+    },
+    {
+      "name": "Boots of Elvenkind",
+      "quantity": 1,
+      "weightLb": 0.5,
+      "notes": "Sample notes (70)."
+    },
+    {
+      "name": "Potion of Speed",
+      "quantity": 1,
+      "weightLb": null,
+      "notes": "Sample notes (71)."
+    }
+  ],
+  "equipmentLocations": [],
+  "equipmentStash": null,
+  "consumables": [
+    {
+      "name": "Potion of healing",
+      "quantity": 5,
+      "unitPriceGp": 50,
+      "totalPriceGp": 250,
+      "source": "DMG14",
+      "rulesText": "Sample rulesText for Potion of healing (73).",
+      "weightLb": 0.5
+    },
+    {
+      "name": "Potion of greater healing",
+      "quantity": 3,
+      "unitPriceGp": 150,
+      "totalPriceGp": 450,
+      "source": "DMG14",
+      "rulesText": "Sample rulesText for Potion of greater healing (75).",
+      "weightLb": 0.5
+    },
+    {
+      "name": "Sample name (76).",
+      "quantity": 1,
+      "unitPriceGp": 200,
+      "totalPriceGp": 200,
+      "source": "session",
+      "rulesText": "Sample rulesText (77).",
+      "weightLb": null
+    },
+    {
+      "name": "potion of enlarge",
+      "quantity": 1,
+      "unitPriceGp": null,
+      "totalPriceGp": null,
+      "source": null,
+      "rulesText": "Sample rulesText for potion of enlarge (79).",
+      "weightLb": null
+    }
+  ],
+  "wealth": {
+    "gold": 1226,
+    "startingGold": 1000,
+    "spentOnConsumables": 700,
+    "spentOnCultDonation": 200,
+    "notes": "Sample notes (80)."
+  },
+  "magicItems": [
+    {
+      "name": "+1 Halberd",
+      "rarity": "uncommon",
+      "source": "DM starting",
+      "slot": "magic weapon",
+      "notes": null,
+      "rulesText": null,
+      "weightLb": null
+    },
+    {
+      "name": "+1 Half plate",
+      "rarity": "uncommon",
+      "source": "DM starting",
+      "slot": "uncommon item",
+      "notes": "Sample notes (81).",
+      "rulesText": null,
+      "weightLb": null
+    },
+    {
+      "name": "Boots of Elvenkind",
+      "rarity": "uncommon",
+      "source": "found",
+      "slot": "feet",
+      "notes": "Sample notes (82).",
+      "rulesText": "Sample rulesText for Boots of Elvenkind (84).",
+      "weightLb": 0.5
+    }
+  ],
+  "personality": {
+    "traits": [
+      "Sample trait (85).",
+      "Sample trait (86)."
+    ],
+    "ideals": [
+      "Sample ideal (87)."
+    ],
+    "bonds": [
+      "Sample bond (88).",
+      "Sample bond (89)."
+    ],
+    "flaws": [
+      "Sample flaw (90).",
+      "Sample flaw (91)."
+    ],
+    "notes": "Sample notes about Mira (92)."
+  },
+  "appearance": {
+    "age": "Sample age (93).",
+    "height": "Sample height (94).",
+    "weightLb": 169,
+    "physiqueNotes": "Sample physiqueNotes (95).",
+    "greatStature": {
+      "atLevel": 10,
+      "feature": "Sample feature (96).",
+      "height": "Sample height (97).",
+      "weightLb": 175,
+      "notes": "Sample notes (98)."
+    },
+    "titleNotes": "Sample titleNotes (99).",
+    "outlanderOrigin": "Sample outlanderOrigin (100).",
+    "trophy": "Sample trophy (101).",
+    "hillRuneJewelry": "Sample hillRuneJewelry (102).",
+    "cultTattoo": "Sample text (103).",
+    "underArmorLeotard": "Sample underArmorLeotard (104).",
+    "armorPresentation": "Sample armorPresentation about Mira (105).",
+    "portraitPrefs": {
+      "activeSetId": "set_1",
+      "sets": {
+        "outfit_leotard": {
+          "defaultExpression": "Sample defaultExpression (107).",
+          "defaultFacing": "Sample defaultFacing (108).",
+          "offsetX": 10.692383,
+          "offsetY": 286.4922,
+          "scale": 1
+        },
+        "Sample item 109": {
+          "defaultExpression": "Sample defaultExpression (110).",
+          "defaultFacing": "Sample defaultFacing (111).",
+          "offsetX": 5.375,
+          "offsetY": 210.83789,
+          "scale": 1
+        }
+      }
+    },
+    "helm": {
+      "type": "fully_enclosed_sculpted_bucket",
+      "shape": "Sample shape (112).",
+      "finish": "Sample finish (113).",
+      "hairWhenWorn": "Sample hairWhenWorn (114)."
+    },
+    "descriptions": {
+      "armoredHelmOn": "Sample armoredHelmOn (115).",
+      "armoredHelmOff": "Sample armoredHelmOff (116).",
+      "unarmored": "Sample unarmored (117)."
+    }
+  },
+  "features": [
+    {
+      "id": "fighting_style_gwf",
+      "name": "Fighting Style: Great Weapon Fighting",
+      "source": "PHB14",
+      "uses": null,
+      "rulesText": "Sample rulesText for Fighting Style: Great Weapon Fighting (119)."
+    },
+    {
+      "id": "second_wind",
+      "name": "Second Wind",
+      "source": "PHB14",
+      "uses": {
+        "max": 1,
+        "per": "short_rest"
+      },
+      "rulesText": "Sample rulesText for Second Wind (121)."
+    },
+    {
+      "id": "action_surge",
+      "name": "Action Surge",
+      "source": "PHB14",
+      "uses": {
+        "max": 1,
+        "per": "short_rest"
+      },
+      "rulesText": "Sample rulesText for Action Surge (123)."
+    },
+    {
+      "id": "extra_attack",
+      "name": "Extra Attack",
+      "source": "PHB14",
+      "uses": null,
+      "rulesText": "Sample rulesText for Extra Attack (125)."
+    },
+    {
+      "id": "indomitable",
+      "name": "Indomitable",
+      "source": "PHB14",
+      "uses": {
+        "max": 1,
+        "per": "long_rest"
+      },
+      "rulesText": "Sample rulesText for Indomitable (127)."
+    },
+    {
+      "id": "rune_carver",
+      "name": "Rune Carver",
+      "source": "TCoE",
+      "uses": null,
+      "rulesText": "Sample rulesText for Rune Carver (129)."
+    },
+    {
+      "id": "fire_rune_passive",
+      "name": "Fire Rune (passive)",
+      "source": "TCoE",
+      "uses": null,
+      "rulesText": "Sample rulesText for Fire Rune (passive) (131)."
+    },
+    {
+      "id": "fire_rune_invoke",
+      "name": "Fire Rune (invoke)",
+      "source": "TCoE",
+      "uses": {
+        "max": 1,
+        "per": "short_rest"
+      },
+      "rulesText": "Sample rulesText for Fire Rune (invoke) (133)."
+    },
+    {
+      "id": "hill_rune_passive",
+      "name": "Hill Rune (passive)",
+      "source": "TCoE",
+      "uses": null,
+      "rulesText": "Sample rulesText for Hill Rune (passive) (135)."
+    },
+    {
+      "id": "hill_rune_invoke",
+      "name": "Hill Rune (invoke)",
+      "source": "TCoE",
+      "uses": {
+        "max": 1,
+        "per": "short_rest"
+      },
+      "rulesText": "Sample rulesText for Hill Rune (invoke) (137)."
+    },
+    {
+      "id": "Sample id (138).",
+      "name": "Sample name (139).",
+      "source": "homebrew",
+      "uses": null,
+      "rulesText": "Sample rulesText (140)."
+    },
+    {
+      "id": "Sample id (141).",
+      "name": "Sample name (142).",
+      "source": "homebrew",
+      "uses": {
+        "max": 1,
+        "per": "short_rest"
+      },
+      "rulesText": "Sample rulesText (143)."
+    },
+    {
+      "id": "stone_rune_passive",
+      "name": "Stone Rune (passive)",
+      "source": "TCoE",
+      "uses": null,
+      "rulesText": "Sample rulesText for Stone Rune (passive) (145)."
+    },
+    {
+      "id": "stone_rune_invoke",
+      "name": "Stone Rune (invoke)",
+      "source": "TCoE",
+      "uses": {
+        "max": 1,
+        "per": "short_rest"
+      },
+      "rulesText": "Sample rulesText for Stone Rune (invoke) (147)."
+    },
+    {
+      "id": "giants_might",
+      "name": "Giant's Might",
+      "source": "TCoE",
+      "uses": {
+        "max": 4,
+        "per": "long_rest"
+      },
+      "rulesText": "Sample rulesText for Giant's Might (149)."
+    },
+    {
+      "id": "great_stature",
+      "name": "Great Stature",
+      "source": "TCoE",
+      "uses": null,
+      "rulesText": "Sample rulesText for Great Stature (151)."
+    },
+    {
+      "id": "runic_shield",
+      "name": "Runic Shield",
+      "source": "TCoE",
+      "uses": {
+        "max": 4,
+        "per": "long_rest"
+      },
+      "rulesText": "Sample rulesText for Runic Shield (153)."
+    },
+    {
+      "id": "outlander_wanderer",
+      "name": "Wanderer",
+      "source": "PHB14",
+      "uses": null,
+      "rulesText": "Sample rulesText for Wanderer (155)."
+    },
+    {
+      "id": "sentinel",
+      "name": "Sentinel",
+      "source": "PHB14",
+      "uses": null,
+      "rulesText": "Sample rulesText for Sentinel (157)."
+    },
+    {
+      "id": "polearm_master",
+      "name": "Polearm Master",
+      "source": "PHB14",
+      "uses": null,
+      "rulesText": "Sample rulesText for Polearm Master (159)."
+    }
+  ],
+  "combatActions": {
+    "movement": [
+      {
+        "id": "move_speed",
+        "name": "Move",
+        "summary": "Sample summary for Move (161).",
+        "featureId": null,
+        "secret": false,
+        "rulesText": null
+      },
+      {
+        "id": "move_oa_space",
+        "name": "Leaving reach",
+        "summary": "Sample summary for Leaving reach (163).",
+        "featureId": null,
+        "secret": false,
+        "rulesText": null
+      }
+    ],
+    "action": [
+      {
+        "id": "action_attack",
+        "name": "Attack (Extra Attack)",
+        "summary": "Sample summary for Attack (Extra Attack) (165).",
+        "featureId": "extra_attack",
+        "secret": false,
+        "rulesText": null
+      },
+      {
+        "id": "action_action_surge",
+        "name": "Action Surge",
+        "summary": "Sample summary for Action Surge (167).",
+        "featureId": "action_surge",
+        "secret": false,
+        "rulesText": null
+      },
+      {
+        "id": "action_dash",
+        "name": "Dash / Disengage / Dodge / Help",
+        "summary": "Sample summary for Dash / Disengage / Dodge / Help (169).",
+        "featureId": null,
+        "secret": false,
+        "rulesText": null
+      }
+    ],
+    "bonus": [
+      {
+        "id": "bonus_pam",
+        "name": "Polearm Master butt strike",
+        "summary": "Sample summary for Polearm Master butt strike (171).",
+        "featureId": "polearm_master",
+        "secret": false,
+        "rulesText": null
+      },
+      {
+        "id": "bonus_second_wind",
+        "name": "Second Wind",
+        "summary": "Sample summary for Second Wind (173).",
+        "featureId": "second_wind",
+        "secret": false,
+        "rulesText": null
+      },
+      {
+        "id": "bonus_giants_might",
+        "name": "Giant's Might",
+        "summary": "Sample summary for Giant's Might (175).",
+        "featureId": "giants_might",
+        "secret": false,
+        "rulesText": null
+      },
+      {
+        "id": "Sample id (176).",
+        "name": "Sample name (177).",
+        "summary": "Sample summary (178).",
+        "featureId": "Sample featureId (179).",
+        "secret": true,
+        "rulesText": null
+      },
+      {
+        "id": "bonus_hill_rune",
+        "name": "Invoke Hill Rune",
+        "summary": "Sample summary for Invoke Hill Rune (181).",
+        "featureId": "hill_rune_invoke",
+        "secret": false,
+        "rulesText": null
+      }
+    ],
+    "reaction": [
+      {
+        "id": "reaction_sentinel",
+        "name": "Sentinel",
+        "summary": "Sample summary for Sentinel (183).",
+        "featureId": "sentinel",
+        "secret": false,
+        "rulesText": null
+      },
+      {
+        "id": "reaction_pam_oa",
+        "name": "Polearm Master opportunity attack",
+        "summary": "Sample summary for Polearm Master opportunity attack (185).",
+        "featureId": "polearm_master",
+        "secret": false,
+        "rulesText": null
+      },
+      {
+        "id": "reaction_runic_shield",
+        "name": "Runic Shield",
+        "summary": "Sample summary for Runic Shield (187).",
+        "featureId": "runic_shield",
+        "secret": false,
+        "rulesText": null
+      },
+      {
+        "id": "reaction_stone_rune",
+        "name": "Invoke Stone Rune",
+        "summary": "Sample summary for Invoke Stone Rune (189).",
+        "featureId": "stone_rune_invoke",
+        "secret": false,
+        "rulesText": null
+      },
+      {
+        "id": "Sample id (190).",
+        "name": "Sample name (191).",
+        "summary": "Sample summary (192).",
+        "featureId": "Sample featureId (193).",
+        "secret": true,
+        "rulesText": null
+      }
+    ],
+    "freeOrSpecial": [
+      {
+        "id": "special_indomitable",
+        "name": "Indomitable",
+        "summary": "Sample summary for Indomitable (195).",
+        "featureId": "indomitable",
+        "secret": false,
+        "rulesText": null
+      },
+      {
+        "id": "special_gwf",
+        "name": "Great Weapon Fighting",
+        "summary": "Sample summary for Great Weapon Fighting (197).",
+        "featureId": "fighting_style_gwf",
+        "secret": false,
+        "rulesText": null
+      },
+      {
+        "id": "special_extra_attack_note",
+        "name": "Extra Attack reminder",
+        "summary": "Sample summary for Extra Attack reminder (199).",
+        "featureId": "extra_attack",
+        "secret": false,
+        "rulesText": null
+      }
+    ],
+    "onHitOrTrigger": [
+      {
+        "id": "trigger_fire_rune",
+        "name": "Invoke Fire Rune",
+        "summary": "Sample summary for Invoke Fire Rune (201).",
+        "featureId": "fire_rune_invoke",
+        "secret": false,
+        "rulesText": null
+      },
+      {
+        "id": "trigger_sentinel_stop",
+        "name": "Sentinel stop",
+        "summary": "Sample summary for Sentinel stop (203).",
+        "featureId": "sentinel",
+        "secret": false,
+        "rulesText": null
+      },
+      {
+        "id": "trigger_pam_enter",
+        "name": "Halberd reach entry",
+        "summary": "Sample summary for Halberd reach entry (205).",
+        "featureId": "polearm_master",
+        "secret": false,
+        "rulesText": null
+      }
+    ]
+  },
+  "spells": {
+    "ability": null,
+    "cantrips": [],
+    "known": [],
+    "prepared": [],
+    "slots": {}
+  },
+  "derived": {
+    "level": 10,
+    "proficiencyBonus": 4,
+    "hitPoints": {
+      "total": 110,
+      "method": "average",
+      "formula": "Sample formula (206).",
+      "notes": "Sample notes (207)."
+    },
+    "hitDice": "10d10",
+    "armorClass": 18,
+    "speed": 30,
+    "initiative": 2,
+    "passivePerception": 14,
+    "stealth": "Sample stealth (208).",
+    "level10Preview": {},
+    "attacks": [
+      {
+        "name": "+1 Halberd",
+        "bonus": 8,
+        "damage": "1d10+4 slashing",
+        "reach": 10,
+        "range": null,
+        "notes": null
+      },
+      {
+        "name": "Halberd butt-end (PAM)",
+        "bonus": 8,
+        "damage": "1d4+4 bludgeoning",
+        "reach": 10,
+        "range": null,
+        "notes": "Sample notes (209)."
+      },
+      {
+        "name": "Javelin",
+        "bonus": 7,
+        "damage": "1d6+3 piercing",
+        "reach": null,
+        "range": "30/120",
+        "notes": null
+      }
+    ],
+    "savingThrows": {
+      "STR": 7,
+      "DEX": 2,
+      "CON": 7,
+      "INT": 0,
+      "WIS": 0,
+      "CHA": 0
+    }
+  },
+  "sources": [
+    {
+      "topic": "Sample topic (210).",
+      "url": "https://example.com/rules",
+      "edition": "2014",
+      "verifiedAt": "Sample verifiedAt (211)."
+    },
+    {
+      "topic": "Sample topic (212).",
+      "url": "https://example.com/rules",
+      "edition": "2014",
+      "verifiedAt": "Sample verifiedAt (213)."
+    },
+    {
+      "topic": "Sample topic (214).",
+      "url": "https://example.com/rules",
+      "edition": "2014",
+      "verifiedAt": "Sample verifiedAt (215)."
+    },
+    {
+      "topic": "Sample topic (216).",
+      "url": "https://example.com/rules",
+      "edition": "2014",
+      "verifiedAt": "Sample verifiedAt (217)."
+    },
+    {
+      "topic": "Sample topic (218).",
+      "url": "https://example.com/rules",
+      "edition": "2014",
+      "verifiedAt": "Sample verifiedAt (219)."
+    },
+    {
+      "topic": "Sample topic (220).",
+      "url": "https://example.com/rules",
+      "edition": "2014",
+      "verifiedAt": "Sample verifiedAt (221)."
+    },
+    {
+      "topic": "Sample topic (222).",
+      "url": "https://example.com/rules",
+      "edition": "n/a",
+      "verifiedAt": "Sample verifiedAt (223)."
+    },
+    {
+      "topic": "Sample topic (224).",
+      "url": "https://example.com/rules",
+      "edition": "2014",
+      "verifiedAt": "Sample verifiedAt (225)."
+    },
+    {
+      "topic": "Sample topic (226).",
+      "url": "https://example.com/rules",
+      "edition": "2014",
+      "verifiedAt": "Sample verifiedAt (227)."
+    },
+    {
+      "topic": "Sample topic (228).",
+      "url": "https://example.com/rules",
+      "edition": "2014",
+      "verifiedAt": "Sample verifiedAt (229)."
+    },
+    {
+      "topic": "Sample topic (230).",
+      "url": "https://example.com/rules",
+      "edition": "2014",
+      "verifiedAt": "Sample verifiedAt (231)."
+    },
+    {
+      "topic": "Sample topic (232).",
+      "url": "https://example.com/rules",
+      "edition": "2014",
+      "verifiedAt": "Sample verifiedAt (233)."
+    },
+    {
+      "topic": "Sample topic (234).",
+      "url": "https://example.com/rules",
+      "edition": "2014",
+      "verifiedAt": "Sample verifiedAt (235)."
+    },
+    {
+      "topic": "Sample topic (236).",
+      "url": "https://example.com/rules",
+      "edition": "2014",
+      "verifiedAt": "Sample verifiedAt (237)."
+    },
+    {
+      "topic": "Sample topic (238).",
+      "url": "https://example.com/rules",
+      "edition": "2014",
+      "verifiedAt": "Sample verifiedAt (239)."
+    }
+  ]
+}

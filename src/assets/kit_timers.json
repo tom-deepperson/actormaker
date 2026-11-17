@@ -1,0 +1,83 @@
+[
+  {
+    "featureIdPatterns": ["rage", "path-of-", "berserker"],
+    "name": "Rage",
+    "kind": "buff",
+    "roundsRemaining": 10,
+    "endsOn": "end_of_your_turn",
+    "autoOnEnter": false,
+    "notes": "Rage (typically 1 minute)."
+  },
+  {
+    "featureIdPatterns": ["giants-might", "giant-s-might", "giant_might"],
+    "name": "Giant's Might",
+    "kind": "buff",
+    "roundsRemaining": 10,
+    "endsOn": "end_of_your_turn",
+    "autoOnEnter": true,
+    "notes": "Become Large; bonus to Strength attacks (1 minute)."
+  },
+  {
+    "featureIdPatterns": ["reckless-attack", "reckless_attack"],
+    "name": "Reckless Attack",
+    "kind": "buff",
+    "roundsRemaining": 1,
+    "endsOn": "end_of_your_turn",
+    "autoOnEnter": false,
+    "notes": "Advantage on STR attacks; attacks vs you have advantage this turn."
+  },
+  {
+    "featureIdPatterns": ["divine-smite", "smite"],
+    "name": "Divine Smite",
+    "kind": "buff",
+    "roundsRemaining": 1,
+    "endsOn": "end_of_your_turn",
+    "autoOnEnter": false,
+    "notes": "Extra radiant damage on a hit (expends a spell slot)."
+  },
+  {
+    "featureIdPatterns": ["huntings-mark", "hunters-mark", "hunter-s-mark"],
+    "name": "Hunter's Mark",
+    "kind": "debuff",
+    "roundsRemaining": 10,
+    "endsOn": "end_of_your_turn",
+    "autoOnEnter": false,
+    "notes": "Extra weapon damage vs marked target (concentration)."
+  },
+  {
+    "featureIdPatterns": ["hexblade", "hex"],
+    "name": "Hex / Hexblade's Curse",
+    "kind": "debuff",
+    "roundsRemaining": 10,
+    "endsOn": "end_of_your_turn",
+    "autoOnEnter": false,
+    "notes": "Bonus damage / curse effects (check feature text)."
+  },
+  {
+    "featureIdPatterns": ["second-wind", "second_wind"],
+    "name": "Second Wind",
+    "kind": "buff",
+    "roundsRemaining": 1,
+    "endsOn": "end_of_your_turn",
+    "autoOnEnter": false,
+    "notes": "Heal (no timer needed beyond noting use)."
+  },
+  {
+    "featureIdPatterns": ["action-surge", "action_surge"],
+    "name": "Action Surge",
+    "kind": "buff",
+    "roundsRemaining": 1,
+    "endsOn": "end_of_your_turn",
+    "autoOnEnter": false,
+    "notes": "Extra action this turn."
+  },
+  {
+    "featureIdPatterns": ["wild-shape", "wild_shape"],
+    "name": "Wild Shape",
+    "kind": "buff",
+    "roundsRemaining": null,
+    "endsOn": "permanent",
+    "autoOnEnter": false,
+    "notes": "Beast form until ended or HP of form reaches 0."
+  }
+]
