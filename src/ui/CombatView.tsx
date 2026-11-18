@@ -1,4 +1,4 @@
-/** Combat view. Mirrors android/.../ui/CondensedCombatView.kt and combat/EffectsSheet.kt. */
+/** Combat view. Mirrors archive/android/.../ui/CondensedCombatView.kt and combat/EffectsSheet.kt. */
 import { useState } from 'preact/hooks';
 import { formatModifier, humanizeKey } from '../data/model';
 import {

@@ -1,4 +1,4 @@
-/** Port of android/.../data/ActionBoard.kt: every turn option as a card, with its cost and uses. */
+/** Port of archive/android/.../data/ActionBoard.kt: every turn option as a card, with its cost and uses. */
 import type { AttackEntry, CharacterSheet, CombatActionEntry, FeatureUses } from './model';
 import { formatModifier } from './model';
 import type { TrackerState } from './tracker';

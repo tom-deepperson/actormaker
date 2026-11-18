@@ -1,4 +1,4 @@
-/** Dice roller. Mirrors android/.../ui/RollDialog.kt. */
+/** Dice roller. Mirrors archive/android/.../ui/RollDialog.kt. */
 import { useMemo, useState } from 'preact/hooks';
 import { type DiceExpr, type RollMode, breakdown, d20, isNatural1, isNatural20, roll } from '../data/dice';
 import { Dialog } from './common';

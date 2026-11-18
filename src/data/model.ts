@@ -1,5 +1,5 @@
 /**
- * character.json model. Mirrors android/.../data/CharacterModels.kt (CharacterSheet and children).
+ * character.json model. Mirrors archive/android/.../data/CharacterModels.kt (CharacterSheet and children).
  *
  * Sheets are kept as plain JSON objects so unknown keys survive a round trip. `parseSheet` only
  * normalizes the fields the Android serializers are lenient about (legacy string features and

@@ -1,4 +1,4 @@
-/** Sheet sections. Mirrors android/.../ui/SheetSections.kt, including what each view context hides. */
+/** Sheet sections. Mirrors archive/android/.../ui/SheetSections.kt, including what each view context hides. */
 import {
   type CharacterSheet, type Feature, abilityModifier, actionBuckets, cosmologyBelief, cosmologyOrigin, formatModifier, isSecretBite, level, restLabel,
 } from '../data/model';

@@ -1,4 +1,4 @@
-// Spec: android/app/src/test/.../data/TrackerStateTest.kt and HitDiceAndSlotsTest.kt
+// Spec: archive/android/app/src/test/.../data/TrackerStateTest.kt and HitDiceAndSlotsTest.kt
 import { describe, expect, it } from 'vitest';
 import { abilityModifier, type CharacterSheet } from '../src/data/model';
 import {

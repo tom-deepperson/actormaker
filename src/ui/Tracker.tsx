@@ -1,4 +1,4 @@
-/** Live tracker. Mirrors android/.../ui/TrackerControls.kt. */
+/** Live tracker. Mirrors archive/android/.../ui/TrackerControls.kt. */
 import { useState } from 'preact/hooks';
 import { abilityModifier, type Feature, formatModifier, restLabel } from '../data/model';
 import {

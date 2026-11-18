@@ -1,5 +1,5 @@
 /**
- * Port of android/.../data/DmHandoffExporter.kt: a play-ready text snapshot for whoever runs the
+ * Port of archive/android/.../data/DmHandoffExporter.kt: a play-ready text snapshot for whoever runs the
  * character while the player is away. Plain text with light Markdown.
  */
 import {

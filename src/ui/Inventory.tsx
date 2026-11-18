@@ -1,4 +1,4 @@
-/** Inventory and coin purse. Mirrors android/.../ui/InventorySection.kt and ui/CoinPurse.kt. */
+/** Inventory and coin purse. Mirrors archive/android/.../ui/InventorySection.kt and ui/CoinPurse.kt. */
 import { useState } from 'preact/hooks';
 import {
   type CharacterSheet, type ConsumableEntry, type EquipmentEntry, type MagicItem, equipmentLabel, formatWeightLb,

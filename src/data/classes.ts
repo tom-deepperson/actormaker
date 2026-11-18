@@ -1,4 +1,4 @@
-/** Port of android/.../data/ClassRules.kt. */
+/** Port of archive/android/.../data/ClassRules.kt. */
 import { type CharacterSheet, type ClassLevel, level } from './model';
 
 export interface ClassInfo { name: string; hitDie: number; prerequisite: string[][] }

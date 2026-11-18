@@ -1,6 +1,6 @@
 /**
  * Raw HTTP calls to Gemini, OpenAI (Responses API) and Anthropic, straight from the browser.
- * Port of android/.../ai/AiAssistantClient.kt (transport only; the flows live in ./assistant.ts).
+ * Port of archive/android/.../ai/AiAssistantClient.kt (transport only; the flows live in ./assistant.ts).
  * All three APIs allow browser calls (CORS); Anthropic needs the direct-browser-access header.
  */
 

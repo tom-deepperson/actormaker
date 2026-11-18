@@ -1,4 +1,4 @@
-/** Port of android/.../data/ExploreBoard.kt: skills, checks, saves, senses and utility traits. */
+/** Port of archive/android/.../data/ExploreBoard.kt: skills, checks, saves, senses and utility traits. */
 import { type CharacterSheet, type Feature, abilityModifier, actionBuckets } from './model';
 import { inferCost, isSecretRune } from './actionBoard';
 

@@ -1,6 +1,6 @@
 /**
  * Portrait mode and Play mode: a 9:16 scene with a character cutout over a background.
- * Port of android/.../portrait/PortraitModeScreen.kt and PlayModeScreen.kt.
+ * Port of archive/android/.../portrait/PortraitModeScreen.kt and PlayModeScreen.kt.
  *
  * Portrait mode: browse outfits, expressions, facings and scenes; unlock to drag/pinch the cutout
  * into place (saved per outfit in sheet.appearance.portraitPrefs, the same shape Android wrote).

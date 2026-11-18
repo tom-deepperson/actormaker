@@ -1,4 +1,4 @@
-/** Quick rules reference for the table. Port of android/.../ui/QuickHelpSheet.kt and data/HelpContentLoader.kt. */
+/** Quick rules reference for the table. Port of archive/android/.../ui/QuickHelpSheet.kt and data/HelpContentLoader.kt. */
 import { useState } from 'preact/hooks';
 import combat14 from '../assets/help/2014/combat.md?raw';
 import nonCombat14 from '../assets/help/2014/non_combat.md?raw';

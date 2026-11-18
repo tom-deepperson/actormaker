@@ -1,7 +1,7 @@
 /**
  * Game-style turn board: economy orbs on top, then every option the character has as tappable cards,
  * filtered by cost. Tapping a card shows the full text, dice, and a Use button.
- * Mirrors android/.../ui/CombatBoard.kt.
+ * Mirrors archive/android/.../ui/CombatBoard.kt.
  */
 import { useMemo, useState } from 'preact/hooks';
 import {

@@ -1,5 +1,5 @@
 /**
- * Port of android/.../data/TrackerState.kt (TrackerState, HitDicePools, SpellSlots, rests).
+ * Port of archive/android/.../data/TrackerState.kt (TrackerState, HitDicePools, SpellSlots, rests).
  * Maps whose order matters (hit dice largest-first, slot levels then pact) use `Map`, since plain
  * objects reorder integer-like keys. Stored tracker state uses plain records, as the Android JSON does.
  */

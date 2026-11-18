@@ -1,4 +1,4 @@
-/** Port of android/.../data/Dice.kt. */
+/** Port of archive/android/.../data/Dice.kt. */
 
 /** One term of a dice expression: `count` dice of `sides` (sides 0 = flat number). */
 export interface DiceTerm { count: number; sides: number; sign: 1 | -1 }

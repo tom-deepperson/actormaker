@@ -1,5 +1,5 @@
 /**
- * Turns the files the player picked into what the model reads. Port of android/.../data/SheetScanLoader.kt.
+ * Turns the files the player picked into what the model reads. Port of archive/android/.../data/SheetScanLoader.kt.
  * Photos are decoded by the browser (HEIC works where the browser can show it, as on iPhone Safari),
  * shrunk to an 1800px long edge and re-encoded as JPEG; PDFs go as they are; text is pasted into the prompt.
  */

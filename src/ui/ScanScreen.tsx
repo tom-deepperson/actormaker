@@ -1,6 +1,6 @@
 /**
  * Build a character from photos of a paper sheet, a PDF, or a text file. A real character.json imports directly.
- * Mirrors android/.../ui/ScanSheetScreen.kt and CompanionViewModel.scanCharacterSheet.
+ * Mirrors archive/android/.../ui/ScanSheetScreen.kt and CompanionViewModel.scanCharacterSheet.
  */
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { importCharacterJson, requestPersistence } from '../data/db';

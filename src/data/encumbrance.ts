@@ -1,4 +1,4 @@
-/** Port of android/.../data/EncumbranceCalculator.kt. Stored (location) gear is not carried. */
+/** Port of archive/android/.../data/EncumbranceCalculator.kt. Stored (location) gear is not carried. */
 import { type CharacterSheet, lineWeightLb } from './model';
 import { type Coins, coinCount, wealthCoins } from './coins';
 

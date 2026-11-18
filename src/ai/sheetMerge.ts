@@ -1,4 +1,4 @@
-/** Port of android/.../ai/SheetMerge.kt and SheetChangeSummary (AiAssistantPrompts.kt). */
+/** Port of archive/android/.../ai/SheetMerge.kt and SheetChangeSummary (AiAssistantPrompts.kt). */
 import { type CharacterSheet, level, maxHp, parseSheet, resolvedEquipmentLocations } from '../data/model';
 import { extractJson } from './prompts';
 

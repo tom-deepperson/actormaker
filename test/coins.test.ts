@@ -1,4 +1,4 @@
-// Spec: android/app/src/test/.../data/CoinsAndClassesTest.kt and EncumbranceCalculatorTest.kt
+// Spec: archive/android/app/src/test/.../data/CoinsAndClassesTest.kt and EncumbranceCalculatorTest.kt
 import { describe, expect, it } from 'vitest';
 import { parseSheet, level } from '../src/data/model';
 import { coinLabel, coins, spend, valueCp, valueGpLabel, wealthCoins, withCoins } from '../src/data/coins';

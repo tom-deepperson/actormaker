@@ -1,4 +1,4 @@
-// Spec: android/app/src/test/.../ai/LevelUpPlanTest.kt, LevelUpRobustnessTest.kt, SheetChangeSummaryTest.kt
+// Spec: archive/android/app/src/test/.../ai/LevelUpPlanTest.kt, LevelUpRobustnessTest.kt, SheetChangeSummaryTest.kt
 // and the import cases of data/BoardsAndDiceTest.kt.
 import { describe, expect, it } from 'vitest';
 import { level, maxHp, normalizedForSave, parseSheet } from '../src/data/model';

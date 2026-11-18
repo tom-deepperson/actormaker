@@ -1,6 +1,6 @@
 /**
  * AI assistant for one character: Level up (look up options, choose, build, review), table Event, rules Research.
- * Mirrors android/.../ui/AiAssistantScreen.kt, LevelUpPanel.kt and the AI parts of CompanionViewModel.kt.
+ * Mirrors archive/android/.../ui/AiAssistantScreen.kt, LevelUpPanel.kt and the AI parts of CompanionViewModel.kt.
  */
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { type CharacterSheet, level, maxHp } from '../data/model';

@@ -1,4 +1,4 @@
-/** Port of android/.../ai/LevelUpPlan.kt and LevelUpCheck.choiceWarnings (SheetMerge.kt). */
+/** Port of archive/android/.../ai/LevelUpPlan.kt and LevelUpCheck.choiceWarnings (SheetMerge.kt). */
 import { type CharacterSheet, abilityModifier, formatModifier, level, normalizedForSave } from '../data/model';
 import { classLevels, classSummary, hitDieFor } from '../data/classes';
 import { extractJson } from './prompts';

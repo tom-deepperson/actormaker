@@ -1,4 +1,4 @@
-// Spec: android/app/src/test/.../data/{Equipment,Feature}*SerializerTest.kt, *ParseTest.kt,
+// Spec: archive/android/app/src/test/.../data/{Equipment,Feature}*SerializerTest.kt, *ParseTest.kt,
 // CombatSessionLogicTest.kt, DmHandoffExporterTest.kt and ui/SheetViewContextTest.kt
 import { describe, expect, it } from 'vitest';
 import {

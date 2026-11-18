@@ -1,4 +1,4 @@
-// Spec: android/.../portrait/PortraitRepository.kt and the portrait parts of CompanionViewModel.kt.
+// Spec: archive/android/.../portrait/PortraitRepository.kt and the portrait parts of CompanionViewModel.kt.
 // Fictional names only: this repository is public.
 import { describe, expect, it } from 'vitest';
 import { parseSheet } from '../src/data/model';

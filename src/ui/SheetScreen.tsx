@@ -1,4 +1,4 @@
-/** One character: Combat / Non-combat / Full tabs. Mirrors android/.../ui/CharacterSheetScreen.kt. */
+/** One character: Combat / Non-combat / Full tabs. Mirrors archive/android/.../ui/CharacterSheetScreen.kt. */
 import { useState } from 'preact/hooks';
 import { displayName, normalizedForSave, slugHint } from '../data/model';
 import { buildHandoff, handoffFileName } from '../data/handoff';

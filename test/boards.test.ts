@@ -1,4 +1,4 @@
-// Spec: android/app/src/test/.../data/BoardsAndDiceTest.kt
+// Spec: archive/android/app/src/test/.../data/BoardsAndDiceTest.kt
 import { describe, expect, it } from 'vitest';
 import { parseSheet } from '../src/data/model';
 import { d20, exprLabel, parseDice, roll, seededRng } from '../src/data/dice';

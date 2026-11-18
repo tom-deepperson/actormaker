@@ -1,5 +1,5 @@
 /**
- * Prompts, ported word for word from android/.../ai/LevelUpPrompts.kt, AiAssistantPrompts.kt and
+ * Prompts, ported word for word from archive/android/.../ai/LevelUpPrompts.kt, AiAssistantPrompts.kt and
  * CharacterImportPrompts.kt. The rules files are the Android app's assets/rules, bundled at build time.
  */
 import ruleset14 from '../assets/rules/2014/ruleset-dnd5e.mdc?raw';

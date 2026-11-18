@@ -1,4 +1,4 @@
-/** Out-of-combat board: tap a skill, check or save to roll it; traits with uses; rests. Mirrors android/.../ui/ExploreBoardView.kt. */
+/** Out-of-combat board: tap a skill, check or save to roll it; traits with uses; rests. Mirrors archive/android/.../ui/ExploreBoardView.kt. */
 import { useState } from 'preact/hooks';
 import { type Feature, formatModifier } from '../data/model';
 import { abilities, passives, skills, utilityFeatures } from '../data/exploreBoard';

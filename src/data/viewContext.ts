@@ -1,4 +1,4 @@
-/** Port of android/.../ui/SheetViewContext.kt: alias vs true name, player-safe mode. */
+/** Port of archive/android/.../ui/SheetViewContext.kt: alias vs true name, player-safe mode. */
 import type { CharacterIdentity, CharacterSheet, CombatActionEntry, SoundBite } from './model';
 import { displayName, isSecretBite } from './model';
 

@@ -1,6 +1,6 @@
 /**
  * Portrait and background library for Portrait and Play mode. Port of
- * android/.../portrait/PortraitRepository.kt and the portrait parts of CompanionViewModel.kt.
+ * archive/android/.../portrait/PortraitRepository.kt and the portrait parts of CompanionViewModel.kt.
  *
  * Pure logic: it works on file names (what was imported) plus the manifest text; the screens
  * turn names into blob URLs.

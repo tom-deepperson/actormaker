@@ -1,4 +1,4 @@
-/** Port of android/.../data/CombatSession.kt and combat/CombatKitCatalog.kt. */
+/** Port of archive/android/.../data/CombatSession.kt and combat/CombatKitCatalog.kt. */
 import type { CharacterSheet } from './model';
 import conditionsJson from '../assets/conditions.json';
 import kitTimersJson from '../assets/kit_timers.json';
