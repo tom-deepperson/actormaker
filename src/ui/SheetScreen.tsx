@@ -12,6 +12,7 @@ import { InventorySection } from './Inventory';
 import { Dialog } from './common';
 import { HpCard, TrackerCard } from './Tracker';
 import { QuickHelpButton } from './QuickHelp';
+import { PortraitZoom, useFace } from './PortraitScreen';
 import {
   AbilitiesSection, ActionChecklist, AppearanceSection, BackstorySection, CombatStatsSection, CosmologySection,
   FeaturesSection, FeatsSection, PersonalitySection, ProficienciesSection, RunesSection, SoundBitesSection,
@@ -39,8 +40,10 @@ export function SheetScreen({ slug, settings, onSettings, onBack, onAi, onPortra
   const h = useCharacter(slug);
   const [menu, setMenu] = useState(false);
   const [handoff, setHandoff] = useState(false);
+  const [zoom, setZoom] = useState(false);
   const c = h.state;
   const { ctx, mode } = settings;
+  const face = useFace(slug, c?.sheet, ctx);
   // What the screen shows: in alias / player-safe views, text naming the true identity is left out.
   const v = c && redactForView(c.sheet, ctx) !== c.sheet ? { ...c, sheet: redactForView(c.sheet, ctx) } : c;
   const setMode = (m: SheetViewMode) => {
@@ -53,8 +56,13 @@ export function SheetScreen({ slug, settings, onSettings, onBack, onAi, onPortra
       <header class="topbar">
         <div class="topbar-row">
           <button class="icon ghost" aria-label="Back to characters" onClick={onBack}>←</button>
+          {face && (
+            <button class="head-face" aria-label="Show the portrait full size" onClick={() => setZoom(true)}>
+              <img src={face.url} alt="" draggable={false} />
+            </button>
+          )}
           <h1>{c ? sheetTitle(c.sheet, ctx) : 'Loading…'}</h1>
-          <button class="icon ghost" aria-label="Play mode (portrait scene with HUD)" onClick={onPlay}>🎭</button>
+          <button class="icon ghost" aria-label="Play mode (portrait with HUD)" onClick={onPlay}>🎭</button>
           <button class="icon ghost" aria-label="AI assistant (level up, events, rules)" onClick={onAi}>✨</button>
           <button class="icon ghost" aria-label="Character menu" onClick={() => setMenu(true)}>⋯</button>
         </div>
@@ -73,6 +81,7 @@ export function SheetScreen({ slug, settings, onSettings, onBack, onAi, onPortra
         {c && v && mode === 'noncombat' && <NonCombatView c={c} v={v} h={h} settings={settings} onSettings={onSettings} />}
         {c && v && mode === 'full' && <FullView c={c} v={v} h={h} settings={settings} onSettings={onSettings} />}
       </main>
+      {zoom && face && c && <PortraitZoom url={face.url} name={sheetTitle(c.sheet, ctx)} onClose={() => setZoom(false)} />}
       {c && mode !== 'full' && <QuickHelpButton topic={mode === 'combat' ? 'combat' : 'noncombat'} edition={c.sheet.edition} />}
       {menu && c && (
         <CharacterMenu

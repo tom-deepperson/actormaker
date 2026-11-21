@@ -22,18 +22,18 @@ Stack: Vite + TypeScript + Preact, a hand-written service worker, Vitest. The bu
 - **Share this app:** link and QR code.
 - **Quick help (? on the Combat and Non-combat tabs):** a short rules reference for combat or skills and exploration,
   2014 or 2024 to match the sheet.
-- **Portrait mode (🖼 in the character menu):** a 9:16 scene with the character's cutout over a background. Step through
-  outfits, expressions and facings (from the portraits `manifest.json`) and scenes. Unlock 🔒 to drag and pinch the cutout
-  into place; the position is saved per outfit in `appearance.portraitPrefs`, the same place the Android app used.
-  ⛶ hides everything but the scene (full screen where the browser allows it).
-- **Play mode (🎭 on a sheet):** the same scene with an Explore / Combat / AI panel: HP and AC, encumbrance,
+- **Portraits:** one static picture per portrait, with its background painted in (a head-and-shoulders painting, the way
+  Mild Gilding shows its portraits). The chosen face shows in the sheet's top bar; a tap shows it full size, to turn the
+  phone round and show the table. There is no separate background layer, positioning, expressions or facings.
+- **Portrait mode (🖼 in the character menu):** the face, big, and a grid of the character's pictures: tap one to make it
+  the face, ✕ deletes it, 🔒 keeps it to the true-name view. "+ Add pictures" takes PNG, JPEG or WebP (kept as they are,
+  so a transparent cutout shows on a dark vignette). The choices are saved in `appearance.portrait`.
+- **Play mode (🎭 on a sheet):** the face with an Explore / Combat / AI panel: HP and AC, encumbrance,
   enter combat, action economy, end turn, effects and exit combat, without leaving the picture.
-- **Portraits and backgrounds:** "+ Portraits" takes the PNG cutouts plus `manifest.json` from
-  `characters/<slug>/portraits/`; "+ Backgrounds" takes the 9:16 scenes plus `manifest.json` from
-  `characters/_assets/backgrounds/` (shrunk to 1920 px JPEG on the device, about 300 KB each). In alias or player-safe
-  view, sets marked `"secret": true` and images whose name contains the true name or "helm off" / "unarmored" are hidden.
-  **Images are not part of "Back up all"** (it would make backups tens of MB): keep the originals on your computer and
-  add them again if the browser clears its storage.
+- **Secret pictures:** in alias or player-safe view, pictures marked 🔒 and pictures whose name contains the true name or
+  "helm off" / "unarmored" are hidden (and not named in Manage). An old portraits `manifest.json` added with the pictures
+  marks its `"secret": true` sets. **Pictures are not part of "Back up all"** (it would make backups tens of MB): keep the
+  originals on your computer and add them again if the browser clears its storage.
 - **AI assistant (✨ on a sheet):** level up in two steps (the AI looks up what the level grants, you make every choice
   and set HP, then it builds the sheet and you review it), table events ("got Boots of Elvenkind") with a change list to
   accept, and rules research with sources. Uses your own Gemini, OpenAI or Anthropic API key; web search is always on.
