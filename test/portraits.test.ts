@@ -3,7 +3,7 @@
 import { describe, expect, it } from 'vitest';
 import { parseSheet } from '../src/data/model';
 import {
-  allPortraits, faceFor, forgetFile, manifestSecrets, migratePrefs, resolveFace, secretHints, setFace, setSecret, storedPrefs, visiblePortraits, withPrefs,
+  allPortraits, faceFor, forgetFile, revealPair, manifestSecrets, migratePrefs, resolveFace, secretHints, setFace, setSecret, storedPrefs, visiblePortraits, withPrefs,
 } from '../src/data/portraits';
 import { helpMarkdown, parseHelp } from '../src/ui/QuickHelp';
 
@@ -105,6 +105,23 @@ describe('a face for the alias and one for the true name', () => {
     const p = setFace({}, 'primary', 'court.jpg');
     expect(faceFor(plain, p, files, alias)?.file).toBe('court.jpg');
     expect(faceFor(plain, p, files, trueName)?.file).toBe('court.jpg');
+  });
+});
+
+describe('the reveal', () => {
+  const both = setFace(setFace({ secret: ['court.jpg'] }, 'primary', 'court.jpg'), 'alias', 'armor.png');
+
+  it('goes from the alias picture to the true-name one, from the alias view too', () => {
+    for (const ctx of [alias, trueName]) {
+      const r = revealPair(sheet, both, files, ctx);
+      expect([r?.alias.file, r?.primary.file]).toEqual(['armor.png', 'court.jpg']);
+    }
+  });
+
+  it('is never offered in player-safe view, without an alias, or with one picture for both', () => {
+    expect(revealPair(sheet, both, files, playerSafe)).toBeNull();
+    expect(revealPair(parseSheet({ identity: { name: 'Odo Fenn' } }), both, files, trueName)).toBeNull();
+    expect(revealPair(sheet, setFace(both, 'primary', 'armor.png'), files, trueName)).toBeNull();
   });
 });
 

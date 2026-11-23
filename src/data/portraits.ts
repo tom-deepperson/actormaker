@@ -118,6 +118,22 @@ export function faceFor(sheet: CharacterSheet, prefs: PortraitPrefs, files: stri
   return resolveFace(visiblePortraits(sheet, prefs, files, ctx), prefs, slotFor(sheet, ctx));
 }
 
+/**
+ * The two faces for a reveal at the table (the alias picture, then the true-name one), or null when
+ * there is nothing to reveal: no alias, the same picture for both, or player-safe view (which must
+ * never show the hidden identity).
+ */
+export function revealPair(sheet: CharacterSheet, prefs: PortraitPrefs, files: string[], ctx: SheetViewContext): { alias: Portrait; primary: Portrait } | null {
+  if (ctx.playerSafeMode) return null;
+  const alias = sheet.identity?.cultAlias?.trim().toLowerCase();
+  const name = sheet.identity?.name?.trim().toLowerCase();
+  if (!alias || !name || alias === name) return null;
+  const all = allPortraits(sheet, prefs, files);
+  const a = resolveFace(all.filter((p) => !p.secret), prefs, 'alias');
+  const t = resolveFace(all, prefs, 'primary');
+  return a && t && lower(a.file) !== lower(t.file) ? { alias: a, primary: t } : null;
+}
+
 /** Choose a slot's face. A picture chosen for the alias is shown under the alias from then on. */
 export function setFace(prefs: PortraitPrefs, slot: FaceSlot, file: string): PortraitPrefs {
   const { face: _old, ...rest } = prefs;

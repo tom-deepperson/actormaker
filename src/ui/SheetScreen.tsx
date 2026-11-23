@@ -81,7 +81,7 @@ export function SheetScreen({ slug, settings, onSettings, onBack, onAi, onPortra
         {c && v && mode === 'noncombat' && <NonCombatView c={c} v={v} h={h} settings={settings} onSettings={onSettings} />}
         {c && v && mode === 'full' && <FullView c={c} v={v} h={h} settings={settings} onSettings={onSettings} />}
       </main>
-      {zoom && face && c && <PortraitZoom url={face.url} name={sheetTitle(c.sheet, ctx)} onClose={() => setZoom(false)} />}
+      {zoom && face && c && <PortraitZoom url={face.url} name={sheetTitle(c.sheet, ctx)} reveal={face.reveal} onClose={() => setZoom(false)} />}
       {c && mode !== 'full' && <QuickHelpButton topic={mode === 'combat' ? 'combat' : 'noncombat'} edition={c.sheet.edition} />}
       {menu && c && (
         <CharacterMenu

@@ -28,7 +28,9 @@ Stack: Vite + TypeScript + Preact, a hand-written service worker, Vitest. The bu
 - **Portrait mode (🖼 in the character menu):** the face, big, and a grid of the character's pictures: tap one to make it
   the face, ✕ deletes it. A character with an alias has two faces: pick "As the alias" or "As the true name" above the
   grid, then tap the picture for it. Under the true name each picture also says "Alias: shown" or "Alias: hidden" (tap to
-  change). "+ Add pictures" takes PNG, JPEG or WebP (kept as they are,
+  change). When the alias and true name have different pictures, the full-size view (tap the portrait) opens on the
+  alias picture and has a **Reveal** button that fades to the true-name picture and name (never in player-safe view).
+  "+ Add pictures" takes PNG, JPEG or WebP (kept as they are,
   so a transparent cutout shows on a dark vignette). The choices are saved in `appearance.portrait`.
 - **Play mode (🎭 on a sheet):** the face with an Explore / Combat / AI panel: HP and AC, encumbrance,
   enter combat, action economy, end turn, effects and exit combat, without leaving the picture.

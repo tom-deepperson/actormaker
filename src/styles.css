@@ -418,8 +418,21 @@ dialog .actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap:
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
   padding: calc(env(safe-area-inset-top) + 16px) 16px calc(env(safe-area-inset-bottom) + 16px); cursor: zoom-out;
 }
-.portrait-zoom img { max-width: 100%; max-height: calc(100% - 48px); object-fit: contain; border-radius: 12px; box-shadow: 0 10px 40px rgb(0 0 0 / 60%); }
+/* The pictures stack in one cell, so a revealed picture fades in over the alias one. */
+.portrait-zoom-pic { display: grid; place-items: center; min-height: 0; max-width: 100%; max-height: calc(100% - 104px); }
+.portrait-zoom-pic img {
+  grid-area: 1 / 1; max-width: 100%; max-height: 100%; min-height: 0; object-fit: contain;
+  border-radius: 12px; box-shadow: 0 10px 40px rgb(0 0 0 / 60%);
+}
+.portrait-zoom-pic img.revealed { animation: reveal-in 1.2s ease-out; }
 .portrait-zoom-name { color: #d4a64a; font-size: 1.2rem; }
+.portrait-zoom-name.revealed { animation: reveal-in 1.2s ease-out; }
+@keyframes reveal-in { from { opacity: 0; } }
+.portrait-zoom-reveal {
+  background: rgb(212 166 74 / 18%); color: #f3d28a; border: 1px solid rgb(212 166 74 / 60%);
+  border-radius: 999px; padding: 8px 22px; font-size: 1rem; cursor: pointer;
+}
+@media (prefers-reduced-motion: reduce) { .portrait-zoom-pic img.revealed, .portrait-zoom-name.revealed { animation: none; } }
 .portrait-zoom-close {
   position: absolute; top: calc(env(safe-area-inset-top) + 10px); right: 10px; font-size: 1.3rem;
   background: transparent; color: #fff; border: 0;

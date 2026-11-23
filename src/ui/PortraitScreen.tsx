@@ -14,7 +14,7 @@ import { BACKGROUNDS_OWNER, clearImages, deleteImage, listImages, putImages, typ
 import type { CharacterSheet } from '../data/model';
 import {
   allPortraits, chosenFace, faceFor, type FaceSlot, forgetFile, IMAGE_EXT, MANIFEST_FILE, manifestSecrets, migratePrefs, parseJsonText,
-  type Portrait, type PortraitPrefs, resolveFace, setFace, setSecret, slotFor, storedPrefs, visiblePortraits, withPrefs,
+  type Portrait, type PortraitPrefs, resolveFace, revealPair, setFace, setSecret, slotFor, storedPrefs, visiblePortraits, withPrefs,
 } from '../data/portraits';
 import { autoEnterEffects, enterCombat, exitCombat, advanceTurn, type ActiveEffect } from '../data/combat';
 import { summarize } from '../data/encumbrance';
@@ -77,14 +77,28 @@ function usePortraitFiles(slug: string): PortraitFiles {
 /** Saved prefs, else what an old layered-portrait manifest implies, else none. */
 const effectivePrefs = (sheet: CharacterSheet, manifest: string | null): PortraitPrefs => storedPrefs(sheet) ?? migratePrefs(sheet, manifest) ?? {};
 
-/** The face to show for this view (never a secret picture in alias or player-safe view), as a URL. */
-export function useFace(slug: string, sheet: CharacterSheet | undefined, ctx: SheetViewContext): { url: string; label: string } | null {
+/** A reveal at the table: the alias picture first, then, on a tap, the true-name one. */
+export interface Reveal { maskUrl: string; maskName: string; trueUrl: string; trueName: string }
+
+function revealFor(sheet: CharacterSheet, prefs: PortraitPrefs, pics: PortraitFiles, ctx: SheetViewContext): Reveal | null {
+  const pair = revealPair(sheet, prefs, pics.files, ctx);
+  const maskUrl = pair && pics.url(pair.alias.file);
+  const trueUrl = pair && pics.url(pair.primary.file);
+  if (!maskUrl || !trueUrl) return null;
+  return { maskUrl, trueUrl, maskName: sheet.identity?.cultAlias?.trim() ?? '', trueName: sheet.identity?.name?.trim() ?? '' };
+}
+
+/**
+ * The face to show for this view (never a secret picture in alias or player-safe view), as a URL,
+ * and the reveal its full-size view offers, if any.
+ */
+export function useFace(slug: string, sheet: CharacterSheet | undefined, ctx: SheetViewContext): { url: string; label: string; reveal: Reveal | null } | null {
   const pics = usePortraitFiles(slug);
   if (!sheet || !pics.loaded) return null;
   const prefs = effectivePrefs(sheet, pics.manifest);
   const face = faceFor(sheet, prefs, pics.files, ctx);
   const url = face ? pics.url(face.file) : undefined;
-  return face && url ? { url, label: face.label } : null;
+  return face && url ? { url, label: face.label, reveal: revealFor(sheet, prefs, pics, ctx) } : null;
 }
 
 const isJson = (f: File) => /\.json$/i.test(f.name) || f.type === 'application/json';
@@ -190,6 +204,7 @@ function ArtScreen({ slug, play, settings, onSettings, onBack, onAi, toast, h, c
   const primaryFace = hiding ? null : faceOf('primary');
   const face = slot === 'alias' ? aliasFace : primaryFace;
   const faceUrl = face ? pics.url(face.file) : undefined;
+  const reveal = revealFor(sheet, prefs, pics, ctx);
 
   const updatePrefs = (f: (p: PortraitPrefs) => PortraitPrefs) => h.updateSheet((s) => withPrefs(s, f(effectivePrefs(s, pics.manifest))));
 
@@ -235,7 +250,7 @@ function ArtScreen({ slug, play, settings, onSettings, onBack, onAi, toast, h, c
 
   const dialogs = (
     <>
-      {zoom && faceUrl && <PortraitZoom url={faceUrl} name={title} onClose={() => setZoom(false)} />}
+      {zoom && faceUrl && <PortraitZoom url={faceUrl} name={title} reveal={reveal} onClose={() => setZoom(false)} />}
       {manage && (
         <ManageDialog
           slug={slug}
@@ -438,17 +453,39 @@ function ArtScreen({ slug, play, settings, onSettings, onBack, onAi, toast, h, c
 
 // ---------------------------------------------------------------- pieces
 
-/** The portrait full size over everything, to look at or turn round and show the table. A tap, ✕ or Escape closes it. */
-export function PortraitZoom({ url, name, onClose }: { url: string; name: string; onClose: () => void }) {
+/**
+ * The portrait full size over everything, to look at or turn round and show the table. A tap, ✕ or
+ * Escape closes it. With a reveal it always opens on the alias picture and name, whatever view the
+ * sheet is in, and "Reveal" fades to the true-name picture and name. The true name is not on the
+ * page until then.
+ */
+export function PortraitZoom({ url, name, reveal, onClose }: { url: string; name: string; reveal?: Reveal | null; onClose: () => void }) {
+  const [revealed, setRevealed] = useState(false);
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
   }, [onClose]);
+  const shownName = reveal ? (revealed ? reveal.trueName : reveal.maskName) : name;
   return (
-    <div class="portrait-zoom" role="dialog" aria-label={`${name}'s portrait`} onClick={onClose}>
-      <img src={url} alt={`${name}'s portrait`} draggable={false} />
-      <div class="portrait-zoom-name">{name}</div>
+    <div class="portrait-zoom" role="dialog" aria-label={`${shownName}'s portrait`} onClick={onClose}>
+      <div class="portrait-zoom-pic">
+        <img src={reveal ? reveal.maskUrl : url} alt={revealed ? '' : `${shownName}'s portrait`} draggable={false} />
+        {reveal && revealed && <img class="revealed" src={reveal.trueUrl} alt={`${shownName}'s portrait`} draggable={false} />}
+      </div>
+      <div class={`portrait-zoom-name${revealed ? ' revealed' : ''}`} key={shownName}>{shownName}</div>
+      {reveal && (
+        <button
+          class="portrait-zoom-reveal"
+          aria-pressed={revealed}
+          onClick={(e) => {
+            e.stopPropagation();
+            setRevealed(!revealed);
+          }}
+        >
+          {revealed ? 'Hide again' : 'Reveal'}
+        </button>
+      )}
       <button class="portrait-zoom-close" aria-label="Close">✕</button>
     </div>
   );
