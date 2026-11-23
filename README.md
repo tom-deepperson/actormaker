@@ -26,12 +26,15 @@ Stack: Vite + TypeScript + Preact, a hand-written service worker, Vitest. The bu
   Mild Gilding shows its portraits). The chosen face shows in the sheet's top bar; a tap shows it full size, to turn the
   phone round and show the table. There is no separate background layer, positioning, expressions or facings.
 - **Portrait mode (🖼 in the character menu):** the face, big, and a grid of the character's pictures: tap one to make it
-  the face, ✕ deletes it, 🔒 keeps it to the true-name view. "+ Add pictures" takes PNG, JPEG or WebP (kept as they are,
+  the face, ✕ deletes it. A character with an alias has two faces: pick "As the alias" or "As the true name" above the
+  grid, then tap the picture for it. Under the true name each picture also says "Alias: shown" or "Alias: hidden" (tap to
+  change). "+ Add pictures" takes PNG, JPEG or WebP (kept as they are,
   so a transparent cutout shows on a dark vignette). The choices are saved in `appearance.portrait`.
 - **Play mode (🎭 on a sheet):** the face with an Explore / Combat / AI panel: HP and AC, encumbrance,
   enter combat, action economy, end turn, effects and exit combat, without leaving the picture.
-- **Secret pictures:** in alias or player-safe view, pictures marked 🔒 and pictures whose name contains the true name or
-  "helm off" / "unarmored" are hidden (and not named in Manage). An old portraits `manifest.json` added with the pictures
+- **Secret pictures:** alias and player-safe views show the alias face and never a picture marked "Alias: hidden".
+  Pictures whose name contains the true name or "helm off" / "unarmored" start hidden; choosing one for the alias shows
+  it. Hidden pictures are not named in Manage either. An old portraits `manifest.json` added with the pictures
   marks its `"secret": true` sets. **Pictures are not part of "Back up all"** (it would make backups tens of MB): keep the
   originals on your computer and add them again if the browser clears its storage.
 - **AI assistant (✨ on a sheet):** level up in two steps (the AI looks up what the level grants, you make every choice

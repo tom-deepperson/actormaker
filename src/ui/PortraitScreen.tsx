@@ -3,16 +3,18 @@
  * shown the way Mild Gilding shows its painted portraits: big on a dark vignette, a tap shows it
  * full size over everything.
  *
- * Portrait mode: the face, and a grid of the character's pictures to pick the face from, add,
- * delete, and mark "true name only".
+ * Portrait mode: the face, and a grid of the character's pictures to pick the face from, add and
+ * delete. A character with an alias has two faces, picked separately: the one shown as the alias
+ * (and in player-safe view) and the one shown under the true name. Each picture says whether the
+ * alias may show it.
  * Play mode: the face with an Explore / Combat / AI HUD underneath.
  */
 import { useEffect, useMemo, useState } from 'preact/hooks';
 import { BACKGROUNDS_OWNER, clearImages, deleteImage, listImages, putImages, type StoredImage } from '../data/db';
 import type { CharacterSheet } from '../data/model';
 import {
-  allPortraits, forgetFile, IMAGE_EXT, MANIFEST_FILE, manifestSecrets, migratePrefs, parseJsonText, type Portrait,
-  type PortraitPrefs, resolveFace, setSecret, storedPrefs, visiblePortraits, withPrefs,
+  allPortraits, chosenFace, faceFor, type FaceSlot, forgetFile, IMAGE_EXT, MANIFEST_FILE, manifestSecrets, migratePrefs, parseJsonText,
+  type Portrait, type PortraitPrefs, resolveFace, setFace, setSecret, slotFor, storedPrefs, visiblePortraits, withPrefs,
 } from '../data/portraits';
 import { autoEnterEffects, enterCombat, exitCombat, advanceTurn, type ActiveEffect } from '../data/combat';
 import { summarize } from '../data/encumbrance';
@@ -80,7 +82,7 @@ export function useFace(slug: string, sheet: CharacterSheet | undefined, ctx: Sh
   const pics = usePortraitFiles(slug);
   if (!sheet || !pics.loaded) return null;
   const prefs = effectivePrefs(sheet, pics.manifest);
-  const face = resolveFace(visiblePortraits(sheet, prefs, pics.files, ctx), prefs);
+  const face = faceFor(sheet, prefs, pics.files, ctx);
   const url = face ? pics.url(face.file) : undefined;
   return face && url ? { url, label: face.label } : null;
 }
@@ -172,9 +174,22 @@ function ArtScreen({ slug, play, settings, onSettings, onBack, onAi, toast, h, c
   const hiding = shouldHideSecretIdentity(ctx, sheet.identity);
   const all = useMemo(() => allPortraits(sheet, prefs, pics.files), [sheet, pics.files.join('|'), JSON.stringify(prefs)]);
   const visible = useMemo(() => visiblePortraits(sheet, prefs, pics.files, ctx), [all, hiding]);
-  const face = resolveFace(visible, prefs);
-  const faceUrl = face ? pics.url(face.file) : undefined;
+  const publicPics = useMemo(() => all.filter((p) => !p.secret), [all]);
   const hiddenCount = all.length - visible.length;
+
+  // Two faces only for a character with an alias, and both are offered only under the true name:
+  // in alias or player-safe view the true name (and its face) must not appear at all.
+  const aliasName = sheet.identity?.cultAlias?.trim() ?? '';
+  const trueName = sheet.identity?.name?.trim() ?? '';
+  const twoFaces = !!aliasName && !!trueName && aliasName.toLowerCase() !== trueName.toLowerCase();
+  const choosing = !hiding && twoFaces;
+  const [pick, setPick] = useState<FaceSlot>('primary');
+  const slot: FaceSlot = choosing ? pick : slotFor(sheet, ctx);
+  const faceOf = (s: FaceSlot) => resolveFace(s === 'alias' ? publicPics : all, prefs, s);
+  const aliasFace = twoFaces || hiding ? faceOf('alias') : null;
+  const primaryFace = hiding ? null : faceOf('primary');
+  const face = slot === 'alias' ? aliasFace : primaryFace;
+  const faceUrl = face ? pics.url(face.file) : undefined;
 
   const updatePrefs = (f: (p: PortraitPrefs) => PortraitPrefs) => h.updateSheet((s) => withPrefs(s, f(effectivePrefs(s, pics.manifest))));
 
@@ -195,8 +210,8 @@ function ArtScreen({ slug, play, settings, onSettings, onBack, onAi, toast, h, c
       updatePrefs((p) => {
         let next = p;
         for (const f of r.secret) next = setSecret(next, f, true);
-        // The first picture added becomes the face if there is none yet.
-        if (!next.face && r.added.length) next = { ...next, face: r.added[0] };
+        // The first picture added becomes the true-name face if there is none yet.
+        if (!chosenFace(next, 'primary') && r.added.length) next = setFace(next, 'primary', r.added[0]);
         return next;
       });
       toast(r.message);
@@ -229,7 +244,7 @@ function ArtScreen({ slug, play, settings, onSettings, onBack, onAi, toast, h, c
           hiddenCount={hiddenCount}
           onChanged={() => {
             pics.reload();
-            updatePrefs((p) => ({ ...p, face: null }));
+            updatePrefs((p) => ({ ...p, face: null, faces: {} }));
           }}
           onClose={() => setManage(false)}
           toast={toast}
@@ -293,40 +308,65 @@ function ArtScreen({ slug, play, settings, onSettings, onBack, onAi, toast, h, c
         <div class="art-panel">
           {!play && (
             <>
-              {visible.length > 0 && (
+              {choosing && (
+                <div class="face-slots" role="tablist" aria-label="Whose portrait to choose">
+                  {(['alias', 'primary'] as FaceSlot[]).map((sl) => {
+                    const f = sl === 'alias' ? aliasFace : primaryFace;
+                    const u = f ? pics.url(f.file) : undefined;
+                    return (
+                      <button key={sl} role="tab" class="face-slot" aria-pressed={pick === sl} onClick={() => setPick(sl)}>
+                        <span class="face-slot-thumb">{u && <img src={u} alt="" draggable={false} />}</span>
+                        <span class="face-slot-text">
+                          <span class="tiny dim">{sl === 'alias' ? 'As the alias' : 'As the true name'}</span>
+                          <span class="ellipsis">{sl === 'alias' ? aliasName : trueName}</span>
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+              {(choosing ? all : visible).length > 0 && (
                 <div class="variants">
-                  {visible.map((p) => {
+                  {(choosing ? all : visible).map((p) => {
                     const u = pics.url(p.file);
                     const chosen = face?.file === p.file;
+                    const usedBy = [aliasFace?.file === p.file && (choosing ? 'Alias' : 'Portrait'), choosing && primaryFace?.file === p.file && 'True name'].filter(Boolean);
+                    const forName = slot === 'alias' ? aliasName || 'player-safe view' : trueName || 'the portrait';
                     return (
                       <div class="variant-tile" key={p.file}>
                         <button
                           class={`variant${chosen ? ' selected' : ''}`}
                           aria-pressed={chosen}
-                          aria-label={`Use ${p.label} as the portrait`}
-                          onClick={() => updatePrefs((x) => ({ ...x, face: p.file }))}
+                          aria-label={`Use ${p.label} for ${forName}`}
+                          onClick={() => updatePrefs((x) => setFace(x, slot, p.file))}
                         >
                           {u && <img src={u} alt="" draggable={false} loading="lazy" />}
-                        </button>
-                        <button
-                          class="variant-corner left"
-                          aria-pressed={p.secret}
-                          aria-label={p.secret ? `${p.label}: true name only. Tap to show it in every view` : `${p.label}: shown in every view. Tap to keep it to the true name`}
-                          title={p.secret ? 'True name only' : 'Shown in every view'}
-                          onClick={() => updatePrefs((x) => setSecret(x, p.file, !p.secret))}
-                        >
-                          {p.secret ? '🔒' : '🔓'}
+                          {usedBy.length > 0 && <span class="variant-used">{usedBy.join(' · ')}</span>}
                         </button>
                         <button class="variant-corner right" aria-label={`Delete ${p.label}`} onClick={() => { if (confirm(`Delete ${p.label} from this device?`)) void remove(p); }}>
                           ✕
                         </button>
+                        {choosing && (
+                          <button
+                            class={`variant-shown${p.secret ? ' off' : ''}`}
+                            aria-pressed={!p.secret}
+                            aria-label={`${p.label}: ${p.secret ? `hidden as ${aliasName}. Tap to show it as ${aliasName} too` : `shown as ${aliasName}. Tap to keep it to the true name`}`}
+                            onClick={() => updatePrefs((x) => setSecret(x, p.file, !p.secret))}
+                          >
+                            {p.secret ? 'Alias: hidden' : 'Alias: shown'}
+                          </button>
+                        )}
                       </div>
                     );
                   })}
                 </div>
               )}
               {hiding && hiddenCount > 0 && <div class="tiny dim">{hiddenCount} more not shown in this view.</div>}
-              <div class="tiny dim">Tap a picture to make it the portrait. 🔒 keeps a picture to the true-name view.</div>
+              <div class="tiny dim">
+                {choosing
+                  ? 'Choose the alias or the true name above, then tap its picture. “Alias: hidden” pictures only appear under the true name.'
+                  : 'Tap a picture to make it the portrait.'}
+              </div>
               <div class="row" style={{ flexWrap: 'nowrap' }}>
                 <FilePick label="+ Add pictures" onFiles={(f) => void onFiles(f)} />
                 <button class="small" onClick={() => setManage(true)}>Manage</button>

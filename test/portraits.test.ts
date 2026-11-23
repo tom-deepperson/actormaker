@@ -3,7 +3,7 @@
 import { describe, expect, it } from 'vitest';
 import { parseSheet } from '../src/data/model';
 import {
-  allPortraits, forgetFile, manifestSecrets, migratePrefs, resolveFace, secretHints, setSecret, storedPrefs, visiblePortraits, withPrefs,
+  allPortraits, faceFor, forgetFile, manifestSecrets, migratePrefs, resolveFace, secretHints, setFace, setSecret, storedPrefs, visiblePortraits, withPrefs,
 } from '../src/data/portraits';
 import { helpMarkdown, parseHelp } from '../src/ui/QuickHelp';
 
@@ -60,7 +60,8 @@ describe('the face', () => {
 
   it('is cleared when its picture is deleted, but the secret mark stays for a re-import', () => {
     const next = forgetFile({ face: 'court.jpg', secret: ['court.jpg'] }, 'Court.jpg');
-    expect(next).toEqual({ face: null, secret: ['court.jpg'] });
+    expect(next).toEqual({ faces: { alias: null, primary: null }, secret: ['court.jpg'] });
+    expect(forgetFile({ faces: { alias: 'armor.png', primary: 'court.jpg' } }, 'armor.png').faces).toEqual({ alias: null, primary: 'court.jpg' });
   });
 
   it('is saved in appearance.portrait, keeping other fields and dropping the old layered prefs', () => {
@@ -69,6 +70,41 @@ describe('the face', () => {
     expect(next.appearance).toEqual({ height: '6 ft', portrait: { face: 'armor.png' } });
     expect(storedPrefs(next)).toEqual({ face: 'armor.png' });
     expect(storedPrefs(s)).toBeNull();
+  });
+});
+
+describe('a face for the alias and one for the true name', () => {
+  const both = setFace(setFace({ secret: ['court.jpg'] }, 'primary', 'court.jpg'), 'alias', 'armor.png');
+
+  it('shows each face in its own views, the alias one in player-safe view too', () => {
+    expect(faceFor(sheet, both, files, trueName)?.file).toBe('court.jpg');
+    expect(faceFor(sheet, both, files, alias)?.file).toBe('armor.png');
+    expect(faceFor(sheet, both, files, playerSafe)?.file).toBe('armor.png');
+  });
+
+  it('carries on from the single face saved before: that is the true-name face', () => {
+    const old = { face: 'court.jpg', secret: ['court.jpg'] };
+    expect(faceFor(sheet, old, files, trueName)?.file).toBe('court.jpg');
+    expect(faceFor(sheet, old, files, alias)?.file).toBe('armor.png');
+    expect(setFace(old, 'alias', 'armor.png')).toEqual({ faces: { alias: 'armor.png', primary: 'court.jpg' }, secret: ['court.jpg'], public: ['armor.png'] });
+  });
+
+  it('shows a picture chosen for the alias under the alias, even one whose name looked secret', () => {
+    const p = setFace({}, 'alias', 'mirel_helm_off.png');
+    expect(faceFor(sheet, p, files, alias)?.file).toBe('mirel_helm_off.png');
+  });
+
+  it('never shows a secret picture under the alias, even if it is still named as the alias face', () => {
+    const p = { faces: { alias: 'court.jpg' }, secret: ['court.jpg'] };
+    expect(faceFor(sheet, p, files, alias)?.file).toBe('armor.png');
+    expect(setSecret(setFace({}, 'alias', 'court.jpg'), 'court.jpg', true).faces?.alias).toBeNull();
+  });
+
+  it('uses the true-name face everywhere but player-safe view for a character without an alias', () => {
+    const plain = parseSheet({ identity: { name: 'Odo Fenn' } });
+    const p = setFace({}, 'primary', 'court.jpg');
+    expect(faceFor(plain, p, files, alias)?.file).toBe('court.jpg');
+    expect(faceFor(plain, p, files, trueName)?.file).toBe('court.jpg');
   });
 });
 
@@ -88,8 +124,10 @@ describe('from the old layered portraits', () => {
 
   it('carries the active outfit over as the face (its front view)', () => {
     const s = parseSheet({ ...sheet, appearance: { portraitPrefs: { activeSetId: 'outfit_armor' } } });
-    expect(migratePrefs(s, manifest)).toEqual({ face: 'armor.png', secret: ['court.png', 'court_back.png', 'court__smile.png', 'bare.png'] });
-    expect(migratePrefs(sheet, manifest)?.face).toBeNull();
+    expect(migratePrefs(s, manifest)).toEqual({ faces: { primary: 'armor.png', alias: 'armor.png' }, secret: ['court.png', 'court_back.png', 'court__smile.png', 'bare.png'] });
+    const court = parseSheet({ ...sheet, appearance: { portraitPrefs: { activeSetId: 'outfit_court' } } });
+    expect(migratePrefs(court, manifest)?.faces).toEqual({ primary: 'court.png', alias: null });
+    expect(migratePrefs(sheet, manifest)?.faces).toEqual({ primary: null, alias: null });
     expect(migratePrefs(sheet, null)).toBeNull();
   });
 });

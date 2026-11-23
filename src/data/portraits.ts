@@ -1,8 +1,9 @@
 /**
  * Character portraits: each one is a single static picture with its background painted in (a
  * head-and-shoulders painting, the way Mild Gilding shows its portraits). A character can have
- * several; one is the face. There is no separate background layer, no cutout positioning, and no
- * expressions or facings.
+ * several. A character with an alias has two faces: the one shown under the alias (and in
+ * player-safe view) and the one shown under the true name. There is no separate background layer,
+ * no cutout positioning, and no expressions or facings.
  *
  * Pure logic: it works on file names (what was imported) plus the sheet; the screens turn names
  * into blob URLs. Choices live in sheet.appearance.portrait, so they travel in backups even though
@@ -23,7 +24,9 @@ export function parseJsonText(text: string): unknown {
 
 /** Saved in sheet.appearance.portrait. File names are matched case-insensitively. */
 export interface PortraitPrefs {
-  /** The chosen face. */
+  /** The chosen faces: `alias` for alias and player-safe views, `primary` for the true name. */
+  faces?: { alias?: string | null; primary?: string | null };
+  /** The single face saved before there were two (read as the true-name face). */
   face?: string | null;
   /** Pictures that show the hidden identity: true-name view only. */
   secret?: string[];
@@ -90,20 +93,52 @@ export function visiblePortraits(sheet: CharacterSheet, prefs: PortraitPrefs, fi
   return shouldHideSecretIdentity(ctx, sheet.identity) ? all.filter((p) => !p.secret) : all;
 }
 
-/** The face to show: the chosen one if it is visible, else the first visible picture, else none. */
-export function resolveFace(visible: Portrait[], prefs: PortraitPrefs): Portrait | null {
-  return (prefs.face ? visible.find((p) => lower(p.file) === lower(prefs.face!)) : undefined) ?? visible[0] ?? null;
+export type FaceSlot = 'alias' | 'primary';
+
+/** Which face a view shows: the alias one whenever the true identity is hidden. */
+export const slotFor = (sheet: CharacterSheet, ctx: SheetViewContext): FaceSlot =>
+  shouldHideSecretIdentity(ctx, sheet.identity) ? 'alias' : 'primary';
+
+/** The picture chosen for a slot, whether or not it may be shown. */
+export function chosenFace(prefs: PortraitPrefs, slot: FaceSlot): string | null {
+  return (slot === 'primary' ? prefs.faces?.primary ?? prefs.face : prefs.faces?.alias) ?? null;
 }
 
+/**
+ * The face to show: the one chosen for the slot if it is visible, else the first visible picture,
+ * else none. `visible` is already filtered for the view, so a secret picture never comes back here.
+ */
+export function resolveFace(visible: Portrait[], prefs: PortraitPrefs, slot: FaceSlot = 'primary'): Portrait | null {
+  const chosen = chosenFace(prefs, slot);
+  return (chosen ? visible.find((p) => lower(p.file) === lower(chosen)) : undefined) ?? visible[0] ?? null;
+}
+
+/** The face this view shows. */
+export function faceFor(sheet: CharacterSheet, prefs: PortraitPrefs, files: string[], ctx: SheetViewContext): Portrait | null {
+  return resolveFace(visiblePortraits(sheet, prefs, files, ctx), prefs, slotFor(sheet, ctx));
+}
+
+/** Choose a slot's face. A picture chosen for the alias is shown under the alias from then on. */
+export function setFace(prefs: PortraitPrefs, slot: FaceSlot, file: string): PortraitPrefs {
+  const { face: _old, ...rest } = prefs;
+  const faces = { alias: prefs.faces?.alias ?? null, primary: chosenFace(prefs, 'primary'), [slot]: file };
+  const next = { ...rest, faces };
+  return slot === 'alias' ? setSecret(next, file, false) : next;
+}
+
+/** Mark a picture true-name only (or not). Hiding the alias face from the alias also clears that face. */
 export function setSecret(prefs: PortraitPrefs, file: string, secret: boolean): PortraitPrefs {
-  return secret
-    ? { ...prefs, secret: [...without(prefs.secret, file), file], public: without(prefs.public, file) }
-    : { ...prefs, secret: without(prefs.secret, file), public: [...without(prefs.public, file), file] };
+  if (!secret) return { ...prefs, secret: without(prefs.secret, file), public: [...without(prefs.public, file), file] };
+  const next = { ...prefs, secret: [...without(prefs.secret, file), file], public: without(prefs.public, file) };
+  const alias = prefs.faces?.alias;
+  return alias && lower(alias) === lower(file) ? { ...next, faces: { ...prefs.faces, alias: null } } : next;
 }
 
-/** After a picture is deleted. Its secret / public mark stays, so adding the same file again keeps it hidden. */
+/** After a picture is deleted: no face uses it. Its secret / public mark stays, so adding the same file again keeps it hidden. */
 export function forgetFile(prefs: PortraitPrefs, file: string): PortraitPrefs {
-  return { ...prefs, face: prefs.face && lower(prefs.face) === lower(file) ? null : prefs.face };
+  const keep = (f: string | null | undefined) => (f && lower(f) === lower(file) ? null : f ?? null);
+  const { face: _old, ...rest } = prefs;
+  return { ...rest, faces: { alias: keep(prefs.faces?.alias), primary: keep(chosenFace(prefs, 'primary')) } };
 }
 
 // ---------------------------------------------------------------- the old layered portraits
@@ -165,5 +200,8 @@ export function migratePrefs(sheet: CharacterSheet, manifestText: string | null 
   if (!sets.length) return null;
   const old = (sheet.appearance as Record<string, unknown> | null | undefined)?.portraitPrefs as { activeSetId?: unknown } | undefined;
   const active = sets.find((s) => s.id === old?.activeSetId);
-  return { face: active?.first ?? null, secret: manifestSecrets(manifestText, sheet) };
+  const secret = manifestSecrets(manifestText, sheet);
+  const first = active?.first ?? null;
+  const isSecret = !!first && secret.some((f) => lower(f) === lower(first));
+  return { faces: { primary: first, alias: isSecret ? null : first }, secret };
 }

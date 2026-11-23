@@ -378,7 +378,14 @@ dialog .actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap:
 }
 .portrait-frame img { width: 100%; height: 100%; object-fit: contain; display: block; pointer-events: none; -webkit-user-drag: none; }
 .portrait-empty { text-align: center; padding: 24px; color: rgb(255 255 255 / 88%); font-size: 0.95rem; }
-.variants { display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 8px; }
+.variants { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 8px; }
+/* A character with an alias: which face is being chosen, the alias's or the true name's. */
+.face-slots { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.art-panel .face-slot { display: flex; align-items: center; gap: 8px; padding: 6px; min-height: 0; text-align: left; border-radius: 10px; }
+.art-panel .face-slot[aria-pressed='true'] { border-color: #d4a64a; background: rgb(212 166 74 / 18%); }
+.face-slot-thumb { flex: none; width: 32px; height: 48px; border-radius: 6px; overflow: hidden; background: #17110a; }
+.face-slot-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.face-slot-text { display: flex; flex-direction: column; min-width: 0; }
 .variant-tile { position: relative; }
 .art-panel .variant,
 .art-panel .variant[aria-pressed='true'] {
@@ -392,9 +399,19 @@ dialog .actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap:
   position: absolute; top: 4px; width: 26px; height: 26px; min-height: 0; padding: 0; border-radius: 50%;
   background: rgb(0 0 0 / 65%); border: 1px solid rgb(255 255 255 / 22%); font-size: 0.72rem; line-height: 1;
 }
-.art-panel .variant-corner[aria-pressed='true'] { border-color: #d4a64a; }
-.variant-corner.left { left: 4px; }
 .variant-corner.right { right: 4px; }
+.art-panel .variant { position: relative; }
+.variant-used {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 2px 4px; font-size: 0.66rem; line-height: 1.3;
+  background: rgb(212 166 74 / 88%); color: #1b1206; font-weight: 600;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.art-panel .variant-shown {
+  width: 100%; margin-top: 4px; min-height: 0; padding: 3px 4px; font-size: 0.66rem; line-height: 1.3; border-radius: 6px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.art-panel .variant-shown[aria-pressed='true'] { background: rgb(76 175 80 / 22%); border-color: transparent; color: #c8e6c9; }
+.art-panel .variant-shown.off { background: rgb(244 67 54 / 20%); border-color: transparent; color: #ffcdd2; }
 /* The portrait full size over everything (as in Mild Gilding): a tap, ✕ or Escape closes it. */
 .portrait-zoom {
   position: fixed; inset: 0; z-index: 100; background: rgb(0 0 0 / 92%); color: #fff;
